@@ -1,0 +1,17 @@
+{
+  "name": "untitled",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "engines": {
+    "node": "16.x"
+  },
+  "license": "ISC"
+}

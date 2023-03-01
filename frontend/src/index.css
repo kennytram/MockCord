@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'gg';
+    src: url('/assets/fonts/ggsans-Normal.ttf') format('truetype');
+}
+
+html, body{
+    height: 100%;
+    overflow: hidden;
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: 'gg';
+    margin: 0;
+    padding: 0;
+}
+body {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+#root{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}

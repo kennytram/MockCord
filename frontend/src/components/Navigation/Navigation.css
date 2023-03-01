@@ -1,0 +1,9 @@
+.profile-dropdown {
+  position: relative;
+  z-index: 2;
+}
+ul li {
+  list-style: none;
+  position: relative;
+  z-index: 2;
+}
