@@ -220,12 +220,10 @@ label.error span {
     cursor:pointer;
 }
 #login-button:hover {
-    background-color: #4c58dc !important;
-    box-shadow: none !important;
-    -webkit-text-stroke: 0;
+    background-color: #4c58dc;
 }
 #login-button:active {
-    background-color: #3b44a5
+    background-color: #3b44a5;
 }
 /* height 4.5% left */
 #login-form-bottom-box {

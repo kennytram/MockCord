@@ -6,12 +6,29 @@ button {
     font-size: 14px;
 }
 
-button:hover {
+/* button:hover {
     border: none;
     cursor:pointer;
     overflow: hidden;
     box-shadow: 0 8px 15px rgba(0,0,0,.2);
     color: var(--brand) !important;
+    -webkit-text-stroke: 0.4px var(--brand);
+} */
+
+#home-login-button {
+    background: none;
+    border: none;
+    border-radius: 28px;
+    color: white;
+    font-size: 14px;
+}
+
+#home-login-button:hover {
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    box-shadow: 0 8px 15px rgba(0,0,0,.2);
+    color: var(--brand);
     -webkit-text-stroke: 0.4px var(--brand);
 }
 
@@ -133,7 +150,22 @@ button:hover {
     display:flex;
     justify-content: center;
     align-items: center;
+
+    background: none;
+    border: none;
+    border-radius: 28px;
+    color: white;
+    font-size: 14px;
     
+}
+
+.button:hover {
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    box-shadow: 0 8px 15px rgba(0,0,0,.2);
+    color: var(--brand) !important;
+    -webkit-text-stroke: 0.4px var(--brand);
 }
 
 .white{
