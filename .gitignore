@@ -31,3 +31,5 @@
 .byebug_history
 .DS_Store
 /node_modules
+
+/config/credentials/production.key

@@ -23,7 +23,7 @@ function SignupFormPage() {
     password: ""
   });
 
-  if (sessionUser) return <Redirect to="/" />;
+  if (sessionUser) return <Redirect to="/channels/@me" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();

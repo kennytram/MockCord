@@ -10,9 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_27_020311) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_03_163819) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "channels", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "server_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_channels_on_name"
+    t.index ["server_id"], name: "index_channels_on_server_id"
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "server_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["server_id"], name: "index_members_on_server_id"
+    t.index ["user_id"], name: "index_members_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "text", null: false
+    t.string "messagable_type", null: false
+    t.bigint "messagable_id", null: false
+    t.bigint "sender_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["messagable_type", "messagable_id"], name: "index_messages_on_messagable"
+    t.index ["sender_id"], name: "index_messages_on_sender_id"
+    t.index ["text"], name: "index_messages_on_text"
+  end
+
+  create_table "servers", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_servers_on_name"
+    t.index ["owner_id"], name: "index_servers_on_owner_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
@@ -26,4 +65,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_020311) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "channels", "servers"
+  add_foreign_key "members", "servers"
+  add_foreign_key "members", "users"
+  add_foreign_key "messages", "users", column: "sender_id"
+  add_foreign_key "servers", "users", column: "owner_id"
 end

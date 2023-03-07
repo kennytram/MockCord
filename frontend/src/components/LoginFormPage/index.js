@@ -12,7 +12,7 @@ function LoginFormPage() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to="/" />;
+  if (sessionUser) return <Redirect to="/channels/@me" />;
 
   const demoUser = () => {
 		setCredential('Demo-lition')
@@ -78,7 +78,7 @@ function LoginFormPage() {
                   <button type="submit" id="login-button">Log In</button>
               </div>
               <div id="login-form-bottom-box">
-                  <span>Need an account?&nbsp;<NavLink to="/signup">Register</NavLink></span>
+                  <span>Need an account?&nbsp;<NavLink to="/register">Register</NavLink></span>
                   <button className="demo-login" type='submit' onClick={demoUser}>Login as Demo User</button>
               </div>
           </form>

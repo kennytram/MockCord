@@ -1,0 +1,130 @@
+.top-bar {
+    height: 48px;
+    box-shadow: var(--interactive-box-shadow);
+    background-color: var(--icon-bg);
+    z-index: 100;
+    
+    position: relative;
+    width: 100%;
+    min-width: 0%;
+
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--interactive);
+    justify-content: space-between;
+    white-space: nowrap;
+    letter-spacing: 0.015em;
+}
+
+.top-left-side {
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.top-main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    color: var(--off-white);
+
+    -webkit-text-stroke: .27px var(--off-white);
+    user-select: none;
+    margin: 0 8px;
+
+    
+}
+
+.top-main-icon {
+    padding-right: 8px;
+    color: var(--channel-default);
+}
+
+.top-left-interactions {
+    display: flex;
+    width: 415px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.top-left-interactions li {
+    padding: 2px 8px;
+    -webkit-text-stroke: .3px var(--interactive);
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.top-left-interactions li:hover {
+    background-color: var(--interactive-hover);
+    color: var(--off-white);
+}
+
+#add_friend_button {
+    color: white;
+    background-color: var(--nice-green);
+    cursor: default;
+    user-select: none;
+    -webkit-text-stroke: .1px white;
+}
+#add_friend_button.active {
+    color: var(--positive-green);
+    -webkit-text-stroke: .3px var(--positive-green);
+    background-color: transparent;
+    cursor: default;
+    user-select: none;
+}
+
+.top-bar-divider {
+    width: 1px;
+    height: 24px;
+    margin: 0 8px;
+    background: var(--line-separator-color);
+    box-sizing: border-box;
+}
+
+.top-right-side {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 155px;
+}
+
+.top-right-side li:hover:not(.top-bar-divider) {
+    color: var(--off-white);
+    cursor: pointer;
+}
+
+.email {
+    color: var(--channel-default);
+}
+
+.tooltips {
+    width: 450px;
+}
+
+.searchbar-mini {
+    background-color: var(--navbar-color);
+    text-overflow: ellipsis;
+    color: var(--channel-default);
+    outline: 0;
+    border: 0;
+    box-sizing: border-box;
+    width: 144px;
+    height: 24px;
+    border-radius: 4px;
+    line-height: 20px;
+    padding-left: 5px;
+}
+
+.channel-tools {
+    width: 400px;
+}

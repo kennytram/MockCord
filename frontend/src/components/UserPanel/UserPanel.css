@@ -1,0 +1,92 @@
+#user-panel {
+    display: flex;
+    align-items: center;
+    /* position: fixed; */
+    position: absolute;
+    width: 240px;
+    height: 53px;
+    background-color: var(--user-panel-color);
+
+    /* z-index: 111; */
+    left: 72px;
+    bottom: 0;
+}
+
+#user-box {
+    display: flex;
+    padding-top: 3px;
+    padding-bottom: 2px;
+    align-items: center;
+    margin-left: -2px;
+    min-width: 120px;
+    margin-right: 9px;
+    cursor: pointer;
+    user-select: text;
+    color: var(--off-white);
+
+    /* background-color: white; */
+}
+
+#user-box:hover{
+    color: var(--off-white);
+    background-color: var(--interactive-hover);
+    border-radius: 4px;
+}
+
+#user-box-wrapper {
+    padding-left: 9px;
+}
+
+.user-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 32px;
+    height: 32px;
+    background-color: var(--brand);
+    border-radius: 50%;
+    margin-bottom: 2px;
+}
+
+.user-icon span {
+    padding-left: 1px;
+}
+
+
+
+#user-panel-info {
+    padding-bottom: 4px;
+    padding-left: 8px;
+    padding-top: 4px;
+
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#setting-buttons {
+    display: flex;
+}
+
+#setting-buttons div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    color: var(--interactive);
+}
+
+#setting-buttons div:hover {
+    color: var(--off-white);
+    background-color: var(--interactive-hover);
+}
+
+#setting-buttons div * {
+    width: 20px;
+    height: 20px;
+}

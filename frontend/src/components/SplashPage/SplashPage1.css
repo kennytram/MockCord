@@ -1,0 +1,229 @@
+#homepage {
+    display: flex;
+    /* position: absolute; */
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    overflow: auto;
+}
+
+p {
+    padding:0;
+    margin: 0;
+}
+
+#background-top {
+    display: flex;
+    /* position: absolute; */
+    height: 83.1%;
+    width: 100%;
+    
+}
+
+#background-top-main-image{
+    background-image: url('/assets/images/topbg1.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: #404eed;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+#background-top-top-box {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 12%;
+}
+
+#background-top-top-left{
+    display: flex;
+    position: relative;
+    height:100%;
+    width: 30%;
+    /* background-color: red; */
+    align-items: center;
+}
+#empty-top-left-spacer {
+    width: 30%;
+    height:100%;
+    /* background: green; */
+}
+
+.discord-splash {
+    display: flex;
+    font-size: 35px;
+    /* margin-bottom: 15px; */
+    /* background-color: blue; */
+}
+.discord-splash + span {
+    font-size: 25px;
+    font-family: 'ginto';
+    color: white;
+    text-rendering:optimizeLegibility;
+    /* margin-bottom: 15px; */
+}
+
+#background-top-top-center {
+    display: flex;
+    /* position: relative; */
+    height:100%;
+    width: 40%;
+    /* background-color: green; */
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'gg';
+    -webkit-text-stroke: 1px white;
+    color: white;
+}
+
+#background-top-top-center li {
+    user-select: none;
+    cursor: pointer;
+}
+
+#background-top-top-right {
+    display: flex;
+    /* position: relative; */
+    height:100%;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#background-top-top-right button{
+    background-color: white;
+    width: 13%;
+    height: 45%;
+    border-radius: 33px;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+}
+
+#background-top-top-right button p{
+    color: rgb(35,39,42);
+    font-weight: 500;
+}
+
+#background-top-top-right button:hover{
+    background-color: white;
+    width: 13%;
+    height: 45%;
+    border-radius: 40px;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    box-shadow: 0 8px 15px rgba(0,0,0,.2);
+    
+}
+#background-top-top-right button p:hover{
+    color: blue; 
+    font-weight: 500;
+}
+
+#background-bottom-spacer {
+    display: flex;
+    height: 18%;
+    width: 100%;
+    /* background-color: green; */
+}
+
+#background-top-bottom-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 70%;
+    /* background-color: gold; */
+}
+
+#empty-background-spacer {
+    width: 33%;
+    height: 100%;
+}
+
+#bg-second {
+    display: flex;
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    justify-content: flex-end;
+    align-self: flex-end;
+    background-image: url('/assets/images/topbg2.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: red;
+    z-index: 0;
+}
+
+#description-box {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    font-family: 'gg';
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+
+#headline {
+    color: white;
+    font-family: 'ginto-headline';
+    font-size: 56px;
+    font-weight: 800;
+    text-rendering: geometricPrecision;
+}
+
+#description {
+    padding-top: 4%;
+    word-spacing: 0.1em;
+    
+}
+
+#intro-buttons {
+    display: flex;
+    /* background-color: green; */
+    justify-content: space-evenly;
+    width: 100%;
+    padding: 4%;
+    
+}
+#intro-buttons button {
+    display: inline-flex;
+    background-color: white;
+    width: 32%;
+    height: 100%;
+    border-radius: 28px;
+    padding: 1.5% 2%;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    font-family: 'gg';
+    font-size: 20px;
+    font-weight: 500;
+    align-items: center;
+}
+
+#intro-buttons button:last-child {
+    color: white;
+    background-color: rgb(35,39,42);;
+}
+
+#intro-buttons button:hover{
+
+    box-shadow: 0 8px 15px rgba(0,0,0,.2);
+    
+}
