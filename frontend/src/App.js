@@ -9,7 +9,6 @@ import UserPanel from "./components/UserPanel";
 import TopBar from "./components/TopBar";
 import ContentPage from "./components/ContentPage";
 
-
 function App() {
   const location = useLocation();
   const url = location.pathname;
