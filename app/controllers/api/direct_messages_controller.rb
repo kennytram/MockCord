@@ -12,7 +12,7 @@ class Api::DirectMessagesController < ApplicationController
             other_user_id = @dm.other_user_id
             @other_user = User.find(other_user_id)
             @dm_subscription_current_user = DmSubscription.create!(user_id: current_user.id, direct_message_id: @dm.id)
-            @dm_subscription_other_user = DmSubscription.create!(user_id: other_user_id, direct_message_id: @dm_id)
+            @dm_subscription_other_user = DmSubscription.create!(user_id: other_user_id, direct_message_id: @dm.id)
             render :show
         else
             render json: @dm.errors.full_messages, status: 422

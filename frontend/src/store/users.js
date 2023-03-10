@@ -5,6 +5,7 @@ import { RECEIVE_DM, RECEIVE_DMS } from "./dms";
 export const RECEIVE_USER = "RECEIVE_USER";
 export const RECEIVE_USERS = "RECEIVE_USERS";
 export const REMOVE_USER = "REMOVE_USER";
+export const RESET_USERS = "RESET_USERS";
 
 const receiveUser = (user) => {
     return {
@@ -24,6 +25,12 @@ const removeUser = (userId) => {
     return {
         type: REMOVE_USER,
         userId
+    }
+}
+
+export const resetUsers = () => {
+    return {
+        type: RESET_USERS
     }
 }
 
@@ -97,6 +104,8 @@ export default function usersReducer(state = {}, action) {
         case RECEIVE_DM:
 
             return action.payload.users;
+        case RESET_USERS:
+            return {};
         default:
             return state;
     }

@@ -16,7 +16,7 @@ import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Modal } from '../../context/Modal';
 import MessageDelete from '../MessageDeleteModal/MessageDelete';
-import { getUsers } from '../../store/users';
+import { getUsers, resetUsers } from '../../store/users';
 import {
     createDirectMessage, fetchDirectMessages, fetchDirectMessage,
     getDirectMessage, getDirectMessages
@@ -46,9 +46,15 @@ export default function ContentPage() {
 
     useEffect(() => {
         if (dmId) {
+            // dispatch(resetUsers());
+            // dispatch(resetChannels());
             dispatch(fetchDirectMessage(dmId));
         }
-        if (channelId) dispatch(fetchChannel(channelId));
+        if (channelId) {
+            // dispatch(resetUsers());
+            // dispatch(resetChannels());
+            dispatch(fetchChannel(channelId));
+        }
         if (chatMessagesRef) chatMessagesRef.scrollTop = chatMessagesRef.scrollHeight;
     }, [dispatch, sessionUser, serverId, channelId, dmId])
 
@@ -287,7 +293,8 @@ export default function ContentPage() {
                                         </div>
                                         <div className="message-topping">
                                             <span className="message-username">
-                                                {message && users ? users[message.authorId].username : "Traitor"}
+                                                {message && Object.keys(users).length 
+                                                && message.authorId ? users[message.authorId].username : "User"}
                                             </span>
                                             <span className="message-date">
                                                 {handleTime(message.createdAt)}
