@@ -36,7 +36,7 @@ class User < ApplicationRecord
   has_many :dm_subscriptions, foreign_key: :user_id, class_name: :DmSubscription, dependent: :destroy
   has_many :dms, through: :dm_subscriptions, source: :direct_message
 
-  has_many :other_user_dm_subscriptions, foreign_key: :other_user_id, class_name: :DmSubscription, dependent: :destroy
+  has_many :other_user_dm_subscriptions, foreign_key: :user_id, class_name: :DmSubscription, dependent: :destroy
   has_many :other_user_dms, through: :other_user_dm_subscriptions, source: :direct_message
   
   def self.find_by_credentials(credential, password)
