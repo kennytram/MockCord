@@ -1,15 +1,16 @@
 import csrfFetch from './csrf';
 import { RECEIVE_SERVER } from './servers';
+import { RECEIVE_DMS } from './dms';
 
 export const RECEIVE_CHANNEL = 'RECEIVE_CHANNEL';
 export const RECEIVE_CHANNELS = 'RECEIVE_CHANNELS';
 export const REMOVE_CHANNEL = 'REMOVE_CHANNEL';
 export const RESET_CHANNELS = 'RESET_CHANNELS';
 
-const receiveChannel = (channel) => {
+const receiveChannel = (payload) => {
     return {
         type: RECEIVE_CHANNEL,
-        channel
+        payload
     };
 };
 
@@ -23,7 +24,7 @@ const receiveChannels = (channels) => {
 const removeChannel = (channelId) => {
     return {
         type: REMOVE_CHANNEL,
-        channelId  
+        channelId
     };
 }
 
@@ -38,22 +39,21 @@ export const getChannel = (channelId) => (state) => (
 )
 
 export const getChannels = (state) => (
-state.channels ? Object.values(state.channels) : []
+    state.channels ? Object.values(state.channels) : []
 )
 
 export const fetchChannel = (channelId) => async (dispatch) => {
     const response = await csrfFetch(`/api/channels/${channelId}`);
-
-    if(response.ok) {
+    if (response.ok) {
         const data = await response.json();
+
         dispatch(receiveChannel(data));
     }
 }
 
 export const fetchChannels = () => async (dispatch) => {
     const response = await csrfFetch('/api/channels');
-    // debugger
-    if(response.ok) {
+    if (response.ok) {
         const data = await response.json();
         dispatch(receiveChannels(data));
     }
@@ -62,19 +62,19 @@ export const fetchChannels = () => async (dispatch) => {
 export const createChannel = (channel) => async (dispatch) => {
     const response = await csrfFetch('/api/channels', {
         method: 'POST',
-        body: JSON.stringify(channel)
+        body: JSON.stringify({ channel })
     })
     if (response.ok) {
         const data = await response.json();
         dispatch(receiveChannel(data));
     }
-    
+
 }
 
 export const updateChannel = (channel) => async (dispatch) => {
     const response = await csrfFetch(`/api/channels/${channel.id}`, {
         method: 'PATCH',
-        body: JSON.stringify(channel)
+        body: JSON.stringify({ channel: channel })
     })
     if (response.ok) {
         const data = await response.json();
@@ -92,21 +92,18 @@ export const deleteChannel = (channelId) => async (dispatch) => {
 }
 
 export default function channelsReducer(state = {}, action) {
-    const newState = {...state};
-    // debugger;
+    const newState = { ...state };
     switch (action.type) {
         case RECEIVE_CHANNELS:
             return action.channels;
         case RECEIVE_CHANNEL:
-            const channel = action.channel;
-            newState[channel.id] = channel;
+            newState[action.payload.channel.id] = action.payload.channel;
             return newState;
         case REMOVE_CHANNEL:
-            const channelId= action.channelId;
+            const channelId = action.channelId;
             delete newState[channelId];
             return newState;
         case RECEIVE_SERVER:
-            // debugger;
             return action.payload.channels;
         case RESET_CHANNELS:
             return {};

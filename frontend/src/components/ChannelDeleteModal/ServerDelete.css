@@ -1,0 +1,116 @@
+.server-create-form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+
+}
+
+.server-create-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 24px 0;
+    flex-direction: column;
+}
+
+.server-create-title {
+    text-align: center;
+    font-weight: 700;
+    color: rgb(6, 6, 7);
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.server-create-desc {
+    color: var(--desc-text);
+    margin: 8px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.server-create-content {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+}
+
+.server-form-content {
+    margin: 16px 0;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+}
+
+.server-create-name {
+    margin-top: 24px;
+    color: var(--desc-text);
+    margin-bottom: 8px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 800;
+}
+
+.server-form-content input {
+    padding: 10px;
+    height: 40px;
+    font-size: 16px;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 3px;
+    color: var(--white-form-input-text);
+    background-color: var(--white-form-input-bg);
+    border: none;
+}
+
+.create-note {
+    color: var(--text-muted);
+    margin: 8px 8px 8px 0px;
+    padding-bottom: 4px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+}
+
+.server-create-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.back-button {
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    color: var(--not-so-black);
+
+    border: none;
+    box-shadow: none;
+}
+
+.fake-blue-links {
+    color: var(--text-link-form);
+    text-decoration: none;
+}
+
+.fake-blue-links:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.back-button:hover {
+    color: var(--not-so-black);
+    box-shadow: none;
+    -webkit-text-stroke: 0;
+}
+
+.server-create-buttons .brand.button {
+    height: 38px;
+    width: 96px;
+    white-space: nowrap;
+    border-radius: 5px;
+    margin-top: 0;
+}

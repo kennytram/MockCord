@@ -10,38 +10,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_03_163819) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_164110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "channels", force: :cascade do |t|
     t.string "name", null: false
-    t.bigint "server_id", null: false
+    t.bigint "server_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_channels_on_name"
     t.index ["server_id"], name: "index_channels_on_server_id"
   end
 
-  create_table "members", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "server_id", null: false
+  create_table "direct_messages", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["server_id"], name: "index_members_on_server_id"
-    t.index ["user_id"], name: "index_members_on_user_id"
+    t.bigint "user_id"
+    t.bigint "other_user_id"
+    t.index ["other_user_id"], name: "index_direct_messages_on_other_user_id"
+    t.index ["user_id"], name: "index_direct_messages_on_user_id"
+  end
+
+  create_table "dm_subscriptions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "direct_message_id"
+    t.index ["direct_message_id"], name: "index_dm_subscriptions_on_direct_message_id"
+    t.index ["user_id"], name: "index_dm_subscriptions_on_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
     t.text "text", null: false
-    t.string "messagable_type", null: false
-    t.bigint "messagable_id", null: false
-    t.bigint "sender_id", null: false
+    t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["messagable_type", "messagable_id"], name: "index_messages_on_messagable"
-    t.index ["sender_id"], name: "index_messages_on_sender_id"
+    t.string "messageable_type"
+    t.bigint "messageable_id"
+    t.index ["author_id"], name: "index_messages_on_author_id"
+    t.index ["messageable_type", "messageable_id"], name: "index_messages_on_messageable"
     t.index ["text"], name: "index_messages_on_text"
+  end
+
+  create_table "server_subscriptions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "server_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["server_id"], name: "index_server_subscriptions_on_server_id"
+    t.index ["user_id"], name: "index_server_subscriptions_on_user_id"
   end
 
   create_table "servers", force: :cascade do |t|
@@ -66,8 +85,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_03_163819) do
   end
 
   add_foreign_key "channels", "servers"
-  add_foreign_key "members", "servers"
-  add_foreign_key "members", "users"
-  add_foreign_key "messages", "users", column: "sender_id"
+  add_foreign_key "direct_messages", "users", column: "other_user_id"
+  add_foreign_key "dm_subscriptions", "users"
+  add_foreign_key "messages", "users", column: "author_id"
+  add_foreign_key "server_subscriptions", "servers"
+  add_foreign_key "server_subscriptions", "users"
   add_foreign_key "servers", "users", column: "owner_id"
 end

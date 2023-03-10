@@ -3,10 +3,12 @@ import csrfFetch from "./csrf.js";
 const SET_CURRENT_USER = 'session/setCurrentUser';
 const REMOVE_CURRENT_USER = 'session/removeCurrentUser';
 
-const setCurrentUser = (user) => ({
-  type: SET_CURRENT_USER,
-  user
-});
+const setCurrentUser = (user) => {
+  return {
+    type: SET_CURRENT_USER,
+    user
+  }
+};
 
 const removeCurrentUser = () => ({
   type: REMOVE_CURRENT_USER
@@ -43,11 +45,9 @@ export const restoreSession = () => async dispatch => {
 };
 
 export const signup = (user) => async (dispatch) => {
-
-  // const username, email, password = user;
   const response = await csrfFetch("/api/users", {
     method: "POST",
-    body: JSON.stringify({user})
+    body: JSON.stringify({ user })
   });
   const data = await response.json();
   storeCurrentUser(data.user);
@@ -64,12 +64,11 @@ export const logout = () => async (dispatch) => {
   return response;
 };
 
-const initialState = { 
+const initialState = {
   user: JSON.parse(sessionStorage.getItem("currentUser"))
 };
 
 const sessionReducer = (state = initialState, action) => {
-  // debugger;
   switch (action.type) {
     case SET_CURRENT_USER:
       return { ...state, user: action.user };

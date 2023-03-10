@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Redirect, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Route, Redirect, useLocation, Switch } from "react-router-dom";
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import SplashPage from "./components/SplashPage";
@@ -8,42 +8,65 @@ import NavBar from "./components/NavBar";
 import UserPanel from "./components/UserPanel";
 import TopBar from "./components/TopBar";
 import ContentPage from "./components/ContentPage";
-
+import { Modal } from "./context/Modal";
+import ServerForm from "./components/ServerFormModal/ServerForm";
+import ErrorPage from "./components/ErrorPage/ErrorPage";
 function App() {
   const location = useLocation();
   const url = location.pathname;
+  const [showServerModal, setShowServerModal] = useState(false);
+  { }
+  { }
+
+
+
   return (
     <>
-      <Route path ="/channels/:serverId/:id" >
-        {/*Show the DMShowPage or ChannelShowPage */} 
-        {/* {url.includes("@me") ? <HomePage /> : <ServerShowPage/>} */}
-      </Route>
+      <Switch>
+        <Route exact path="/servers/@me/dms/:dmId" >
+          <NavBar />
+          <LeftSideBar />
+          <UserPanel />
+          <TopBar />
+          <ContentPage />
+        </Route>
+        <Route exact path="/servers/:serverId/channels/:channelId" >
+          <NavBar />
+          <LeftSideBar />
+          <UserPanel />
+          <TopBar />
+          <ContentPage />
+        </Route>
 
-      <Route path ={["/channels/:serverId", 
-      "/guild-discovery", "/store"]}>
-        <NavBar/>
-        <LeftSideBar/>
-        <UserPanel/>
-        
-        {url !== "/channels/@me" ? <TopBar/> : null}
-        <ContentPage/>
-      </Route>
-      
-      <Route exact strict path = "/channels/">
-        <Redirect to="/channels/@me"/>
-      </Route>
-        
-      <Route path="/login">
-        <LoginFormPage />
-      </Route>
+        <Route exact path="/servers/:serverId">
+          <NavBar />
+          <LeftSideBar />
+          <UserPanel />
+          { }
+          { }
+          <ContentPage />
+        </Route>
+        { }
 
-      <Route path="/register">
-        <SignupFormPage />
-      </Route>
+        <Route exact strict path="/servers/">
+          <Redirect to="/servers/@me" />
+        </Route>
 
-      <Route exact path ="/" >
-        <SplashPage />
-      </Route>
+        <Route path="/login">
+          <LoginFormPage />
+        </Route>
+
+        <Route path="/register">
+          <SignupFormPage />
+        </Route>
+
+        <Route exact path="/" >
+          <SplashPage />
+        </Route>
+        <Route>
+          <ErrorPage />
+        </Route>
+      </Switch>
     </>
   );
 }

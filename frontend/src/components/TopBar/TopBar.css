@@ -3,7 +3,7 @@
     box-shadow: var(--interactive-box-shadow);
     background-color: var(--icon-bg);
     z-index: 100;
-    
+
     position: relative;
     width: 100%;
     min-width: 0%;
@@ -38,7 +38,7 @@
     user-select: none;
     margin: 0 8px;
 
-    
+
 }
 
 .top-main-icon {
@@ -73,6 +73,7 @@
     user-select: none;
     -webkit-text-stroke: .1px white;
 }
+
 #add_friend_button.active {
     color: var(--positive-green);
     -webkit-text-stroke: .3px var(--positive-green);
@@ -126,5 +127,5 @@
 }
 
 .channel-tools {
-    width: 400px;
+    width: 500px;
 }

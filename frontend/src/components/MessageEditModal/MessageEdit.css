@@ -1,0 +1,33 @@
+.message-edit-form {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    top: -25px;
+    padding: 0 14px 0 32px;
+    background-color: var( --icon-bg);
+}
+
+.edit-button-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    padding: 4px;
+    min-width: 24px;
+    flex: 0 0 auto;
+    color: var(--interactive);
+    cursor: pointer;
+    position: relative;
+}
+
+.edit-button-message:hover {
+    color: var(----off-white-text);
+    background-color: var(--interactive-hover);
+}
+
+.edit-button-message:active {
+    padding-top: 5px;
+    padding-bottom: 3px;
+    color: var(--interactive-dm-header-text);
+    background-color: var(----line-separator-color);  
+}

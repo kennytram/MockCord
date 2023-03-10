@@ -1,0 +1,51 @@
+.error-page {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/assets/homepage_images/error.gif');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: none;
+    background-size: cover;
+}
+
+.error-home {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    background-color: transparent;
+    color: var(--text-link);
+    left: 40%;
+    top: 23%;
+    text-align: center;
+    font-family: 'ginto-headline';
+    font-size: 30px;
+    z-index: 3;
+    cursor: pointer;
+    user-select: none;
+}
+
+.error-home:hover {
+    color: var(--app-blue-links);
+}
+
+.error-desc {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    background-color: transparent;
+    color: var(--off-white);
+    left: 37%;
+    top: 15%;
+    text-align: center;
+    font-family: 'ginto-headline';
+    font-size: 30px;
+    z-index: 3;
+    user-select: none;
+}
+
+.error-image {
+    background-image: url('/assets/homepage_images/error.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+}

@@ -28,11 +28,17 @@ class User < ApplicationRecord
 
   #don't need owned_servers bc owners can pass ownership
 
-  has_many :subscribed_servers, foreign_key: :user_id, class_name: :Member, dependent: :destroy
+  has_many :subscribed_servers, foreign_key: :user_id, class_name: :ServerSubscription, dependent: :destroy
   has_many :servers, through: :subscribed_servers, source: :server
 
-  has_many :messages 
+  has_many :messages, foreign_key: :author_id, class_name: :Message
 
+  has_many :dm_subscriptions, foreign_key: :user_id, class_name: :DmSubscription, dependent: :destroy
+  has_many :dms, through: :dm_subscriptions, source: :direct_message
+
+  has_many :other_user_dm_subscriptions, foreign_key: :other_user_id, class_name: :DmSubscription, dependent: :destroy
+  has_many :other_user_dms, through: :other_user_dm_subscriptions, source: :direct_message
+  
   def self.find_by_credentials(credential, password)
     field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : :username
     user = User.find_by(field => credential)

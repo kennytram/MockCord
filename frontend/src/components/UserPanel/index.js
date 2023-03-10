@@ -16,19 +16,19 @@ export default function UserPanel() {
 
     const [muteToggle, setMuteToggle] = useState(false);
     const [deafenToggle, setDeafenToggle] = useState(false);
-    
-    if(!sessionUser) return <Redirect to="/login" />;
-    
-    if (!url.includes('/channels')
-    && !url.includes('/guild-discovery')
-    && !url.includes('/store')) return null;
+
+    if (!sessionUser) return <Redirect to="/login" />;
+
+    if (!url.includes('/servers')
+        && !url.includes('/guild-discovery')
+        && !url.includes('/store')) return null;
 
     return (
         <div id="user-panel">
             <div id="user-box-wrapper">
                 <div id="user-box">
                     <div className="user-icon">
-                        <span className="material-icons icon" style={{color: "white", fontSize: 22.5}}>discord</span>
+                        <span className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</span>
                     </div>
                     <div id="user-panel-info">
                         {sessionUser.username}
@@ -36,20 +36,23 @@ export default function UserPanel() {
                 </div>
             </div>
             <div id="setting-buttons">
-                <div onClick={()=> setMuteToggle(!muteToggle)}>
-                    {muteToggle ? <MicIcon /> : <MicOffIcon 
-                    sx={{transform: "rotateY(180deg)"}}/>}
+                <div onClick={() => setMuteToggle(!muteToggle)}>
+                    {muteToggle ? <MicIcon /> : <MicOffIcon
+                        sx={{ transform: "rotateY(180deg)" }} />}
                 </div>
-                <div onClick={()=> setDeafenToggle(!deafenToggle)}>
+                <div onClick={() => setDeafenToggle(!deafenToggle)}>
                     {deafenToggle ? <HeadsetIcon
-                    sx={{scale: "1.08",
-                    translate: "0px 1px"}}/> : <HeadsetOffIcon 
-                    sx={{transform: "rotateY(180deg)",
-                    scale: "1.08"
-                    }}/>}
+                        sx={{
+                            scale: "1.08",
+                            translate: "0px 1px"
+                        }} /> : <HeadsetOffIcon
+                        sx={{
+                            transform: "rotateY(180deg)",
+                            scale: "1.08"
+                        }} />}
                 </div>
                 <div>
-                    <SettingsIcon/>
+                    <SettingsIcon />
                 </div>
             </div>
         </div>

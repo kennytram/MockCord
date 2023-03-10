@@ -1,8 +1,11 @@
 class Api::ServersController < ApplicationController
     def create
         @server = Server.new(server_params)
+        @server.owner_id ||= current_user.id
         if @server.save
-            @member = @Member.create(user_id: @server.owner_id, server_id: @server.id)
+            @server_subscription = ServerSubscription.create!(user_id: @server.owner_id, server_id: @server.id)
+            @channel = Channel.create!(name: 'general', server_id: @server.id)
+
             render :show
         else
             render json: @server.errors.full_messages, status: 422
@@ -12,28 +15,24 @@ class Api::ServersController < ApplicationController
     def index
         @servers = current_user.servers
         render :index
-        # if params[:user_id]
-        #     user = User.find(params[:user_id])
-        #     @servers = user.servers
-        # else
-        #     @servers = Server.all
-        # end
     end 
 
     def show
-        @server = current_user.servers.find(params[:id])
-        # debugger
-        render :show
+        if current_user
+            @server = current_user.servers.find(params[:id]) 
+            render :show
+        end
     end
 
     def destroy
-        @server.destroy
+        @server = Server.find(params[:id])
+        @server.destroy if @server.owner_id == current_user.id
     end
 
     def update 
         @server = Server.find(params[:id])
         if @server.update(server_params)
-            render json: @server
+            render :show
         else
             render json: { errors: @server.errors.full_messages }, status: :unprocessable_entity
         end

@@ -14,7 +14,7 @@ class Server < ApplicationRecord
 
     belongs_to :user, foreign_key: :owner_id
     
-    has_many :subscriptions, foreign_key: :server_id, class_name: :Member, dependent: :destroy
+    has_many :subscriptions, foreign_key: :server_id, class_name: :ServerSubscription, dependent: :destroy
     has_many :members, through: :subscriptions, source: :user
 
     has_many :channels, dependent: :destroy

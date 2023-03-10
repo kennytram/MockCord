@@ -1,0 +1,53 @@
+.server-edit-form {
+    width: 200px;
+    box-sizing: border-box;
+    display: flex;
+    height: auto;
+    cursor: default;
+    max-height: calc(100vh - 32px);
+    box-shadow: rgba(0, 0, 0, 0.24);
+    background: rgb(17, 18, 20);
+    border-radius: 4px;
+    padding: 6px 8px;
+    flex-direction: column;
+}
+
+.update-server {
+    color: var(--interactive);
+    border-color: var(--interactive);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 32px;
+    padding: 6px 8px;
+    white-space: nowrap;
+}
+
+.update-server:hover {
+    background-color: var(--brand);
+    color: white;
+}
+
+.edit-seperator {
+    box-sizing: border-box;
+    margin: 4px;
+    border-bottom: 1px solid var(--line-separator-color);
+}
+
+.delete-server {
+    color: var(--danger);
+    border-color: var(--interactive);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 32px;
+    padding: 6px 8px;
+    white-space: nowrap;
+}
+
+.delete-server:hover {
+    color: white;
+    background-color: rgb(161, 40, 40);
+}

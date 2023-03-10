@@ -1,5 +1,7 @@
 import csrfFetch from "./csrf";
-
+import { RECEIVE_SERVER } from "./servers";
+import { RECEIVE_CHANNEL } from "./channels";
+import { RECEIVE_DM, RECEIVE_DMS } from "./dms";
 export const RECEIVE_USER = "RECEIVE_USER";
 export const RECEIVE_USERS = "RECEIVE_USERS";
 export const REMOVE_USER = "REMOVE_USER";
@@ -11,10 +13,10 @@ const receiveUser = (user) => {
     }
 }
 
-const receiveUsers = (users) => {
+const receiveUsers = (payload) => {
     return {
         type: RECEIVE_USERS,
-        users
+        payload
     }
 }
 
@@ -25,10 +27,18 @@ const removeUser = (userId) => {
     }
 }
 
+export const getUser = (userId) => (state) => (
+    state.users ? state.users[userId] : null
+)
+
+export const getUsers = (state) => (
+    state.users ? Object.values(state.users) : []
+)
+
 export const fetchUser = (userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/users/${userId}`);
 
-    if(response.ok) {
+    if (response.ok) {
         const data = await response.json();
         dispatch(receiveUser(data));
     }
@@ -37,8 +47,9 @@ export const fetchUser = (userId) => async (dispatch) => {
 export const fetchUsers = () => async (dispatch) => {
     const response = await csrfFetch('/api/users');
 
-    if(response.ok) {
+    if (response.ok) {
         const data = await response.json();
+
         dispatch(receiveUsers(data));
     }
 }
@@ -64,18 +75,28 @@ export const destroyUser = (userId) => async (dispatch) => {
 }
 
 export default function usersReducer(state = {}, action) {
-    const newState = {...state};
+    const newState = { ...state };
     switch (action.type) {
         case RECEIVE_USERS:
-            return action.users;
+
+            return action.payload.users;
         case RECEIVE_USER:
             const user = action.user;
             newState[user.id] = user;
             return newState;
         case REMOVE_USER:
-            const userId= action.userId;
+            const userId = action.userId;
             delete newState[userId];
             return newState;
+        case RECEIVE_SERVER:
+
+            return action.payload.users;
+        case RECEIVE_DMS:
+
+            return action.payload.users;
+        case RECEIVE_DM:
+
+            return action.payload.users;
         default:
             return state;
     }

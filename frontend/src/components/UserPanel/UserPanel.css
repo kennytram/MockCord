@@ -1,13 +1,11 @@
 #user-panel {
     display: flex;
     align-items: center;
-    /* position: fixed; */
-    position: absolute;
+    position: fixed;
     width: 240px;
     height: 53px;
     background-color: var(--user-panel-color);
 
-    /* z-index: 111; */
     left: 72px;
     bottom: 0;
 }
@@ -24,10 +22,9 @@
     user-select: text;
     color: var(--off-white);
 
-    /* background-color: white; */
 }
 
-#user-box:hover{
+#user-box:hover {
     color: var(--off-white);
     background-color: var(--interactive-hover);
     border-radius: 4px;

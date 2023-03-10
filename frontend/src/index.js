@@ -8,8 +8,10 @@ import configureStore from './store';
 import csrfFetch from "./store/csrf";
 import * as sessionActions from './store/session';
 import { ModalProvider } from './context/Modal';
+import ServerForm from './components/ServerFormModal/ServerForm';
 
 const store = configureStore();
+
 
 if (process.env.NODE_ENV !== "production") {
   window.store = store;
@@ -17,19 +19,12 @@ if (process.env.NODE_ENV !== "production") {
   window.sessionActions = sessionActions;
 }
 
-// const Carrot = () => (
-//   <div style={{ color: "orange", fontSize: "100px" }}>
-//     <i className="fa-solid fa-carrot"></i>
-//   </div>
-// );
-
 function Root() {
   return (
     <ModalProvider>
       <Provider store={store}>
         <BrowserRouter>
           <App />
-          {/* <Carrot /> */}
         </BrowserRouter>
       </Provider>
     </ModalProvider>
@@ -47,7 +42,7 @@ const renderApplication = () => {
 
 if (
   sessionStorage.getItem("currentUser") === null ||
-  sessionStorage.getItem("X-CSRF-Token") === null 
+  sessionStorage.getItem("X-CSRF-Token") === null
 ) {
   store.dispatch(sessionActions.restoreSession()).then(renderApplication);
 } else {

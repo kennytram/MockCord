@@ -9,8 +9,10 @@
 ApplicationRecord.transaction do 
     puts "Destroying tables..."
     # Unnecessary if using `rails db:seed:replant`
+    DmSubscription.destroy_all
+    DirectMessage.destroy_all
     Channel.destroy_all
-    Member.destroy_all
+    ServerSubscription.destroy_all
     Server.destroy_all
     User.destroy_all
     
@@ -19,8 +21,11 @@ ApplicationRecord.transaction do
     # For easy testing, so that after seeding, the first `User` has `id` of 1
     ApplicationRecord.connection.reset_pk_sequence!('users')
     ApplicationRecord.connection.reset_pk_sequence!('servers')
-    ApplicationRecord.connection.reset_pk_sequence!('members')
     ApplicationRecord.connection.reset_pk_sequence!('channels')
+    ApplicationRecord.connection.reset_pk_sequence!('direct_messages')
+    ApplicationRecord.connection.reset_pk_sequence!('messages')
+    ApplicationRecord.connection.reset_pk_sequence!('server_subscriptions')
+    ApplicationRecord.connection.reset_pk_sequence!('dm_subscriptions')
   
     puts "Creating users..."
     # Create one user with an easy to remember username, email, and password:
@@ -31,75 +36,71 @@ ApplicationRecord.transaction do
     )
 
     User.create!(
-      username: 'demo1', 
-      email: 'demo1@user.io', 
+      username: 'Demo-nstration', 
+      email: 'demo@user.com', 
       password: 'password'
     )
 
-    User.create!(
-      username: 'demo2', 
-      email: 'demo2@user.io', 
-      password: 'password'
-    )
-
-    puts "Creating servers..."
-    Server.create!(
-      name: "server1",
-      owner_id: 1
-    )
-    Server.create!(
-      name: "server2",
-      owner_id: 1
-    )
-    Server.create!(
-      name: "server3",
-      owner_id: 2
-    )
-
-    puts "Creating members..."
-    Member.create!(
-      user_id: 1,
-      server_id: 1
-    )
-    Member.create!(
-      user_id: 1,
-      server_id: 2
-    )
-    Member.create!(
-      user_id: 2,
-      server_id: 3
-    )
-
-    puts "Creating channels..."
-    Channel.create!(
-      name: "channel1",
-      server_id: 1
-    )
-    Channel.create!(
-      name: "channel2",
-      server_id: 1
-    )
-    Channel.create!(
-      name: "channel3",
-      server_id: 1
-    )
-    Channel.create!(
-      name: "channel4",
-      server_id: 2
-    )
-    Channel.create!(
-      name: "channel5",
-      server_id: 2
-    )
+    
 
     # More users
-    10.times do 
+    20.times do 
       User.create!({
         username: Faker::Internet.unique.username(specifier: 3),
         email: Faker::Internet.unique.email,
         password: 'password'
       }) 
     end
+
+    50.times do 
+      test = Server.create!({
+        name: Faker::Lorem.word,
+        owner_id: rand(1..20)
+      }) 
+      ServerSubscription.create!(user_id: test.owner_id, server_id: test.id)
+      Channel.create!({
+        name: "general",
+        server_id: test.id
+      })
+    end
+
+    100.times do 
+      Channel.create!({
+        name: Faker::Lorem.word,
+        server_id: rand(1..50)
+      }) 
+    end
+
+    50.times do 
+      ServerSubscription.create!({
+        user_id: rand(3..20),
+        server_id: rand(2..50)
+      }) 
+    end
+
+    27.times do 
+      ServerSubscription.create!({
+        user_id: 1,
+        server_id: rand(1..50)
+      }) 
+    end
+
+    27.times do 
+      ServerSubscription.create!({
+        user_id: 2,
+        server_id: rand(1..50)
+      }) 
+    end
+
+    ServerSubscription.create!({
+      user_id: 1,
+      server_id: 1
+    })
+
+    ServerSubscription.create!({
+      user_id: 2,
+      server_id: 1
+    })
   
     puts "Done!"
-  end
+end
