@@ -9,6 +9,7 @@ import { Modal } from '../../context/Modal';
 import ServerUpdate from '../ServerUpdateModal/ServerUpdate';
 import ServerDelete from '../ServerDeleteModal/ServerDelete';
 
+
 function ServerEdit({ onClose, ...props }) {
   const [errors, setErrors] = useState([]);
   const [showUpdateModal, setShowUpdateModal] = useState(false);

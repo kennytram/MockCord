@@ -35,7 +35,7 @@ function SplashPage() {
                     <div id="home-nav-left">
                         <span className="material-icons discord-icon"
                             style={{ color: "white", fontSize: 35 }}>discord</span>
-                        <span>&nbsp;&nbsp;Untitled</span>
+                        <span>&nbsp;&nbsp;MockCord</span>
                     </div>
                     <ul id="home-nav-center">
                         <li>Download</li>
@@ -64,8 +64,8 @@ function SplashPage() {
                         and hang out more often.
                     </div>
                     <div id="home-description-buttons">
-                        <button className="button white"><DownloadSimple font={"true"} size={24} fontWeight={700} /><span>&nbsp;Download Untitled</span></button>
-                        <button className="button black"><span>Open Untitled in your browser</span></button>
+                        <button className="button white"><DownloadSimple font={"true"} size={24} fontWeight={700} /><span>&nbsp;Download MockCord</span></button>
+                        <button className="button black"><span>Open MockCord in your browser</span></button>
                     </div>
                 </div>
             </div>
@@ -146,7 +146,7 @@ function SplashPage() {
                         <div className="section-headline">
                             Ready to start your journey?
                         </div>
-                        <button className="button brand"><DownloadSimple font={"true"} size={24} fontWeight={700} /><span>&nbsp;Download Untitled</span></button>
+                        <button className="button brand"><DownloadSimple font={"true"} size={24} fontWeight={700} /><span>&nbsp;Download MockCord</span></button>
                     </div>
                 </div>
             </div>
@@ -216,7 +216,7 @@ function SplashPage() {
                     <div id="footer-logo">
                         <span className="material-icons discord-icon"
                             style={{ color: "white", fontSize: 35 }}>discord</span>
-                        <span>&nbsp;&nbsp;Untitled</span>
+                        <span>&nbsp;&nbsp;MockCord</span>
                     </div>
                     <div id="footer-button">
                         <button className="button brand" onClick={handleOnSignUpSubmit}>Sign Up</button>

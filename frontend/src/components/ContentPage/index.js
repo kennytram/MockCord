@@ -44,6 +44,37 @@ export default function ContentPage() {
     const users = useSelector(state => state.users);
     const dmSetUsers = useSelector(state => state.dms.users)
 
+    const colors = {
+        brand: "#5865F2",
+        grey: "rgb(116, 124, 139)",
+        green: "rgb(61, 164, 92)",
+        yellow: "rgb(252, 163, 29)",
+        red: "rgb(237, 69, 69)",
+    }
+
+   function colorById(id) {
+        const num = id % 10;
+        switch (num) {
+            case 0:
+            case 5:
+                return colors.brand;
+            case 1:
+            case 6:
+                return colors.grey;
+            case 2:
+            case 7:
+                return colors.green;
+            case 3:
+            case 8:
+                return colors.yellow;
+            case 4:
+            case 9:
+                return colors.red;
+            default:
+                return colors.brand;
+        }
+    }
+
     useEffect(() => {
         if (dmId) {
             // dispatch(resetUsers());
@@ -288,7 +319,7 @@ export default function ContentPage() {
                                     onMouseEnter={showEditForm && editMessage === message ? null : displayModal}
                                     onMouseLeave={showEditForm && editMessage === message ? null : hideModal}>
                                     <div className="message-header">
-                                        <div className="message-user-icon">
+                                        <div className="message-user-icon" style={{backgroundColor: `${colorById(message.authorId)}`}}>
                                             <span className="material-icons user-icon messenger-icon" style={{ color: "white", fontSize: 30 }}>discord</span>
                                         </div>
                                         <div className="message-topping">
@@ -359,7 +390,7 @@ export default function ContentPage() {
                                                 handleShowAdd(member);
                                             } : null}>
                                         <div className="member-layout">
-                                            <div className="user-icon">
+                                            <div className="user-icon" style={{backgroundColor: `${colorById(member.id)}`}}>
                                                 <span className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</span>
                                             </div>
                                             &nbsp;&nbsp;&nbsp;{member.username}

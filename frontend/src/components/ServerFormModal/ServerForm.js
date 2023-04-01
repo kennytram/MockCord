@@ -50,7 +50,7 @@ function ServerForm({ onClose }) {
                     />
                     <div className="create-note">
                         By creating a server, you agree to
-                        Untitled's <label className="fake-blue-links">Community Guidelines</label>.
+                        MockCord's <label className="fake-blue-links">Community Guidelines</label>.
                     </div>
                 </div>
                 <div className="server-create-buttons">

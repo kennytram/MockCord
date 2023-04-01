@@ -6,6 +6,7 @@ import MicOffIcon from "@mui/icons-material/MicOff";
 import HeadsetOffIcon from "@mui/icons-material/HeadsetOff";
 import HeadsetIcon from "@mui/icons-material/Headset";
 import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
 import './UserPanel.css';
 
 
@@ -19,6 +20,37 @@ export default function UserPanel() {
 
     if (!sessionUser) return <Redirect to="/login" />;
 
+    const colors = {
+        brand: "#5865F2",
+        grey: "rgb(116, 124, 139)",
+        green: "rgb(61, 164, 92)",
+        yellow: "rgb(252, 163, 29)",
+        red: "rgb(237, 69, 69)",
+    }
+
+   function colorById(id) {
+        const num = id % 10;
+        switch (num) {
+            case 0:
+            case 5:
+                return colors.brand;
+            case 1:
+            case 6:
+                return colors.grey;
+            case 2:
+            case 7:
+                return colors.green;
+            case 3:
+            case 8:
+                return colors.yellow;
+            case 4:
+            case 9:
+                return colors.red;
+            default:
+                return colors.brand;
+        }
+    }
+
     if (!url.includes('/servers')
         && !url.includes('/guild-discovery')
         && !url.includes('/store')) return null;
@@ -27,7 +59,7 @@ export default function UserPanel() {
         <div id="user-panel">
             <div id="user-box-wrapper">
                 <div id="user-box">
-                    <div className="user-icon">
+                    <div className="user-icon" style={{backgroundColor: `${colorById(sessionUser.id)}`}}>
                         <span className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</span>
                     </div>
                     <div id="user-panel-info">
@@ -52,7 +84,8 @@ export default function UserPanel() {
                         }} />}
                 </div>
                 <div>
-                    <SettingsIcon />
+                    <LogoutIcon style={{color: "var(--danger)"}}/>
+                    {/* <SettingsIcon /> */}
                 </div>
             </div>
         </div>

@@ -1,6 +1,5 @@
 #navbar {
     display: flex;
-    overflow-x: hidden;
     flex-direction: column;
     width: 100%;
     height: 100%;
@@ -23,14 +22,17 @@
     user-select: none;
     box-sizing: border-box;
     padding-bottom: 12px;
+    
 }
 
-#server-list li {
+#server-list > li {
     margin-bottom: 8px;
     display: flex;
     justify-content: center;
     width: 100%;
     max-width: 72px;
+    position: relative;
+    
 }
 
 #servers .server-icon {
@@ -194,4 +196,27 @@ a.active .icon-wrapper {
     width: 32px;
     border-radius: 1px;
     background-color: var(--line-separator-color);
+}
+
+.navbar-tooltip {
+    position: absolute;
+    left: 80px;
+    top: 5px;
+    color: var(--off-white);
+    background-color: var(--white-form-text-color);
+    z-index: 1002;
+    max-width: 196px;
+    word-wrap: break-word;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: var(--interactive-box-shadow);
+    white-space: nowrap;
+} 
+
+.tooltip-text {
+    padding: 8px 12px;
+    text-align: center;
 }

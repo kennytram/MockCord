@@ -5,6 +5,7 @@ import { fetchServer, fetchServers, getServers } from '../../store/servers';
 import { getChannels } from '../../store/channels';
 import ExploreIcon from "@mui/icons-material/Explore";
 import { DownloadSimple } from 'phosphor-react';
+import LogoutIcon from '@mui/icons-material/Logout';
 import * as sessionActions from '../../store/session';
 import * as serverActions from '../../store/servers';
 import './NavBar.css';
@@ -15,6 +16,7 @@ import ServerForm from '../ServerFormModal/ServerForm';
 export default function NavBar() {
   const dispatch = useDispatch();
   const location = useLocation();
+
   const selectorRef = useRef(null);
   const url = location.pathname;
   const sessionUser = useSelector(state => state.session.user);
@@ -22,6 +24,7 @@ export default function NavBar() {
   const channels = useSelector(state => state.channels);
 
   const [showServerModal, setShowServerModal] = useState(false);
+  const [showToolTip, setShowToolTip] = useState(false);
 
   useEffect(() => {
     if (selectorRef.current) {
@@ -76,7 +79,9 @@ export default function NavBar() {
 
       <ul id="server-list" onClick={removePrevCurrent}>
         <li key="@me">
-          <div className="icon-box-wrapper" ref={selectorRef}>
+          <div className="icon-box-wrapper" ref={selectorRef}
+            onMouseEnter={() => setShowToolTip(true)}
+            onMouseLeave={() => setShowToolTip(false)}>
             <div className="icon-box" onClick={addCurrent} onMouseOver={addSelected} onMouseLeave={removeSelected}>
               <NavLink to={{
                 pathname: "/servers/@me"
@@ -89,6 +94,14 @@ export default function NavBar() {
               </NavLink>
             </div>
           </div>
+        {(
+          <div className="navbar-tooltip">
+            <div className="nav-bar-tooltip-arrow" />
+            <div className="tooltip-text">
+              Direct Messages
+            </div>
+          </div>
+        )}
         </li>
 
         <div className="nav-separator">
@@ -120,21 +133,22 @@ export default function NavBar() {
           <div className="icon-box-wrapper-alt">
             <div className="icon-box green"
               onMouseOver={addSelected}
-              onMouseLeave={removeSelected}>
+              onMouseLeave={removeSelected}
+              onClick={() => setShowServerModal(true)}>
               <div className="icon-wrapper">
-                <div className="server-icon" onClick={() => setShowServerModal(true)}>
+                <div className="server-icon">
                   +
-                </div>{showServerModal && (
-                  <Modal onClose={() => setShowServerModal(false)} className="create-server">
-                    <ServerForm onClose={() => setShowServerModal(false)} />
-                  </Modal>
-                )}
+                </div>
               </div>
-            </div>
+            </div>{showServerModal && (
+              <Modal onClose={() => setShowServerModal(false)} className="create-server">
+                <ServerForm onClose={() => setShowServerModal(false)} />
+              </Modal>
+            )}
           </div>
         </li >
 
-        <li key="explore-servers">
+        {/* <li key="explore-servers">
           <div className="icon-box-wrapper">
             <div className="icon-box green" onMouseOver={addSelected} onMouseLeave={removeSelected}>
               <div className="icon-wrapper">
@@ -144,7 +158,7 @@ export default function NavBar() {
               </div>
             </div>
           </div>
-        </li>
+        </li> */}
 
         <div className="nav-separator">
           <div className="nav-line-separator" />
@@ -156,7 +170,8 @@ export default function NavBar() {
               <div onClick={logout}>
                 <div className="icon-wrapper">
                   <div className="server-icon">
-                    <DownloadSimple font={"true"} size={28} fontWeight={700} />
+                    {/* <DownloadSimple font={"true"} size={28} fontWeight={700} /> */}
+                    <LogoutIcon style={{ marginLeft: "4px" }} />
                   </div>
                 </div>
               </div>

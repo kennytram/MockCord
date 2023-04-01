@@ -53,6 +53,7 @@
     flex: 1 1 auto;
     height: 100%;
     overflow: hidden scroll;
+    position: relative;
 }
 
 .add-button-conversation {
@@ -77,9 +78,9 @@
 .messages {
     display: flex;
     flex-direction: column;
-    min-height: 550px;
-    max-height: 84.5%;
-    flex: 1;
+    /* min-height: 640x; */
+    /* max-height: 84.5%; */
+    flex: 1 1 auto;
     width: 100%;
     overflow: hidden scroll;
 }
@@ -149,6 +150,8 @@
 }
 
 .message {
+    display: flex;
+    flex-direction: column;
     position: relative;
     min-height: 44px;
     padding-left: 72px;
@@ -166,6 +169,7 @@
 .message:hover {
     background-color: hsl(0 calc(1*0%) 0.8%/0.06);
     border-radius: 12px;
+    width: 92.5%;
 }
 
 .message-header {
@@ -185,6 +189,7 @@
     cursor: pointer;
     user-select: none;
     z-index: 1;
+    border-radius: 50%;
 }
 
 .messenger-icon {
@@ -245,7 +250,7 @@
 }
 
 .message-input {
-    margin-bottom: 24px;
+    margin-bottom: 72px;
     background-color: var(--message-box-area-color);
     border-radius: 10px;
     max-height: 20vh;
@@ -654,7 +659,7 @@
     display: none;
     position: absolute;
     background-color: transparent;
-    top: 0;
+    top: 6px;
     right: 0;
     padding: 0 14px 0 14px;
 }

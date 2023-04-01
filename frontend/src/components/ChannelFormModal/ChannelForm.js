@@ -47,14 +47,14 @@ function ChannelForm({ onSuccess, onClose }) {
                 <div className="server-form-content">
                     <div className="server-create-name">CHANNEL NAME</div>
                     <input type="text"
+                        required
                         value={channel.name}
                         onChange={(e) => setChannel({ ...channel, name: e.target.value })}
                         placeholder="Create a channel name here"
-                        required
                     />
                     <div className="create-note">
                         By creating a channel, you agree to
-                        Untitled's <label className="fake-blue-links">Community Guidelines</label>.
+                        MockCord's <label className="fake-blue-links">Community Guidelines</label>.
                     </div>
                 </div>
                 <div className="server-create-buttons">
