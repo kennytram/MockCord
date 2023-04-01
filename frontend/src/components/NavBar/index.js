@@ -24,7 +24,6 @@ export default function NavBar() {
   const channels = useSelector(state => state.channels);
 
   const [showServerModal, setShowServerModal] = useState(false);
-  const [showToolTip, setShowToolTip] = useState(false);
 
   useEffect(() => {
     if (selectorRef.current) {
@@ -79,9 +78,7 @@ export default function NavBar() {
 
       <ul id="server-list" onClick={removePrevCurrent}>
         <li key="@me">
-          <div className="icon-box-wrapper" ref={selectorRef}
-            onMouseEnter={() => setShowToolTip(true)}
-            onMouseLeave={() => setShowToolTip(false)}>
+          <div className="icon-box-wrapper" ref={selectorRef}>
             <div className="icon-box" onClick={addCurrent} onMouseOver={addSelected} onMouseLeave={removeSelected}>
               <NavLink to={{
                 pathname: "/servers/@me"
@@ -94,14 +91,12 @@ export default function NavBar() {
               </NavLink>
             </div>
           </div>
-        {(
           <div className="navbar-tooltip">
             <div className="nav-bar-tooltip-arrow" />
             <div className="tooltip-text">
               Direct Messages
             </div>
           </div>
-        )}
         </li>
 
         <div className="nav-separator">
@@ -125,6 +120,12 @@ export default function NavBar() {
                   { }
                 </div>
               </div>
+              <div className="navbar-tooltip">
+                <div className="nav-bar-tooltip-arrow" />
+                <div className="tooltip-text">
+                  {server.name}
+                </div>
+              </div>
             </li>
           ))}
         </ul>
@@ -146,6 +147,12 @@ export default function NavBar() {
               </Modal>
             )}
           </div>
+          <div className="navbar-tooltip">
+            <div className="nav-bar-tooltip-arrow" />
+            <div className="tooltip-text">
+              Add a Server
+            </div>
+          </div>
         </li >
 
         {/* <li key="explore-servers">
@@ -166,7 +173,7 @@ export default function NavBar() {
 
         <li key="logout">
           <div className="icon-box-wrapper">
-            <div className="icon-box green" onMouseOver={addSelected} onMouseLeave={removeSelected}>
+            <div className="icon-box red" onMouseOver={addSelected} onMouseLeave={removeSelected}>
               <div onClick={logout}>
                 <div className="icon-wrapper">
                   <div className="server-icon">
@@ -175,6 +182,12 @@ export default function NavBar() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="navbar-tooltip">
+            <div className="nav-bar-tooltip-arrow" />
+            <div className="tooltip-text">
+              Logout
             </div>
           </div>
         </li>
