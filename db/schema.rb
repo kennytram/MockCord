@@ -10,36 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_01_114949) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_01_235107) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "channel_subscriptions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "channel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["channel_id"], name: "index_channel_subscriptions_on_channel_id"
+    t.index ["user_id", "channel_id"], name: "index_channel_subscriptions_on_user_id_and_channel_id", unique: true
+    t.index ["user_id"], name: "index_channel_subscriptions_on_user_id"
+  end
 
   create_table "channels", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "server_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type", default: "public", null: false
     t.index ["name"], name: "index_channels_on_name"
     t.index ["server_id"], name: "index_channels_on_server_id"
   end
 
-  create_table "direct_messages", force: :cascade do |t|
-    t.string "name"
+  create_table "friends", force: :cascade do |t|
+    t.bigint "user1_id", null: false
+    t.bigint "user2_id", null: false
+    t.string "status", default: "pending", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.bigint "other_user_id"
-    t.index ["other_user_id"], name: "index_direct_messages_on_other_user_id"
-    t.index ["user_id"], name: "index_direct_messages_on_user_id"
-  end
-
-  create_table "dm_subscriptions", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "direct_message_id"
-    t.index ["direct_message_id"], name: "index_dm_subscriptions_on_direct_message_id"
-    t.index ["user_id"], name: "index_dm_subscriptions_on_user_id"
+    t.index ["user1_id"], name: "index_friends_on_user1_id"
+    t.index ["user2_id"], name: "index_friends_on_user2_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -60,7 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_01_114949) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["server_id"], name: "index_server_subscriptions_on_server_id"
-    t.index ["user_id"], name: "index_server_subscriptions_on_user_id"
+    t.index ["user_id", "server_id"], name: "index_server_subscriptions_on_user_id_and_server_id", unique: true
   end
 
   create_table "servers", force: :cascade do |t|
@@ -83,12 +85,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_01_114949) do
     t.string "tag"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
+    t.index ["username", "tag"], name: "index_users_on_username_and_tag", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "channel_subscriptions", "channels"
+  add_foreign_key "channel_subscriptions", "users"
   add_foreign_key "channels", "servers"
-  add_foreign_key "direct_messages", "users", column: "other_user_id"
-  add_foreign_key "dm_subscriptions", "users"
+  add_foreign_key "friends", "users", column: "user1_id"
+  add_foreign_key "friends", "users", column: "user2_id"
   add_foreign_key "messages", "users", column: "author_id"
   add_foreign_key "server_subscriptions", "servers"
   add_foreign_key "server_subscriptions", "users"

@@ -23,6 +23,8 @@ class User < ApplicationRecord
     format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :session_token, presence: true, uniqueness: true
   validates :password, length: { in: 6..255 }, allow_nil: true
+  validates :username, uniqueness: { scope: :tag }
+  validates :status, inclusion: { in: ["online", "idle", "do not disturb", "invisible", "offline"] }
   
   before_validation :ensure_session_token
 

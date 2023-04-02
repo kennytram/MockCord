@@ -4,7 +4,6 @@
     width: 100%;
     max-width: 72px;
     background-color: var(--navbar-color);
-    overflow-x: visible;
 }
 
 ::-webkit-scrollbar {
@@ -17,13 +16,13 @@
 #server-list {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100%;
+    /* height: 100%; */
+    /* width: 100%; */
     padding-top: 12px;
     user-select: none;
     box-sizing: border-box;
     padding-bottom: 12px;
-    
+    /* overflow-x: hidden; */
 }
 
 #server-list li {
