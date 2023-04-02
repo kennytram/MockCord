@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_01_235107) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_02_020440) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_01_235107) do
     t.bigint "channel_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "last_visited_at"
     t.index ["channel_id"], name: "index_channel_subscriptions_on_channel_id"
     t.index ["user_id", "channel_id"], name: "index_channel_subscriptions_on_user_id_and_channel_id", unique: true
     t.index ["user_id"], name: "index_channel_subscriptions_on_user_id"
@@ -30,18 +31,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_01_235107) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "type", default: "public", null: false
+    t.boolean "is_voice", default: false, null: false
     t.index ["name"], name: "index_channels_on_name"
     t.index ["server_id"], name: "index_channels_on_server_id"
   end
 
-  create_table "friends", force: :cascade do |t|
-    t.bigint "user1_id", null: false
-    t.bigint "user2_id", null: false
+  create_table "friend_requests", force: :cascade do |t|
+    t.bigint "sender_id", null: false
+    t.bigint "receiver_id", null: false
     t.string "status", default: "pending", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user1_id"], name: "index_friends_on_user1_id"
-    t.index ["user2_id"], name: "index_friends_on_user2_id"
+    t.index ["receiver_id"], name: "index_friend_requests_on_receiver_id"
+    t.index ["sender_id"], name: "index_friend_requests_on_sender_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -51,8 +53,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_01_235107) do
     t.datetime "updated_at", null: false
     t.string "messageable_type"
     t.bigint "messageable_id"
+    t.bigint "parent_message_id"
     t.index ["author_id"], name: "index_messages_on_author_id"
     t.index ["messageable_type", "messageable_id"], name: "index_messages_on_messageable"
+    t.index ["parent_message_id"], name: "index_messages_on_parent_message_id"
     t.index ["text"], name: "index_messages_on_text"
   end
 
@@ -92,8 +96,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_01_235107) do
   add_foreign_key "channel_subscriptions", "channels"
   add_foreign_key "channel_subscriptions", "users"
   add_foreign_key "channels", "servers"
-  add_foreign_key "friends", "users", column: "user1_id"
-  add_foreign_key "friends", "users", column: "user2_id"
+  add_foreign_key "friend_requests", "users", column: "receiver_id"
+  add_foreign_key "friend_requests", "users", column: "sender_id"
   add_foreign_key "messages", "users", column: "author_id"
   add_foreign_key "server_subscriptions", "servers"
   add_foreign_key "server_subscriptions", "users"

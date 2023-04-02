@@ -12,7 +12,7 @@ class Server < ApplicationRecord
     validates :name, presence: true
     validates :owner_id, presence: true
 
-    belongs_to :user, foreign_key: :owner_id
+    belongs_to :owner, foreign_key: :owner_id, class_name: :User
     
     has_many :subscriptions, foreign_key: :server_id, class_name: :ServerSubscription, dependent: :destroy
     has_many :members, through: :subscriptions, source: :user

@@ -9,6 +9,8 @@
 #  session_token   :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  status          :string
+#  tag             :string
 #
 class User < ApplicationRecord
   has_secure_password
@@ -31,15 +33,31 @@ class User < ApplicationRecord
   #don't need owned_servers bc owners can pass ownership
 
   has_many :subscribed_servers, foreign_key: :user_id, class_name: :ServerSubscription, dependent: :destroy
-  has_many :servers, through: :subscribed_servers, source: :server
+  has_many :servers, through: :subscribed_servers, source: :server, dependent: :destroy
 
-  has_many :messages, foreign_key: :author_id, class_name: :Message
+  has_many :messages, foreign_key: :author_id, class_name: :Message, dependent: :destroy
 
-  has_many :dm_subscriptions, foreign_key: :user_id, class_name: :DmSubscription, dependent: :destroy
-  has_many :dms, through: :dm_subscriptions, source: :direct_message
+  has_many :sent_friend_requests, foreign_key: :sender_id, class_name: :FriendRequest, dependent: :destroy
+  has_many :received_friend_requests, foreign_key: :receiver_id, class_name: :FriendRequest, dependent: :destroy
 
-  has_many :other_user_dm_subscriptions, foreign_key: :user_id, class_name: :DmSubscription, dependent: :destroy
-  has_many :other_user_dms, through: :other_user_dm_subscriptions, source: :direct_message
+  has_many :subscribed_dm_channels, foreign_key: :user_id, class_name: :ChannelSubscription, dependent: :destroy
+  has_many :dm_channels, through: :subscribed_dm_channels, source: :channel, dependent: :destroy
+
+  def friends
+    sender_friend_arr = self.sent_friend_requests.where(sender_id: self.id, status: "accepted").map { |request| request.receiver }
+    receiver_friend_arr = self.received_friend_requests.where(receiver_id: self.id, status: "accepted").map { |request| request.sender }
+    friends_arr = sender_friend_arr + receiver_friend_arr
+    friendships = {}
+    friends_arr.each do |friend|
+      friendships[friend.id] = {
+        id: friend.id,
+        username: friend.username,
+        tag: friend.tag,
+        status: friend.status
+      }
+    end
+    friendships
+  end
   
   def self.find_by_credentials(credential, password)
     field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : :username
