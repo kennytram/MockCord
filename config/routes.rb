@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     resources :messages, only: [ :create, :update, :destroy]
     resources :members, only: [:create, :destroy]
   end
-
+  get "/invite/:invite_token", to: "servers#join", as: :join_server
+  get "/servers/:id/invite_link", to: "servers#invite_link", as: :invite_link_server
+  post "/channels/:id/subscribe", to: "channels#subscribe", as: :subscribe_channel
   get '*path', to: "static_pages#frontend_index"
 end

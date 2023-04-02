@@ -9,8 +9,9 @@
 #  session_token   :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  status          :string
-#  tag             :string
+#  status          :string           not null
+#  tag             :string           not null
+#  is_online       :boolean          default(FALSE), not null
 #
 class User < ApplicationRecord
   has_secure_password
@@ -26,7 +27,8 @@ class User < ApplicationRecord
   validates :session_token, presence: true, uniqueness: true
   validates :password, length: { in: 6..255 }, allow_nil: true
   validates :username, uniqueness: { scope: :tag }
-  validates :status, inclusion: { in: ["online", "idle", "do not disturb", "invisible", "offline"] }
+  validates :status, inclusion: { in: ["online", "idle", "do not disturb", "invisible"] }
+  validates :tag, length: { is: 4 }
   
   before_validation :ensure_session_token
 
@@ -58,6 +60,10 @@ class User < ApplicationRecord
     end
     friendships
   end
+
+  def subscribe_channel(channel)
+    ChannelSubscription.create(user_id: self.id, channel_id: channel.id)
+  end
   
   def self.find_by_credentials(credential, password)
     field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : :username
@@ -69,7 +75,14 @@ class User < ApplicationRecord
     self.update!(session_token: generate_unique_session_token)
     self.session_token
   end
-
+  
+  def generate_unique_username_tag
+    loop do
+      tag = rand(10000).to_s.rjust(4, '0')
+      break tag unless User.exists?(username: username, tag: tag)
+    end
+  end
+  
   private
 
   def generate_unique_session_token
@@ -78,6 +91,7 @@ class User < ApplicationRecord
       break token unless User.exists?(session_token: token)
     end
   end
+
 
   def ensure_session_token
     self.session_token ||= generate_unique_session_token

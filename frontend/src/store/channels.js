@@ -91,6 +91,17 @@ export const deleteChannel = (channelId) => async (dispatch) => {
     }
 }
 
+export const joinChannel = (channel, userId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/channels/${channel.id}/subscribe`, {
+        method: 'POST',
+        body: JSON.stringify({ userId })
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(receiveChannel(data));
+    }
+}
+
 export default function channelsReducer(state = {}, action) {
     const newState = { ...state };
     switch (action.type) {

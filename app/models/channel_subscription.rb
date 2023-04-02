@@ -13,5 +13,4 @@ class ChannelSubscription < ApplicationRecord
     validates :channel_id, uniqueness: { scope: :user_id }
     belongs_to :channel
     belongs_to :user
-    
 end

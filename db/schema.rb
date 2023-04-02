@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_02_020440) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_02_181617) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,8 +51,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_020440) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "messageable_type"
-    t.bigint "messageable_id"
+    t.string "messageable_type", null: false
+    t.bigint "messageable_id", null: false
     t.bigint "parent_message_id"
     t.index ["author_id"], name: "index_messages_on_author_id"
     t.index ["messageable_type", "messageable_id"], name: "index_messages_on_messageable"
@@ -74,6 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_020440) do
     t.bigint "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "invite_token"
     t.index ["name"], name: "index_servers_on_name"
     t.index ["owner_id"], name: "index_servers_on_owner_id"
   end
@@ -85,8 +86,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_020440) do
     t.string "session_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status"
-    t.string "tag"
+    t.string "status", null: false
+    t.string "tag", null: false
+    t.boolean "is_online", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
     t.index ["username", "tag"], name: "index_users_on_username_and_tag", unique: true

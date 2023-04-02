@@ -2,11 +2,12 @@
 #
 # Table name: servers
 #
-#  id         :bigint           not null, primary key
-#  name       :string           not null
-#  owner_id   :bigint           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :bigint           not null, primary key
+#  name         :string           not null
+#  owner_id     :bigint           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  invite_token :string
 #
 class Server < ApplicationRecord
     validates :name, presence: true
@@ -19,4 +20,11 @@ class Server < ApplicationRecord
 
     has_many :channels, dependent: :destroy
     
+    def self.generate_unique_invite_token
+        self.invite_token = SecureRandom.urlsafe_base64
+        while Server.exists?(invite_token: self.invite_token)
+            self.invite_token = SecureRandom.urlsafe_base64
+        end
+        self.invite_token
+    end
 end

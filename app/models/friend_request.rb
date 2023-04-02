@@ -13,7 +13,7 @@
 class FriendRequest < ApplicationRecord
     validates :sender_id, uniqueness: { scope: :receiver_id, message: "has already sent a friend request to this user" }
     validates :sender, exclusion: { in: ->(friend_request) { [friend_request.receiver] }, message: "cannot send a friend request to yourself" }
-    validates :status, inclusion: { in: %w(pending accepted blocked), message: "must be 'pending', 'accepted', or 'blocked' " }
+    validates :status, inclusion: { in: %w(pending accepted), message: "must be 'pending' or 'accepted'" }
     validates :receiver_id, uniqueness: { scope: :sender_id }
     
     belongs_to :sender, foreign_key: :sender_id, class_name: :User

@@ -7,8 +7,8 @@
 #  author_id         :bigint           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  messageable_type  :string
-#  messageable_id    :bigint
+#  messageable_type  :string           not null
+#  messageable_id    :bigint           not null
 #  parent_message_id :bigint
 #
 class Message < ApplicationRecord

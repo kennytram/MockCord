@@ -35,8 +35,15 @@ class Api::ChannelsController < ApplicationController
         render :show
     end
 
+    def subscribe
+        @channel = Channel.find(params[:id])
+        @user = User.find(params[:user_id])
+        @user.subscribe(@channel)
+        render :show
+    end
+
 
     def channel_params
-        params.require(:channel).permit(:name, :server_id)
+        params.require(:channel).permit(:name, :server_id, :type, :is_voice, :user_id)
     end
 end
