@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_02_181617) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_03_023324) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,7 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_181617) do
     t.bigint "server_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "type", default: "public", null: false
+    t.string "channel_type", default: "public", null: false
     t.boolean "is_voice", default: false, null: false
     t.index ["name"], name: "index_channels_on_name"
     t.index ["server_id"], name: "index_channels_on_server_id"
@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_181617) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
     t.index ["username", "tag"], name: "index_users_on_username_and_tag", unique: true
-    t.index ["username"], name: "index_users_on_username", unique: true
+    t.index ["username"], name: "index_users_on_username"
   end
 
   add_foreign_key "channel_subscriptions", "channels"

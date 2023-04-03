@@ -7,6 +7,16 @@ class Api::UsersController < ApplicationController
     @user.tag = @user.generate_unique_username_tag
     if @user.save
       login!(@user)
+      @user.is_online = true
+      render :show
+    else
+      render json: @user.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
       render :show
     else
       render json: @user.errors.full_messages, status: :unprocessable_entity
@@ -21,6 +31,6 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :username, :password)
+    params.require(:user).permit(:email, :username, :password, :status, :tag, :is_online)
   end
 end

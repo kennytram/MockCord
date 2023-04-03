@@ -96,7 +96,7 @@ export default function usersReducer(state = {}, action) {
             delete newState[userId];
             return newState;
         case RECEIVE_SERVER:
-
+            
             return action.payload.users;
         case RECEIVE_DMS:
 

@@ -20,7 +20,7 @@ class Server < ApplicationRecord
 
     has_many :channels, dependent: :destroy
     
-    def self.generate_unique_invite_token
+    def generate_unique_invite_token
         self.invite_token = SecureRandom.urlsafe_base64
         while Server.exists?(invite_token: self.invite_token)
             self.invite_token = SecureRandom.urlsafe_base64

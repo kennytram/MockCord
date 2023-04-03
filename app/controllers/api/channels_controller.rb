@@ -1,7 +1,7 @@
 class Api::ChannelsController < ApplicationController
 
     def index
-        @server = current_user.servers.find(params[:server_id])
+        @dm_channels = current_user.dm_channels
         render :index
     end
 
@@ -44,6 +44,6 @@ class Api::ChannelsController < ApplicationController
 
 
     def channel_params
-        params.require(:channel).permit(:name, :server_id, :type, :is_voice, :user_id)
+        params.require(:channel).permit(:name, :server_id, :channel_type, :is_voice, :user_id)
     end
 end

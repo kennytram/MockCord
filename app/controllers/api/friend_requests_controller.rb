@@ -43,6 +43,6 @@ class Api::FriendRequestsController < ApplicationController
     private
 
     def friend_request_params
-        params.require(:friend_request).permit(:receiver_id, :status)
+        params.require(:friend_request).permit(:sender_id, :receiver_id, :status)
     end
 end

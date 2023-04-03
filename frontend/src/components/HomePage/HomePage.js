@@ -16,16 +16,31 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Modal } from '../../context/Modal';
 import MessageDelete from '../MessageDeleteModal/MessageDelete';
 import { getUsers, resetUsers } from '../../store/users';
-import './ContentPage.css';
+import './HomePage.css';
 import {
     createDirectMessage, fetchDirectMessages, fetchDirectMessage,
     getDirectMessage, getDirectMessages
 } from '../../store/dms';
+import NavBar from '../NavBar/NavBar';
+import { fetchUsers } from '../../store/users';
+import { fetchServers } from '../../store/servers';
 
 function HomePage() {
     const dispatch = useDispatch();
     const [buttonStates, setButtonStates] = useState([false, false,
         false, false, true]);
+    const [loaded, setLoaded] = useState(false);
+    useEffect(() => {
+        Promise.all([
+            dispatch(fetchUsers()),
+        ]).then(() => setLoaded(true));
+    }, [dispatch]);
+    return (
+        <div className="home-page">
+            <NavBar />
+            
+        </div>
+    )
 }
 
 export default HomePage;

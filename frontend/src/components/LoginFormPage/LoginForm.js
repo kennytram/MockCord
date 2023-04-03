@@ -15,12 +15,12 @@ function LoginFormPage() {
   if (sessionUser) return <Redirect to="/servers/@me" />;
 
   const demoUser = () => {
-    setCredential('Demo-lition')
+    setCredential('Demo-lition@user.io')
     setPassword('password')
   };
 
   const demoUserTwo = () => {
-    setCredential('Demo-nstration')
+    setCredential('Demo-nstration@user.io')
     setPassword('password')
   };
 
@@ -55,11 +55,11 @@ function LoginFormPage() {
             </div>
             <div id="username-login-form">
               {errors.length !== 0 ? (
-                <label className="error">EMAIL OR USERNAME
+                <label className="error">EMAIL
                   <span id="error-message"> - Login or passsword is invalid.</span>
                 </label>
               ) : (
-                <label>EMAIL OR USERNAME&nbsp;
+                <label>EMAIL&nbsp;
                   <span id="input-required">*</span>
                 </label>
               )}

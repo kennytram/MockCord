@@ -4,4 +4,3 @@
         json.defaultChannel server.channels[0].id
     end
 end
-

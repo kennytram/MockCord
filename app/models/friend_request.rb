@@ -18,4 +18,10 @@ class FriendRequest < ApplicationRecord
     
     belongs_to :sender, foreign_key: :sender_id, class_name: :User
     belongs_to :receiver, foreign_key: :receiver_id, class_name: :User
+
+    def dm_channel
+        channel_subscriptions = ChannelSubscription.where(user_id: [self.sender_id, self.receiver_id])
+        channel = channel_subscriptions.map(&:channel).find { |channel| channel.dm_members.count == 2 }
+        return channel[0] if channel
+    end
 end

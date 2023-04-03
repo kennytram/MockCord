@@ -11,7 +11,7 @@ import * as serverActions from '../../store/servers';
 import './NavBar.css';
 import { Modal } from '../../context/Modal';
 import ServerForm from '../ServerFormModal/ServerForm';
-
+import { fetchUsers, getUsers } from '../../store/users';
 
 export default function NavBar() {
   const dispatch = useDispatch();
@@ -20,8 +20,9 @@ export default function NavBar() {
   const selectorRef = useRef(null);
   const url = location.pathname;
   const sessionUser = useSelector(state => state.session.user);
-  const servers = useSelector(getServers);
-  const channels = useSelector(state => state.channels);
+  const servers = useSelector(state => state.servers);
+  const currentUser = useSelector(state => state.users[sessionUser.id]);
+  const users = useSelector(getUsers);
 
   const [showServerModal, setShowServerModal] = useState(false);
 
@@ -32,11 +33,10 @@ export default function NavBar() {
         selectorRef.current.classList.add('current');
       }
     }
-    if (sessionUser) {
-
-      dispatch(fetchServers());
-    };
-  }, [dispatch, sessionUser]);
+    Promise.all([
+      dispatch(fetchServers()),
+    ]);
+  }, [dispatch, sessionUser, servers.length]);
 
   const logout = (e) => {
     e.preventDefault();
@@ -72,10 +72,8 @@ export default function NavBar() {
   if (!url.includes('/servers')
     && !url.includes('/guild-discovery')
     && !url.includes('/store')) return null;
-
   return (
     <nav id="navbar">
-
       <ul id="server-list" onClick={removePrevCurrent}>
         <li key="@me">
           <div className="icon-box-wrapper" ref={selectorRef}>
@@ -104,30 +102,29 @@ export default function NavBar() {
         </div>
 
         <ul id="servers">
-          {servers.map(server => (
-            <li key={server.id}>
+          {currentUser?.servers ? currentUser.servers.map(serverId => (            
+            <li key={serverId}>
               <div className="icon-box-wrapper">
                 <div className="icon-box" onClick={addCurrent} onMouseOver={addSelected} onMouseLeave={removeSelected}>
                   <NavLink to={{
-                    pathname: `/servers/${server.id}/channels/${server.defaultChannel}`
+                    pathname: `/servers/${serverId}/channels/${servers[serverId].defaultChannel}`
                   }}>
                     <div className="icon-wrapper">
                       <div className="server-icon">
-                        {server.name[0].toUpperCase()}
+                        {servers[serverId].name[0].toUpperCase()}
                       </div>
                     </div>
                   </NavLink>
-                  { }
                 </div>
               </div>
               <div className="navbar-tooltip">
                 <div className="nav-bar-tooltip-arrow" />
                 <div className="tooltip-text">
-                  {server.name}
+                  {servers[serverId]?.name ? servers[serverId].name : null}
                 </div>
               </div>
             </li>
-          ))}
+          )): null}
         </ul>
 
         <li key="add-server">
@@ -156,16 +153,16 @@ export default function NavBar() {
         </li >
 
         {/* <li key="explore-servers">
-          <div className="icon-box-wrapper">
-            <div className="icon-box green" onMouseOver={addSelected} onMouseLeave={removeSelected}>
-              <div className="icon-wrapper">
-                <div className="server-icon">
-                  <ExploreIcon />
+            <div className="icon-box-wrapper">
+              <div className="icon-box green" onMouseOver={addSelected} onMouseLeave={removeSelected}>
+                <div className="icon-wrapper">
+                  <div className="server-icon">
+                    <ExploreIcon />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </li> */}
+          </li> */}
 
         <div className="nav-separator">
           <div className="nav-line-separator" />

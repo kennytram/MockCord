@@ -34,24 +34,27 @@ function SignupFormPage() {
           } catch {
             data = await res.text();
           }
-          if (data?.errors) {
+          if (data) {
             const errorData = {
               username: "",
               email: "",
               password: ""
             };
-            data.errors.forEach(error => {
+            console.log(data)
+            data.forEach(error => {
+              console.log(error)
               if (error.toLowerCase().includes("email")) {
-                errorData.email = " - " + error;
+                errorData.email = " - " + error.replace("Email", "");
               }
               if (error.toLowerCase().includes("username")) {
-                errorData.username = " - " + error;
+                errorData.username = " - " + error.replace("Username", "");
               }
               if (error.toLowerCase().includes("password")) {
-                errorData.password = " - " + error;
+                errorData.password = " - " + error.replace("Password", "");
               }
             })
             setErrors(errorData);
+            console.log(errorData);
           }
           else if (data) {
             setErrors([data]);

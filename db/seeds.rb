@@ -37,7 +37,7 @@ ApplicationRecord.transaction do
 
     User.create!(
       username: 'Demo-nstration', 
-      email: 'demo@user.com', 
+      email: 'demo@user.io', 
       password: 'password'
     )
 

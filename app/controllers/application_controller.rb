@@ -14,13 +14,13 @@ class ApplicationController < ActionController::API
   
     def login!(user)
       session[:session_token] = user.reset_session_token!
-      user.is_online = true
+      
     end
   
     def logout!
       current_user.reset_session_token! if current_user
       session[:session_token] = nil
-      @current_user.is_online = false
+      
       @current_user = nil
     end
   

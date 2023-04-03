@@ -17,13 +17,15 @@ class User < ApplicationRecord
   has_secure_password
 
   validates :username, 
-    uniqueness: true, 
-    length: { in: 3..30 }, 
+    length: { in: 3..30 },
+    presence: { message: "can't be blank" },
     format: { without: URI::MailTo::EMAIL_REGEXP, message:  "can't be an email" }
   validates :email, 
     uniqueness: true, 
     length: { in: 3..255 }, 
-    format: { with: URI::MailTo::EMAIL_REGEXP }
+    presence: { message: "can't be blank" },
+    format: { with: URI::MailTo::EMAIL_REGEXP, message: "is not valid" }
+
   validates :session_token, presence: true, uniqueness: true
   validates :password, length: { in: 6..255 }, allow_nil: true
   validates :username, uniqueness: { scope: :tag }
@@ -66,7 +68,8 @@ class User < ApplicationRecord
   end
   
   def self.find_by_credentials(credential, password)
-    field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : :username
+    # field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : :username
+    field = :email
     user = User.find_by(field => credential)
     user&.authenticate(password)
   end
