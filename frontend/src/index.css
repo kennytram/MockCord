@@ -19,7 +19,7 @@ html,
 body {
     font-family: 'gg';
     margin: 0;
-    
+    overflow: visible
 }
 
 ul,

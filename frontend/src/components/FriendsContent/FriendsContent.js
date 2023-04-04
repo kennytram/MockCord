@@ -97,7 +97,7 @@ function FriendsContent() {
                         <li onClick={(e) => handleButtonClick(e, 3)}>
                             Blocked
                         </li>
-                        <li id="add_friend_button" ref={addFriendRef} onClick={(e) => handleButtonClick(e, 4)}>
+                        <li id="add_friend_button" className="active" ref={addFriendRef} onClick={(e) => handleButtonClick(e, 4)}>
                             Add Friend
                         </li>
                     </ul>

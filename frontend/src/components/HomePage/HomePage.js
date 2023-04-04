@@ -40,8 +40,8 @@ function HomePage() {
     return (
         <div className="home-page">
             <NavBar />
-            <UserBar/>
-            <FriendsContent/>
+            {/* <UserBar/> */}
+            {/* <FriendsContent/> */}
             {/* <div className="home-page-content"> */}
             {/* </div> */}
         </div>

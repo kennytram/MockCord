@@ -55,11 +55,1196 @@ function FriendsAll() {
                                     </button>
                                     <button className="friend-request-info-right-button blocked">
                                         <CloseIcon />
-                                        {/* <div className="friend-request-tooltip">
+                                        <div className="friend-request-tooltip">
                                             <div className="tooltip-text">
                                                 Unblock
                                             </div>
-                                        </div> */}
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><div className="friend-request">
+                            <div className="friend-request-info">
+                                <div className="friend-request-info-left">
+                                    <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                        <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                        <div className={`user-status-bubble invisible friends-status-bubble`}>
+                                            <div className={`user-status-bubble-inner invisible friends-status-bubble`}></div>
+                                        </div>
+                                    </div>
+                                    <div className="friend-request-info-left-text">
+                                        <div className="friend-request-info-left-text-username">
+                                            {/* {blockedRequest.sender.username} */}
+                                            test<span className="friend-request-info-left-text-tag">
+                                                {/* #{blockedRequest.sender.discriminator} */}
+                                                #6969
+                                            </span>
+                                        </div>
+                                        <div className="friend-request-info-left-text-status">
+                                            Online
+                                            {/* Idle Offline */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="friend-request-info-right">
+                                    <button className="friend-request-info-right-button">
+                                        <ChatBubbleIcon />
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked">
+                                        <CloseIcon />
+                                        <div className="friend-request-tooltip">
+                                            <div className="tooltip-text">
+                                                Unblock
+                                            </div>
+                                        </div>
                                     </button>
                                 </div>
                             </div>

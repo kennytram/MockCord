@@ -21,7 +21,7 @@
     font-weight: 500;
     font-size: 16px;
     font-family: 'gg';
-    position: fixed;
+    /* position: fixed; */
     max-height: calc(100% - 45);
     
     /* box-shadow: var(--box-shadow); */

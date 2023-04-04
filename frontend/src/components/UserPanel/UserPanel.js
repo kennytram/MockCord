@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, Redirect } from 'react-router-dom';
 import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
@@ -7,10 +7,12 @@ import HeadsetOffIcon from "@mui/icons-material/HeadsetOff";
 import HeadsetIcon from "@mui/icons-material/Headset";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import * as sessionActions from '../../store/session';
 import './UserPanel.css';
 
 
 export default function UserPanel() {
+    const dispatch = useDispatch();
     const location = useLocation();
     const url = location.pathname;
     const sessionUser = useSelector(state => state.session.user);
@@ -50,6 +52,11 @@ export default function UserPanel() {
                 return colors.brand;
         }
     }
+
+    const logout = (e) => {
+        e.preventDefault();
+        dispatch(sessionActions.logout());
+    };
 
     if (!url.includes('/servers')
         && !url.includes('/guild-discovery')
@@ -98,7 +105,7 @@ export default function UserPanel() {
                         </div>
                     </div>
                 </div>
-                <div className="user-panel-logout">
+                <div className="user-panel-logout" onClick={logout}>
                     <LogoutIcon style={{ color: "var(--danger)" }} />
                     {/* <SettingsIcon /> */}
                     <div className="user-panel-tooltip">

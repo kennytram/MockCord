@@ -26,6 +26,9 @@ export default function NavBar() {
 
   const [showServerModal, setShowServerModal] = useState(false);
   const [showRightClickMenu, setShowRightClickMenu] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [tooltipPosition, setTooltipPosition] = useState({ left: 0, top: 0 });
+  const scrollableContainerRef = useRef(null);
 
 
   useEffect(() => {
@@ -70,15 +73,30 @@ export default function NavBar() {
     e.currentTarget.parentElement.classList.add('current');
   }
 
+  const handleMouseEnter = (e) => {
+    const { left, top } = e.currentTarget.getBoundingClientRect();
+    setTooltipPosition({ left: 80, top: top + 5 });
+    setShowTooltip(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowTooltip(false);
+  };
+
+  const handleScroll = () => {
+    setShowTooltip(false);
+    removeSelected();
+  };
+
   if (!sessionUser) return <Redirect to="/login" />;
   if (!url.includes('/servers')
     && !url.includes('/guild-discovery')
     && !url.includes('/store')) return null;
   return (
     <nav id="navbar">
-      <ul id="server-list" onClick={removePrevCurrent}>
+      <ul id="server-list" onClick={removePrevCurrent} onScroll={handleScroll}>
         <li key="@me">
-          <div className="icon-box-wrapper" ref={selectorRef}>
+          <div className="icon-box-wrapper" ref={selectorRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <div className="icon-box" onClick={addCurrent} onMouseOver={addSelected} onMouseLeave={removeSelected}>
               <NavLink to={{
                 pathname: "/servers/@me"
@@ -91,11 +109,21 @@ export default function NavBar() {
               </NavLink>
             </div>
           </div>
-          <div className="navbar-tooltip">
+          {/* <div className="navbar-tooltip">
             <div className="tooltip-text">
               Direct Messages
             </div>
-          </div>
+          </div> */}
+          {showTooltip && (
+            <div
+              className="navbar-tooltip"
+              style={{ left: tooltipPosition.left, top: tooltipPosition.top }}
+            >
+              <div className="tooltip-text">
+                Direct Messages
+              </div>
+            </div>
+          )}
         </li>
 
         <div className="nav-separator">
@@ -105,31 +133,36 @@ export default function NavBar() {
         <ul id="servers">
           {servers.map(server => (
             server && server.members[sessionUser.id] ? (
-              <li key={server.Id}>
-                <div className="icon-box-wrapper">
+              <li key={server.Id} >
+                <div className="icon-box-wrapper" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                   <div className="icon-box" onClick={addCurrent} onMouseOver={addSelected} onMouseLeave={removeSelected}>
                     <NavLink to={{
                       pathname: `/servers/${server.id}/channels/${server.defaultChannel}`
                     }}>
                       <div className="icon-wrapper">
                         <div className="server-icon">
-                          {server.name[0].toUpperCase()}
+                          {server.name.split(' ').map(word => word.charAt(0)).join('').slice(0, 3)}
                         </div>
                       </div>
                     </NavLink>
                   </div>
                 </div>
-                <div className="navbar-tooltip">
-                  <div className="tooltip-text">
-                    {server?.name ? server.name : null}
+                {showTooltip && (
+                  <div
+                    className="navbar-tooltip"
+                    style={{ left: tooltipPosition.left, top: tooltipPosition.top }}
+                  >
+                    <div className="tooltip-text">
+                      {server?.name ? server.name : null}
+                    </div>
                   </div>
-                </div>
+                )}
               </li>
             ) : null
           ))}
         </ul>
 
-        <li key="add-server">
+        <li key="add-server" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <div className="icon-box-wrapper-alt">
             <div className="icon-box green"
               onMouseOver={addSelected}
@@ -149,17 +182,22 @@ export default function NavBar() {
                 document.body.style.overflow = "unset";
               }} className="create-server">
                 <ServerForm onClose={() => {
-                setShowServerModal(false);
-                document.body.style.overflow = "unset";
-              }} />
+                  setShowServerModal(false);
+                  document.body.style.overflow = "unset";
+                }} />
               </Modal>
             )}
           </div>
-          <div className="navbar-tooltip">
-            <div className="tooltip-text">
-              Add a Server
+          {showTooltip && (
+            <div
+              className="navbar-tooltip"
+              style={{ left: tooltipPosition.left, top: tooltipPosition.top }}
+            >
+              <div className="tooltip-text">
+                Add a Server
+              </div>
             </div>
-          </div>
+          )}
         </li >
 
         {/* <li key="explore-servers">
@@ -178,7 +216,7 @@ export default function NavBar() {
           <div className="nav-line-separator" />
         </div>
 
-        <li key="logout">
+        <li key="logout" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <div className="icon-box-wrapper">
             <div className="icon-box red" onMouseOver={addSelected} onMouseLeave={removeSelected}>
               <div onClick={logout}>
@@ -191,12 +229,16 @@ export default function NavBar() {
               </div>
             </div>
           </div>
-          <div className="navbar-tooltip">
-            <div className="nav-bar-tooltip-arrow" />
-            <div className="tooltip-text">
-              Logout
+          {showTooltip && (
+            <div
+              className="navbar-tooltip"
+              style={{ left: tooltipPosition.left, top: tooltipPosition.top }}
+            >
+              <div className="tooltip-text">
+                Logout
+              </div>
             </div>
-          </div>
+          )}
         </li>
 
       </ul>
