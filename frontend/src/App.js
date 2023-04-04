@@ -5,7 +5,7 @@ import SignupFormPage from "./components/SignupFormPage/SignUpForm";
 import SplashPage from "./components/SplashPage";
 import LeftSideBar from "./components/LeftSideBar";
 import NavBar from "./components/NavBar/NavBar";
-import UserPanel from "./components/UserPanel";
+import UserPanel from "./components/UserPanel/UserPanel";
 import TopBar from "./components/TopBar";
 import ContentPage from "./components/ContentPage";
 import { Modal } from "./context/Modal";
@@ -26,13 +26,13 @@ function App() {
   return (
     <>
       <Switch>
-        <Route exact path="/servers/@me/dms/:dmId" >
+        {/* <Route exact path="/servers/@me/dms/:dmId" >
           <NavBar />
           <LeftSideBar />
           <UserPanel />
           <TopBar />
           <ContentPage />
-        </Route>
+        </Route> */}
         <Route exact path="/servers/:serverId/channels/:channelId" >
           <NavBar />
           <LeftSideBar />

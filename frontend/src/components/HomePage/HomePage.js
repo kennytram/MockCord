@@ -22,6 +22,7 @@ import {
     getDirectMessage, getDirectMessages
 } from '../../store/dms';
 import NavBar from '../NavBar/NavBar';
+import UserBar from '../UserBar/UserBar';
 import { fetchUsers } from '../../store/users';
 import { fetchServers } from '../../store/servers';
 
@@ -38,7 +39,10 @@ function HomePage() {
     return (
         <div className="home-page">
             <NavBar />
-            
+            <UserBar/>
+            <div className="home-page-content">
+                
+            </div>
         </div>
     )
 }

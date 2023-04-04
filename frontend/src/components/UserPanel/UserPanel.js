@@ -61,9 +61,14 @@ export default function UserPanel() {
                 <div id="user-box">
                     <div className="user-icon" style={{backgroundColor: `${colorById(sessionUser.id)}`}}>
                         <span className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</span>
+                        {/* <rect x="0" y="0" rx="3" ry="3" width="70" height="70" /> */}
+                        <div className={`user-status-bubble ${sessionUser.status}`}>
+                            <div className={`user-status-bubble-inner ${sessionUser.status}`}></div>
+                        </div>
                     </div>
                     <div id="user-panel-info">
-                        {sessionUser.username}
+                        <div id="user-panel-username">{sessionUser.username}</div>
+                        <div id="user-panel-tag">#{sessionUser.tag}</div>
                     </div>
                 </div>
             </div>

@@ -114,8 +114,8 @@ export default function channelsReducer(state = {}, action) {
             const channelId = action.channelId;
             delete newState[channelId];
             return newState;
-        case RECEIVE_SERVER:
-            return action.payload.channels;
+        // case RECEIVE_SERVER:
+        //     return action.payload.channels;
         case RESET_CHANNELS:
             return {};
         default:

@@ -2,12 +2,14 @@
     display: flex;
     align-items: center;
     position: fixed;
+    /* position: absolute; */
     width: 240px;
     height: 53px;
     background-color: var(--user-panel-color);
-
-    left: 72px;
+    /* left: 0; */
+    /* left: 72px; */
     bottom: 0;
+    overflow: hidden;
 }
 
 #user-box {
@@ -43,24 +45,84 @@
     height: 32px;
     border-radius: 50%;
     margin-bottom: 2px;
+    position: relative;
 }
 
 .user-icon span {
     padding-left: 1px;
 }
 
+.user-status-bubble {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    right:0;
+    outline: 3.5px solid var(--user-panel-color);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.user-status-bubble.online{
+    background-color: var(--green-cord);
+}
+
+.user-status-bubble.idle{
+    background-color: rgb(252, 163, 29);
+}
+
+.user-status-bubble.do.not.disturb{
+    background-color:rgb(237, 69, 69);
+}
+
+.user-status-bubble.invisible{
+    background-color: rgb(116, 124, 139);
+}
+.user-status-bubble-inner {
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    position: absolute;
+}
+.user-status-bubble-inner.idle {
+    background-color: var(--user-panel-color);
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+}
+.user-status-bubble-inner.do.not.disturb {
+    background-color: var(--user-panel-color);
+    width: 7px;
+    height: 2.4px;
+    border-radius: 1px;
+}
+.user-status-bubble-inner.invisible {
+    background-color: var(--user-panel-color);
+}
 
 #user-panel-info {
-    padding-bottom: 4px;
+    padding-bottom: 3px;
     padding-left: 8px;
-    padding-top: 4px;
+    padding-top: 3px;
 
     font-weight: 600;
     font-size: 14px;
     line-height: 18px;
     overflow: hidden;
     white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+}
+
+#user-panel-tag {
+    font-size: 11px;
+    color: var(--tag-color);
+    text-overflow: ellipsis;
+    font-weight: 400;
+    line-height: 13px;
 }
 
 #setting-buttons {

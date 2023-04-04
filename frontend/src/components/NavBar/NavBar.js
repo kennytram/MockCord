@@ -20,11 +20,13 @@ export default function NavBar() {
   const selectorRef = useRef(null);
   const url = location.pathname;
   const sessionUser = useSelector(state => state.session.user);
-  const servers = useSelector(state => state.servers);
-  const currentUser = useSelector(state => state.users[sessionUser.id]);
+  const servers = useSelector(getServers);
+  // const currentUser = useSelector(state => state.users[sessionUser.id]);
   const users = useSelector(getUsers);
 
   const [showServerModal, setShowServerModal] = useState(false);
+  const [showRightClickMenu, setShowRightClickMenu] = useState(false);
+
 
   useEffect(() => {
     if (selectorRef.current) {
@@ -36,7 +38,7 @@ export default function NavBar() {
     Promise.all([
       dispatch(fetchServers()),
     ]);
-  }, [dispatch, sessionUser, servers.length]);
+  }, [dispatch]);
 
   const logout = (e) => {
     e.preventDefault();
@@ -102,29 +104,31 @@ export default function NavBar() {
         </div>
 
         <ul id="servers">
-          {currentUser?.servers ? currentUser.servers.map(serverId => (            
-            <li key={serverId}>
-              <div className="icon-box-wrapper">
-                <div className="icon-box" onClick={addCurrent} onMouseOver={addSelected} onMouseLeave={removeSelected}>
-                  <NavLink to={{
-                    pathname: `/servers/${serverId}/channels/${servers[serverId].defaultChannel}`
-                  }}>
-                    <div className="icon-wrapper">
-                      <div className="server-icon">
-                        {servers[serverId].name[0].toUpperCase()}
+          {servers.map(server => (
+            server && server.members[sessionUser.id] ? (
+              <li key={server.Id}>
+                <div className="icon-box-wrapper">
+                  <div className="icon-box" onClick={addCurrent} onMouseOver={addSelected} onMouseLeave={removeSelected}>
+                    <NavLink to={{
+                      pathname: `/servers/${server.id}/channels/${server.defaultChannel}`
+                    }}>
+                      <div className="icon-wrapper">
+                        <div className="server-icon">
+                          {server.name[0].toUpperCase()}
+                        </div>
                       </div>
-                    </div>
-                  </NavLink>
+                    </NavLink>
+                  </div>
                 </div>
-              </div>
-              <div className="navbar-tooltip">
-                <div className="nav-bar-tooltip-arrow" />
-                <div className="tooltip-text">
-                  {servers[serverId]?.name ? servers[serverId].name : null}
+                <div className="navbar-tooltip">
+                  <div className="nav-bar-tooltip-arrow" />
+                  <div className="tooltip-text">
+                    {server?.name ? server.name : null}
+                  </div>
                 </div>
-              </div>
-            </li>
-          )): null}
+              </li>
+            ) : null
+          ))}
         </ul>
 
         <li key="add-server">
@@ -132,15 +136,24 @@ export default function NavBar() {
             <div className="icon-box green"
               onMouseOver={addSelected}
               onMouseLeave={removeSelected}
-              onClick={() => setShowServerModal(true)}>
+              onClick={() => {
+                setShowServerModal(true);
+                document.body.style.overflow = "hidden";
+              }}>
               <div className="icon-wrapper">
                 <div className="server-icon">
                   +
                 </div>
               </div>
             </div>{showServerModal && (
-              <Modal onClose={() => setShowServerModal(false)} className="create-server">
-                <ServerForm onClose={() => setShowServerModal(false)} />
+              <Modal onClose={() => {
+                setShowServerModal(false);
+                document.body.style.overflow = "unset";
+              }} className="create-server">
+                <ServerForm onClose={() => {
+                setShowServerModal(false);
+                document.body.style.overflow = "unset";
+              }} />
               </Modal>
             )}
           </div>

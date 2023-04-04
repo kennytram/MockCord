@@ -4,6 +4,7 @@
     width: 100%;
     max-width: 72px;
     background-color: var(--navbar-color);
+    min-height: 100%;
 }
 
 ::-webkit-scrollbar {
@@ -23,6 +24,7 @@
     box-sizing: border-box;
     padding-bottom: 12px;
     /* overflow-x: hidden; */
+    background-color: var(--navbar-color); 
 }
 
 #server-list li {

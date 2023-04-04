@@ -19,6 +19,7 @@ html,
 body {
     font-family: 'gg';
     margin: 0;
+    
 }
 
 ul,
@@ -31,6 +32,7 @@ li {
 #root {
     display: flex;
     height: 100vh;
+    overflow: hidden scroll;
 }
 
 :root {
@@ -64,6 +66,7 @@ li {
     --interactive-hover: rgba(78, 80, 88, 0.6);
     --interactive-hover-heading: rgba(78, 80, 88, 0.298);
     --positive-green: rgb(45, 199, 112);
+    --tag-color: rgb(181, 186, 193);
 
     --interactive-box-shadow: rgba(2, 2, 2, 0.2) 0px 1px 0px;
     
