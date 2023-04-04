@@ -72,184 +72,25 @@ function UserBar() {
                     <div id="dm-title">
                         DIRECT MESSAGES
                     </div>
-                    <div className="add-symbol">+</div>
+                    <div className="add-symbol">
+                        <div className="add-dm">+</div>
+                        <div className="add-symbol-tooltip">
+                            <div className="tooltip-text">
+                                Create DM
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
+
                 <ul id="direct-messages">
                     <li className="dm">
                         <div className="dm-wrapper">
                             <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon">
+                                <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
                                     <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
-                                </div>
-                                <div id="user-panel-info">
-                                    test
-                                </div>
-                            </div>
-                            <CloseIcon className="dm-exit" />
-                        </div>
-                    </li>
-                    <li className="dm">
-                        <div className="dm-wrapper">
-                            <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon">
-                                    <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
-                                </div>
-                                <div id="user-panel-info">
-                                    test
-                                </div>
-                            </div>
-                            <CloseIcon className="dm-exit" />
-                        </div>
-                    </li>
-                    <li className="dm">
-                        <div className="dm-wrapper">
-                            <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon">
-                                    <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
-                                </div>
-                                <div id="user-panel-info">
-                                    test
-                                </div>
-                            </div>
-                            <CloseIcon className="dm-exit" />
-                        </div>
-                    </li>
-                    <li className="dm">
-                        <div className="dm-wrapper">
-                            <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon">
-                                    <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
-                                </div>
-                                <div id="user-panel-info">
-                                    test
-                                </div>
-                            </div>
-                            <CloseIcon className="dm-exit" />
-                        </div>
-                    </li>
-                    <li className="dm">
-                        <div className="dm-wrapper">
-                            <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon">
-                                    <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
-                                </div>
-                                <div id="user-panel-info">
-                                    test
-                                </div>
-                            </div>
-                            <CloseIcon className="dm-exit" />
-                        </div>
-                    </li>
-                    <li className="dm">
-                        <div className="dm-wrapper">
-                            <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon">
-                                    <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
-                                </div>
-                                <div id="user-panel-info">
-                                    test
-                                </div>
-                            </div>
-                            <CloseIcon className="dm-exit" />
-                        </div>
-                    </li>
-                    <li className="dm">
-                        <div className="dm-wrapper">
-                            <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon">
-                                    <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
-                                </div>
-                                <div id="user-panel-info">
-                                    test
-                                </div>
-                            </div>
-                            <CloseIcon className="dm-exit" />
-                        </div>
-                    </li>
-                    <li className="dm">
-                        <div className="dm-wrapper">
-                            <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon">
-                                    <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
-                                </div>
-                                <div id="user-panel-info">
-                                    test
-                                </div>
-                            </div>
-                            <CloseIcon className="dm-exit" />
-                        </div>
-                    </li>
-                    <li className="dm">
-                        <div className="dm-wrapper">
-                            <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon">
-                                    <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
-                                </div>
-                                <div id="user-panel-info">
-                                    test
-                                </div>
-                            </div>
-                            <CloseIcon className="dm-exit" />
-                        </div>
-                    </li>
-                    <li className="dm">
-                        <div className="dm-wrapper">
-                            <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon">
-                                    <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
-                                </div>
-                                <div id="user-panel-info">
-                                    test
-                                </div>
-                            </div>
-                            <CloseIcon className="dm-exit" />
-                        </div>
-                    </li>
-                    <li className="dm">
-                        <div className="dm-wrapper">
-                            <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon">
-                                    <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
-                                </div>
-                                <div id="user-panel-info">
-                                    test
-                                </div>
-                            </div>
-                            <CloseIcon className="dm-exit" />
-                        </div>
-                    </li>
-                    <li className="dm">
-                        <div className="dm-wrapper">
-                            <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon">
-                                    <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
-                                </div>
-                                <div id="user-panel-info">
-                                    test
-                                </div>
-                            </div>
-                            <CloseIcon className="dm-exit" />
-                        </div>
-                    </li>
-                    <li className="dm">
-                        <div className="dm-wrapper">
-                            <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon">
-                                    <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
-                                </div>
-                                <div id="user-panel-info">
-                                    test
-                                </div>
-                            </div>
-                            <CloseIcon className="dm-exit" />
-                        </div>
-                    </li>
-                    <li className="dm">
-                        <div className="dm-wrapper">
-                            <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon">
-                                    <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                    <div className={`user-status-bubble online bar-status-bubble`}>
+                                        <div className={`user-status-bubble-inner online bar-status-bubble`}></div>
+                                    </div>
                                 </div>
                                 <div id="user-panel-info">
                                     test
@@ -276,7 +117,7 @@ function UserBar() {
                 </li>
             ))} */}
                 </ul>
-                
+
             </nav>
             <UserPanel />
         </div >

@@ -23,6 +23,7 @@ import {
 } from '../../store/dms';
 import NavBar from '../NavBar/NavBar';
 import UserBar from '../UserBar/UserBar';
+import FriendsContent from '../FriendsContent/FriendsContent';
 import { fetchUsers } from '../../store/users';
 import { fetchServers } from '../../store/servers';
 
@@ -40,9 +41,9 @@ function HomePage() {
         <div className="home-page">
             <NavBar />
             <UserBar/>
-            <div className="home-page-content">
-                
-            </div>
+            <FriendsContent/>
+            {/* <div className="home-page-content"> */}
+            {/* </div> */}
         </div>
     )
 }

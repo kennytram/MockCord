@@ -92,7 +92,6 @@ export default function NavBar() {
             </div>
           </div>
           <div className="navbar-tooltip">
-            <div className="nav-bar-tooltip-arrow" />
             <div className="tooltip-text">
               Direct Messages
             </div>
@@ -121,7 +120,6 @@ export default function NavBar() {
                   </div>
                 </div>
                 <div className="navbar-tooltip">
-                  <div className="nav-bar-tooltip-arrow" />
                   <div className="tooltip-text">
                     {server?.name ? server.name : null}
                   </div>
@@ -158,7 +156,6 @@ export default function NavBar() {
             )}
           </div>
           <div className="navbar-tooltip">
-            <div className="nav-bar-tooltip-arrow" />
             <div className="tooltip-text">
               Add a Server
             </div>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Redirect, useLocation, useParams, useHistory } from "react-router-dom";
 import { getServer, fetchServer } from '../../store/servers';
 import { fetchChannel, getChannel, getChannels, resetChannels } from '../../store/channels';
-import './TopBar.css';
+// import './TopBar.css';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import InboxIcon from '@mui/icons-material/Inbox';

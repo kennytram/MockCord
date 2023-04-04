@@ -32,7 +32,7 @@ li {
 #root {
     display: flex;
     height: 100vh;
-    overflow: hidden scroll;
+    /* overflow: hidden scroll; */
 }
 
 :root {
@@ -64,13 +64,20 @@ li {
     --user-panel-color: rgb(35, 36, 40);
     --left-sidebar-color: rgb(43, 45, 49);
     --interactive-hover: rgba(78, 80, 88, 0.6);
+    --friend-request-line: rgba(78, 80, 88, 0.4);
     --interactive-hover-heading: rgba(78, 80, 88, 0.298);
     --positive-green: rgb(45, 199, 112);
     --tag-color: rgb(181, 186, 193);
 
+    --text-normal: rgb(219, 222, 225);
+
     --interactive-box-shadow: rgba(2, 2, 2, 0.2) 0px 1px 0px;
+    --box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, 
+                    rgba(6,6,7,0.05) 0px 1.5px 0px 0px,
+                    rgba(2,2,2,0.05) 0px 2px 0px 0px;
+    --elevation-high: 0 8px 16px hsl((0 0 0)/0.24);
     
-    --channel-default: rgb(152, 154, 162);
+    --channel-default:  rgb(152, 154, 162);
 
     --interactive-dm-header-text: rgb(243, 244, 245);
     --message-box-area-color: rgb(56, 58, 64);

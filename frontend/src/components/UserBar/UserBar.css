@@ -5,6 +5,7 @@
     position: relative;
     /* height: 100vh; */
     width: 240px;
+    z-index: 1;
 }
 
 #left-navbar {
@@ -21,7 +22,9 @@
     font-size: 16px;
     font-family: 'gg';
     position: fixed;
-    max-height: calc(100vh - 53px);
+    max-height: calc(100% - 45);
+    
+    /* box-shadow: var(--box-shadow); */
 }
 
 .left-navbar > *:not(#user-panel){
@@ -33,17 +36,19 @@
     align-items: center;
     width: 240px;
     height: 48px;
-    cursor: pointer;
     font-weight: 500;
     padding: 0 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     box-sizing: border-box;
     z-index: 2;
     transition: background-color .1s linear;
-    box-shadow: var(--interactive-box-shadow);
+    box-shadow: var(--box-shadow);
 }
 
 #left-navbar-header-box-alt {
     height: 24px;
+    cursor: pointer;
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -143,6 +148,54 @@
     user-select: none;
 }
 
+.add-symbol {
+    font-size: 28px;
+    position: relative;
+}
+
+.add-dm:hover {
+    color: var(--off-white);
+}
+
+.add-symbol-tooltip {
+    position: absolute;
+    bottom: 26px;
+    left: -37.3px;
+    color: var(--off-white);
+    background-color: var(--white-form-text-color);
+    z-index: 1002;
+    max-width: 196px;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: var(--interactive-box-shadow);
+    white-space: nowrap;
+    display: none;
+    box-shadow: var(--elevation-high);
+}
+
+.add-symbol-tooltip .tooltip-text:before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 50%;
+    margin-right: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--white-form-text-color) transparent transparent transparent; 
+}
+
+.add-symbol-tooptip:hover {
+    display: hidden;
+}
+
+.add-dm:hover ~ .add-symbol-tooltip:not(:hover) {
+    display: block;
+}
+
 #dm-title+.add-symbol {
     display: flex;
     justify-content: center;
@@ -224,4 +277,20 @@
 
 .dm-exit:hover {
     color: var(--off-white);
+}
+
+#conversation-text {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    color: var(--channel-default);
+    user-select: none;
+}
+
+.user-status-bubble.bar-status-bubble {
+    outline: 3.5px solid var(--left-sidebar-color);
+}
+
+.user-status-bubble-inner.bar-status-bubble:not(.online){
+    background-color: transparent;
 }

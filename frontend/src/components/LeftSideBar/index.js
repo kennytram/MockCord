@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Redirect, useLocation, useParams } from "react-router-dom";
 import { getChannels, resetChannels, fetchChannels } from '../../store/channels';
 import { getServer, fetchServer } from '../../store/servers';
-import './LeftSideBar.css';
+// import './LeftSideBar.css';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CloseIcon from "@mui/icons-material/Close";
 import TagIcon from "@mui/icons-material/Tag";

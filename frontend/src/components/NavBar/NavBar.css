@@ -11,7 +11,7 @@
     width: 0px;
     height: 0px;
     background-color: transparent;
-    
+
 }
 
 #server-list {
@@ -24,7 +24,7 @@
     box-sizing: border-box;
     padding-bottom: 12px;
     /* overflow-x: hidden; */
-    background-color: var(--navbar-color); 
+    background-color: var(--navbar-color);
 }
 
 #server-list li {
@@ -34,7 +34,7 @@
     width: 100%;
     max-width: 72px;
     position: relative;
-    
+
 }
 
 #servers .server-icon {
@@ -235,7 +235,8 @@ a.active .icon-wrapper {
     box-shadow: var(--interactive-box-shadow);
     white-space: nowrap;
     display: none;
-} 
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
 li:hover .navbar-tooltip {
     display: block;
@@ -255,4 +256,4 @@ li:hover .navbar-tooltip {
     border-width: 5px;
     border-style: solid;
     border-color: transparent var(--white-form-text-color) transparent transparent;
-  }
+}

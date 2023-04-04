@@ -102,13 +102,7 @@
     translate: 0px 2px;
 }
 
-.add-symbol {
-    font-size: 28px;
-}
 
-.add-symbol:hover {
-    color: var(--off-white);
-}
 
 .tag-icon {
     font-size: 23px;
@@ -141,33 +135,4 @@
 
 .channel:hover {
     color: var(--off-white);
-}
-
-.searchbar {
-    width: 220px;
-    height: 48px;
-    overflow: hidden;
-    background-color: var(--navbar-color);
-    box-shadow: none;
-
-
-    text-overflow: ellipsis;
-    color: var(--channel-default);
-    line-height: 24px;
-    white-space: nowrap;
-    cursor: pointer;
-    border-radius: 7px;
-}
-
-button.searchbar:hover {
-    color: var(--channel-default);
-    -webkit-text-stroke: 0px;
-}
-
-#conversation-text {
-    font-size: 14px;
-    font-weight: 500;
-    text-align: left;
-    color: var(--channel-default);
-    user-select: none;
 }

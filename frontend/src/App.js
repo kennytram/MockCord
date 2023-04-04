@@ -34,11 +34,11 @@ function App() {
           <ContentPage />
         </Route> */}
         <Route exact path="/servers/:serverId/channels/:channelId" >
-          <NavBar />
+          {/* <NavBar />
           <LeftSideBar />
           <UserPanel />
           <TopBar />
-          <ContentPage />
+          <ContentPage /> */}
         </Route>
 
         <Route exact path="/servers/:serverId" component={HomePage}>

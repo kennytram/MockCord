@@ -9,7 +9,7 @@
     /* left: 0; */
     /* left: 72px; */
     bottom: 0;
-    overflow: hidden;
+    /* overflow-x: hidden; */
 }
 
 #user-box {
@@ -20,7 +20,6 @@
     margin-left: -2px;
     min-width: 120px;
     margin-right: 9px;
-    cursor: pointer;
     user-select: text;
     color: var(--off-white);
 
@@ -111,7 +110,7 @@
     font-weight: 600;
     font-size: 14px;
     line-height: 18px;
-    overflow: hidden;
+    /* overflow-x: hidden; */
     white-space: nowrap;
     display: flex;
     flex-direction: column;
@@ -129,7 +128,7 @@
     display: flex;
 }
 
-#setting-buttons div {
+#setting-buttons > div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -139,12 +138,71 @@
     color: var(--interactive);
 }
 
-#setting-buttons div:hover {
+#setting-buttons > div:hover {
     color: var(--off-white);
     background-color: var(--interactive-hover);
 }
 
-#setting-buttons div * {
+#setting-buttons > div > svg{
     width: 20px;
     height: 20px;
 }
+
+.user-panel-tooltip {
+    position: absolute;
+    bottom: 41.4px;
+    color: var(--off-white);
+    background-color: var(--white-form-text-color);
+    z-index: 1002;
+    max-width: 196px;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: var(--interactive-box-shadow);
+    white-space: nowrap;
+    display: none;
+    box-shadow: var(--elevation-high);
+    cursor: default;
+} 
+
+.user-panel-mute:hover > .user-panel-tooltip:not(:hover) {
+    display: block;
+}
+
+.user-panel-deafen:hover > .user-panel-tooltip:not(:hover) {
+    display: block;
+}
+
+.user-panel-logout:hover > .user-panel-tooltip:not(:hover) {
+    display: block;
+}
+
+
+.user-panel-tooltip .tooltip-text:before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 50%;
+    margin-right: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--white-form-text-color) transparent transparent transparent; 
+}
+
+
+
+.user-panel-mute {
+    position: relative;
+}
+
+.user-panel-deafen {
+    position: relative;
+}
+
+.user-panel-logout {
+    position: relative;
+}
+

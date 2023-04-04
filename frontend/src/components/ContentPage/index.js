@@ -4,7 +4,7 @@ import { NavLink, Redirect, useLocation, useParams, useHistory } from "react-rou
 import { fetchMessages, createMessage, getMessages, updateMessage } from '../../store/messages';
 import { getServer } from '../../store/servers';
 import { getChannel, fetchChannels, fetchChannel, resetChannels } from '../../store/channels';
-import './ContentPage.css';
+// import './ContentPage.css';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import InboxIcon from '@mui/icons-material/Inbox';

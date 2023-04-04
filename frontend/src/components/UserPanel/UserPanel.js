@@ -28,7 +28,7 @@ export default function UserPanel() {
         red: "rgb(237, 69, 69)",
     }
 
-   function colorById(id) {
+    function colorById(id) {
         const num = id % 10;
         switch (num) {
             case 0:
@@ -59,7 +59,7 @@ export default function UserPanel() {
         <div id="user-panel">
             <div id="user-box-wrapper">
                 <div id="user-box">
-                    <div className="user-icon" style={{backgroundColor: `${colorById(sessionUser.id)}`}}>
+                    <div className="user-icon" style={{ backgroundColor: `${colorById(sessionUser.id)}` }}>
                         <span className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</span>
                         {/* <rect x="0" y="0" rx="3" ry="3" width="70" height="70" /> */}
                         <div className={`user-status-bubble ${sessionUser.status}`}>
@@ -73,11 +73,16 @@ export default function UserPanel() {
                 </div>
             </div>
             <div id="setting-buttons">
-                <div onClick={() => setMuteToggle(!muteToggle)}>
+                <div className="user-panel-mute" onClick={() => setMuteToggle(!muteToggle)}>
                     {muteToggle ? <MicIcon /> : <MicOffIcon
                         sx={{ transform: "rotateY(180deg)" }} />}
+                    <div className="user-panel-tooltip">
+                        <div className="tooltip-text">
+                            {muteToggle ? "Mute" : "Unmute"}
+                        </div>
+                    </div>
                 </div>
-                <div onClick={() => setDeafenToggle(!deafenToggle)}>
+                <div className="user-panel-deafen" onClick={() => setDeafenToggle(!deafenToggle)}>
                     {deafenToggle ? <HeadsetIcon
                         sx={{
                             scale: "1.08",
@@ -87,10 +92,20 @@ export default function UserPanel() {
                             transform: "rotateY(180deg)",
                             scale: "1.08"
                         }} />}
+                    <div className="user-panel-tooltip">
+                        <div className="tooltip-text">
+                            {deafenToggle ? "Deafen" : "Undeafen"}
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <LogoutIcon style={{color: "var(--danger)"}}/>
+                <div className="user-panel-logout">
+                    <LogoutIcon style={{ color: "var(--danger)" }} />
                     {/* <SettingsIcon /> */}
+                    <div className="user-panel-tooltip">
+                        <div className="tooltip-text">
+                            Logout
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
