@@ -20,7 +20,6 @@ class Api::ServersController < ApplicationController
     def show
         if current_user
             @server = current_user.servers.find(params[:id]) 
-            # @invite_link = invite_link();
             @channels = @server.channels
             render :show
         end
@@ -43,7 +42,7 @@ class Api::ServersController < ApplicationController
     def invite_link
         @server = Server.find(params[:id])
         @invite_token = @server.invite_token
-        url = Rails.env.production? ? "https://untitled-w1r2.onrender.com/servers/#{@server.id}/invite/#{@invite_token}" : "http://localhost:3000/servers/#{@server.id}/invite/#{@invite_token}"
+        url = Rails.env.production? ? "https://untitled-w1r2.onrender.com/channels/#{@server.id}/#{@invite_token}" : "http://localhost:3000/channels/#{@server.id}/#{@invite_token}"
         render json: { invite_link: url }
     end
 

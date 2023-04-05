@@ -18,7 +18,7 @@ function ChannelDelete({ onClose }) {
         setErrors([]);
         return dispatch(deleteChannel(channelId)).then(() => {
             onClose();
-            if (url.includes(`channels/${channelId}`)) history.push(`/servers/${serverId}/channels/${server.defaultChannel}`);
+            if (url.includes(`channels/${channelId}`)) history.push(`/channels/${serverId}/${server.defaultChannel}`);
             dispatch(fetchServer(serverId));
         })
             .catch(async (res) => {

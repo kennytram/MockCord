@@ -221,7 +221,7 @@
 .channel-item {
     display: flex;
     width: 130px;
-    max-width: 130px;
+    max-width: 1px;
     text-overflow: ellipsis;
     white-space: nowrap;
     -webkit-text-stroke: 0px;

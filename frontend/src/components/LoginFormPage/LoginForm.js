@@ -12,7 +12,7 @@ function LoginFormPage() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to="/servers/@me" />;
+  if (sessionUser) return <Redirect to="/channels/@me" />;
 
   const demoUser = () => {
     setCredential('Demo-lition@user.io')

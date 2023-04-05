@@ -2,12 +2,9 @@
     height: 48px;
     box-shadow: var(--interactive-box-shadow);
     background-color: var(--icon-bg);
-    z-index: 1;
-
-    position: relative;
     width: 100%;
     min-width: 0%;
-
+    z-index: 1;
     display: flex;
     align-items: center;
     padding: 0 8px;
@@ -17,13 +14,15 @@
     justify-content: space-between;
     white-space: nowrap;
     letter-spacing: 0.015em;
+
+    position: unset;
 }
 
 .top-left-side {
     display: flex;
     align-items: center;
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
     box-sizing: border-box;
 }
 
@@ -94,7 +93,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    overflow: hidden;
+    /* overflow: hidden; */
     box-sizing: border-box;
     width: 155px;
 }
@@ -127,5 +126,5 @@
 }
 
 .channel-tools {
-    width: 500px;
+    width: 410px;
 }

@@ -5,8 +5,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-repeat: none;
-    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: black;
 }
 
 .error-home {

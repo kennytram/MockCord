@@ -32,7 +32,7 @@ function App() {
           <TopBar />
           <ContentPage />
         </Route> */}
-        <Route exact path="/servers/:serverId/channels/:channelId" component={ServerPage}>
+        <Route exact path="/channels/:serverId(\d+)/:channelId(\d+)" component={ServerPage}>
           {/* <NavBar />
           <LeftSideBar />
           <UserPanel />
@@ -40,19 +40,19 @@ function App() {
           <ContentPage /> */}
         </Route>
 
-        <Route exact path="/servers/:serverId/invite/:inviteToken" component={HomePage}>
-          {/* <Redirect to="/servers/@me" /> */}
+        <Route exact path="/channels/:serverId(\d+)/:inviteToken" component={HomePage}/>
+
+        <Route exact path="/channels/:serverId(\d+)" component={ServerPage}/>
+
+        <Route exact path="/channels/@me" component={HomePage}/>
+
+        <Route exact strict path="/channels/">
+          <Redirect to="/channels/@me" />
         </Route>
 
-        <Route exact path="/servers/:serverId" component={HomePage}/>
+        <Route exact path="/login" component={LoginFormPage}/>
 
-        <Route exact strict path="/servers/">
-          <Redirect to="/servers/@me" />
-        </Route>
-
-        <Route path="/login" component={LoginFormPage}/>
-
-        <Route path="/register" component={SignupFormPage}/>
+        <Route exact path="/register" component={SignupFormPage}/>
 
         <Route exact path="/" component={SplashPage}/>
         <Route component={ErrorPage}/>

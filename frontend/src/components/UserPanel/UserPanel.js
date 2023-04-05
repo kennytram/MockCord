@@ -61,7 +61,7 @@ export default function UserPanel() {
         dispatch(sessionActions.logout());
     };
 
-    if (!url.includes('/servers')
+    if (!url.includes('/channels')
         && !url.includes('/guild-discovery')
         && !url.includes('/store')) return null;
 

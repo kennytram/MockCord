@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, Redirect, useLocation, useParams } from "react-router-dom";
+import { NavLink, Redirect, useLocation, useParams, useHistory } from "react-router-dom";
 import { getChannels, resetChannels, fetchChannels } from '../../store/channels';
 import { getServer, fetchServer } from '../../store/servers';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -21,6 +21,7 @@ import './UserBar.css';
 function UserBar() {
     const dispatch = useDispatch();
     const location = useLocation();
+    const history = useHistory();
     const url = location.pathname;
     const { serverId, channelId } = useParams();
     const server = useSelector(getServer(serverId));
@@ -47,29 +48,32 @@ function UserBar() {
                 <div id="left-navbar-header-alt">
                     <div id="left-navbar-header-box-alt">
                         <button className="searchbar">
-                            <div id="conversation-text">Find or start a conversation</div>
+                            <div id="conversation-text">Created by Kenny Tram</div>
                         </button>
                     </div>
                 </div>
 
                 <ul id="dm-header-sections">
-                    <li className="dm-header-section">
-                        <div className="header-section-box">
+                    <li className="dm-header-section" onClick={() => { history.push("/channels/@me") }}>
+                        <div className="header-section-box" >
                             {/* <PeopleAltIcon /> */}
                             {friendSVG}
                             <div className="header-name">Friends</div>
                         </div>
                     </li>
 
-                    <li className="dm-header-section">
-                        <div className="header-section-box">
-                            <div id="nitro-box">
-                                {/* <CatchingPokemonIcon sx={{ rotate: '180deg' }} className="nitro" /> */}
-                                {nitroSVG}
-                                <div className="header-name">Nitro</div>
+                    <a href="https://github.com/kennytram" target="_blank" rel="noreferrer">
+                        <li className="dm-header-section">
+                            <div className="header-section-box">
+                                <div id="nitro-box">
+                                    {/* <CatchingPokemonIcon sx={{ rotate: '180deg' }} className="nitro" /> */}
+                                    {nitroSVG}
+                                    <div className="header-name">Github</div>
+                                </div>
                             </div>
-                        </div>
-                    </li>
+
+                        </li>
+                    </a>
 
                 </ul>
 
@@ -91,7 +95,7 @@ function UserBar() {
                     <li className="dm">
                         <div className="dm-wrapper">
                             <div className="dm-user-info">
-                                <div className="user-icon dm-user-icon" style={{backgroundColor: `var(--brand)`}}>
+                                <div className="user-icon dm-user-icon" style={{ backgroundColor: `var(--brand)` }}>
                                     <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
                                     <div className={`user-status-bubble online bar-status-bubble`}>
                                         <div className={`user-status-bubble-inner online bar-status-bubble`}></div>

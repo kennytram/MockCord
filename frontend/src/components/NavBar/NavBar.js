@@ -24,6 +24,7 @@ export default function NavBar() {
   const servers = useSelector(getServers);
   // const currentUser = useSelector(state => state.users[sessionUser.id]);
   const users = useSelector(getUsers);
+  const addServerElement = useRef(null);
   const [loaded, setLoaded] = useState(false);
   const [showServerModal, setShowServerModal] = useState(false);
   const [showRightClickMenu, setShowRightClickMenu] = useState(false);
@@ -32,19 +33,29 @@ export default function NavBar() {
 
 
   useEffect(() => {
-    if (selectorRef.current) {
-      const navLink = selectorRef.current.querySelector('a.active');
-      if (navLink) {
-        selectorRef.current.classList.add('current');
-      }
-    }
     Promise.all([
       inviteToken ? dispatch(joinServer(serverId, inviteToken)) : null,
       dispatch(fetchServers()),
-    ]).then(() => {  
+    ]).then(() => {
       setLoaded(true);
+      if (selectorRef.current) {
+        const navLink = selectorRef.current.querySelector('a.active');
+        if (navLink) {
+          navLink.parentElement.parentElement.classList.add('current');
+        }
+      }
     });
   }, [dispatch]);
+
+  useEffect(() => {
+    // console.log(url.split('/'));
+    if (selectorRef.current) {
+      const navLink = selectorRef.current.querySelector('a.active');
+      if (navLink) {
+        navLink.parentElement.parentElement.classList.add('current');
+      }
+    }
+  }, [url]);
 
   const logout = (e) => {
     e.preventDefault();
@@ -61,18 +72,18 @@ export default function NavBar() {
     child.classList.remove("selected");
   }
 
-  const removePrevCurrent = (e) => {
-    const navLink = e.currentTarget.querySelector('a.active');
+  const removePrevCurrent = () => {
 
-    if (navLink) {
-      const grandFather = navLink.parentElement.parentElement;
-      if (e.currentTarget.querySelectorAll('.current').length > 1) {
-        grandFather.classList.remove('current');
-      }
+    const currents = selectorRef.current.querySelectorAll('.current');
+    if (currents) {
+      currents.forEach(current => {
+        current.classList.remove('current');
+      });
     }
   }
 
   const addCurrent = (e) => {
+    removePrevCurrent();
     e.currentTarget.parentElement.classList.add('current');
   }
 
@@ -91,17 +102,17 @@ export default function NavBar() {
   };
 
   if (!sessionUser) return <Redirect to="/login" />;
-  if (!url.includes('/servers')
+  if (!url.includes('/channels')
     && !url.includes('/guild-discovery')
     && !url.includes('/store')) return null;
   return (
     <nav id="navbar">
-      <ul id="server-list" onClick={removePrevCurrent} onScroll={handleScroll}>
+      <ul id="server-list" ref={selectorRef} onScroll={handleScroll}>
         <li key="@me">
-          <div className="icon-box-wrapper" ref={selectorRef} onMouseOver={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+          <div className="icon-box-wrapper" onMouseOver={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <div className="icon-box" onClick={addCurrent} onMouseOver={addSelected} onMouseLeave={removeSelected}>
               <NavLink to={{
-                pathname: "/servers/@me"
+                pathname: "/channels/@me"
               }}>
                 <div className="icon-wrapper">
                   <div className="server-icon">
@@ -134,7 +145,7 @@ export default function NavBar() {
                 <div className="icon-box-wrapper" onMouseOver={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                   <div className="icon-box" onClick={addCurrent} onMouseOver={addSelected} onMouseLeave={removeSelected}>
                     <NavLink to={{
-                      pathname: `/servers/${server.id}/channels/${server.defaultChannel}`
+                      pathname: `/channels/${server.id}/${server.defaultChannel}`
                     }}>
                       <div className="icon-wrapper">
                         <div className="server-icon">
@@ -159,16 +170,19 @@ export default function NavBar() {
           ))}
         </ul>
 
-        <li key="add-server" >
-          <div className="icon-box-wrapper-alt" onMouseOver={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <div className="icon-box green"
+        <li key="add-server" ref={addServerElement}>
+          <div className="icon-box-wrapper-alt" >
+            <div
+              className="icon-box green"
               onMouseOver={addSelected}
-              onMouseLeave={removeSelected}
+              onMouseLeave={showServerModal ? null : removeSelected}
               onClick={() => {
                 setShowServerModal(true);
                 document.body.style.overflow = "hidden";
+                addServerElement.current.querySelector(".icon-wrapper").classList.add("selected");
               }}>
-              <div className="icon-wrapper">
+              <div
+                className="icon-wrapper">
                 <div className="server-icon">
                   +
                 </div>
@@ -177,10 +191,12 @@ export default function NavBar() {
               <Modal onClose={() => {
                 setShowServerModal(false);
                 document.body.style.overflow = "unset";
+                addServerElement.current.querySelector(".icon-wrapper").classList.remove("selected");
               }} className="create-server">
                 <ServerForm onClose={() => {
                   setShowServerModal(false);
                   document.body.style.overflow = "unset";
+                  addServerElement.current.querySelector(".icon-wrapper").classList.remove("selected");
                 }} />
               </Modal>
             )}

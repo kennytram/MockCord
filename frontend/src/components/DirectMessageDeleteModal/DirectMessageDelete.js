@@ -14,7 +14,7 @@ function DirectMessageDelete({ onClose }) {
         setErrors([]);
         return dispatch(deleteDirectMessage(dmId)).then(() => {
             onClose();
-            history.push("/servers/@me");
+            history.push("/channels/@me");
 
         })
             .catch(async (res) => {

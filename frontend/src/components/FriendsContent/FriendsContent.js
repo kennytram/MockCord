@@ -107,7 +107,7 @@ function FriendsContent() {
                     </ul>
                 </ul>
                 <ul className="top-right-side">
-                    <li>
+                    {/* <li>
                         {groupDMSVG}
                         <div className="toolbar-tooltip">
                             <div className="tooltip-text">
@@ -131,7 +131,7 @@ function FriendsContent() {
                                 Help
                             </div>
                         </div>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
             <div className="content">
@@ -151,14 +151,14 @@ function FriendsContent() {
                     <div id="other-places-header">
                         OTHER PLACES TO MAKE FRIENDS
                     </div>
-                    <div className="explore-box">
+                    {/* <div className="explore-box">
                         <button className="explore-button">
                             <div id="left-explore-buttonside"><ExploreIcon className="public-server-friend-icon" /><span>
                                 &nbsp;&nbsp;Explore Public Servers</span></div>
                             <div></div>
                             <div id="right-explore-buttonside"><KeyboardArrowRightIcon /></div>
                         </button>
-                    </div>
+                    </div> */}
                     <div id="add-friend-wumpus">
                         <div className="all-wumpus-image" />
                         <div className="wumpus-desc">

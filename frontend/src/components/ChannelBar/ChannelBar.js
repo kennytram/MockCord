@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, Redirect, useLocation, useParams } from "react-router-dom";
+import { NavLink, Redirect, useLocation, useParams, useHistory, Link } from "react-router-dom";
 import { getServer, fetchServer } from '../../store/servers';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NumbersIcon from '@mui/icons-material/Numbers';
@@ -16,6 +16,7 @@ import './ChannelBar.css';
 
 function ChannelBar() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const location = useLocation();
     const url = location.pathname;
     const { serverId, channelId } = useParams();
@@ -36,11 +37,15 @@ function ChannelBar() {
 
     const leaveSVG = <svg aria-hidden="true" role="img" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M10.418 13L12.708 15.294L11.292 16.706L6.586 11.991L11.294 7.292L12.707 8.708L10.41 11H21.949C21.446 5.955 17.177 2 12 2C6.486 2 2 6.487 2 12C2 17.513 6.486 22 12 22C17.177 22 21.446 18.046 21.949 13H10.418Z"></path></svg>
 
-    
+
     useEffect(() => {
         Promise.all(
             [dispatch(fetchServer(serverId))]
-        ).then(() => setLoaded(true));
+        ).then(() => {
+            setLoaded(true);
+        }).catch(() => {
+            history.push('/channels/@me');
+        });
     }, [dispatch, serverId]);
 
     const handleMouseOver = (e) => {
@@ -109,8 +114,7 @@ function ChannelBar() {
                     </li>
                     <ul id="channels" >
                         {server && server.channels ? Object.values(server.channels).map(channel => (
-
-                            <NavLink key={channel.id} className="channel-navlink" to={`/servers/${serverId}/channels/${channel.id}`}>
+                            <Link key={channel.id} className="channel-navlink" to={`/channels/${serverId}/${channel.id}`}>
                                 <div className="channel-wrapper">
                                     <li >
                                         <div className="channel-item">
@@ -120,13 +124,26 @@ function ChannelBar() {
                                         </div>
                                         <div className="channel-edit-delete">
                                             <div className="channel-edit" >
-                                                <EditIcon onClick={() => {
+                                                <EditIcon onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    document.body.style.overflow = 'hidden';
                                                     setEditChannel(channel);
                                                     setShowUpdateChannelModal(true);
                                                 }} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} />
                                                 {showUpdateChannelModal && editChannel === channel && (
-                                                    <Modal onClose={() => setShowUpdateChannelModal(false)} className="create-server">
-                                                        <ChannelUpdate onClose={() => setShowUpdateChannelModal(false)} />
+                                                    <Modal onClose={(e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        document.body.style.overflow = 'unset';
+                                                        setShowUpdateChannelModal(false);
+                                                    }} className="create-server">
+                                                        <ChannelUpdate onClose={(e) => {
+                                                            e.preventDefault();
+                                                            e.stopPropagation();
+                                                            document.body.style.overflow = 'unset';
+                                                            setShowUpdateChannelModal(false);
+                                                        }} />
                                                     </Modal>
                                                 )}
                                                 {showTooltip && (
@@ -138,28 +155,41 @@ function ChannelBar() {
                                                 )}
                                             </div>
                                             {channel.id !== server.defaultChannel ? (
-                                            <div className="channel-delete" >
-                                                <CloseIcon onClick={() => {
-                                                    setEditChannel(channel);
-                                                    setShowDeleteChannelModal(true);
-                                                }} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} />
-                                                {showDeleteChannelModal && editChannel === channel && (
-                                                    <Modal onClose={() => setShowDeleteChannelModal(false)} className="create-server">
-                                                        <ChannelDelete onClose={() => setShowDeleteChannelModal(false)} />
-                                                    </Modal>
-                                                )}
-                                                {showTooltip && (
-                                                    <div className="add-channel-symbol-tooltip" style={{ left: tooltipPosition.left, top: tooltipPosition.top }}>
-                                                        <div className="tooltip-text">
-                                                            Delete Channel
+                                                <div className="channel-delete" >
+                                                    <CloseIcon onClick={(e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        document.body.style.overflow = 'hidden';
+                                                        setEditChannel(channel);
+                                                        setShowDeleteChannelModal(true);
+                                                    }} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} />
+                                                    {showDeleteChannelModal && editChannel === channel && (
+                                                        <Modal onClose={(e) => {
+                                                            e.preventDefault();
+                                                            e.stopPropagation();
+                                                            document.body.style.overflow = 'unset';
+                                                            setShowDeleteChannelModal(false);
+                                                        }} className="create-server">
+                                                            <ChannelDelete onClose={(e) => {
+                                                                e.preventDefault();
+                                                                e.stopPropagation();
+                                                                document.body.style.overflow = 'unset';
+                                                                setShowDeleteChannelModal(false);
+                                                            }} />
+                                                        </Modal>
+                                                    )}
+                                                    {showTooltip && (
+                                                        <div className="add-channel-symbol-tooltip" style={{ left: tooltipPosition.left, top: tooltipPosition.top }}>
+                                                            <div className="tooltip-text">
+                                                                Delete Channel
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                )} 
-                                            </div>) : <><div className='channel-delete'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></>}
+                                                    )}
+                                                </div>) : <><div className='channel-delete'><div style={{ minWidth: '24px' }}></div></div></>}
                                         </div>
                                     </li>
                                 </div>
-                            </NavLink>
+                            </Link>
                         )) : null}
                     </ul>
                 </ul>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 import { getChannel, updateChannel } from '../../store/channels';
-import {getServer} from '../../store/servers';
+import { getServer } from '../../store/servers';
 // import "./ServerUpdate.css"
 function ChannelUpdate({ onClose }) {
     const dispatch = useDispatch();

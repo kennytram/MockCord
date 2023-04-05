@@ -13,7 +13,7 @@ function ServerDelete({ onClose }) {
         e.preventDefault();
         setErrors([]);
         return dispatch(destroyServer(serverId)).then(() => {
-            history.push("/servers/@me");
+            history.push("/channels/@me");
             onClose();
         })
             .catch(async (res) => {
