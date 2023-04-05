@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import { getFriendRequests } from "../../../store/FriendRequests";
 import SearchIcon from '@mui/icons-material/Search';
 import CheckIcon from '@mui/icons-material/Check';
@@ -9,6 +10,23 @@ import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 function FriendsOnline() {
     const friendRequests = useSelector(getFriendRequests);
     const acceptedRequests = friendRequests.filter(friendRequest => friendRequest.status === "accepted");
+
+    const [showTooltip, setShowTooltip] = useState(false);
+    const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
+
+    const handleMouseOver = (e) => {
+        const { left, top } = e.currentTarget.getBoundingClientRect();
+        setTooltipPosition({ left: 1040, top: top - 45 });
+        setShowTooltip(true);
+    };
+
+    const handleMouseLeave = () => {
+        setShowTooltip(false);
+    };
+
+    const handleScroll = () => {
+        setShowTooltip(false);
+    };
 
     return (
         <>
@@ -25,7 +43,7 @@ function FriendsOnline() {
                         return ( */}
 
                     <div className="friendrequests-count-container">Online - 1</div>
-                    <ul className="friend-request-list">
+                    <ul className="friend-request-list" onScroll={handleScroll}>
                         <div className="friend-request">
                             <div className="friend-request-info">
                                 <div className="friend-request-info-left">
@@ -50,16 +68,23 @@ function FriendsOnline() {
                                     </div>
                                 </div>
                                 <div className="friend-request-info-right">
-                                    <button className="friend-request-info-right-button">
+                                    <button className="friend-request-info-right-button" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
                                         <ChatBubbleIcon />
-                                    </button>
-                                    <button className="friend-request-info-right-button blocked">
-                                        <CloseIcon />
-                                        {/* <div className="friend-request-tooltip">
+                                        {showTooltip && <div className="friend-request-tooltip"
+                                        style={{ top: tooltipPosition.top }}>
                                             <div className="tooltip-text">
-                                                Unblock
+                                                Message
                                             </div>
-                                        </div> */}
+                                        </div>}
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
+                                        <CloseIcon />
+                                        {showTooltip && <div className="friend-request-tooltip"
+                                        style={{ top: tooltipPosition.top }}>
+                                            <div className="tooltip-text">
+                                                Remove Friend
+                                            </div>
+                                        </div>}
                                     </button>
                                 </div>
                             </div>

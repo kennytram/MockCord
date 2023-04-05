@@ -28,7 +28,6 @@ export default function NavBar() {
   const [showRightClickMenu, setShowRightClickMenu] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ left: 0, top: 0 });
-  const scrollableContainerRef = useRef(null);
 
 
   useEffect(() => {
@@ -85,7 +84,6 @@ export default function NavBar() {
 
   const handleScroll = () => {
     setShowTooltip(false);
-    removeSelected();
   };
 
   if (!sessionUser) return <Redirect to="/login" />;
@@ -96,7 +94,7 @@ export default function NavBar() {
     <nav id="navbar">
       <ul id="server-list" onClick={removePrevCurrent} onScroll={handleScroll}>
         <li key="@me">
-          <div className="icon-box-wrapper" ref={selectorRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+          <div className="icon-box-wrapper" ref={selectorRef} onMouseOver={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <div className="icon-box" onClick={addCurrent} onMouseOver={addSelected} onMouseLeave={removeSelected}>
               <NavLink to={{
                 pathname: "/servers/@me"
@@ -109,11 +107,6 @@ export default function NavBar() {
               </NavLink>
             </div>
           </div>
-          {/* <div className="navbar-tooltip">
-            <div className="tooltip-text">
-              Direct Messages
-            </div>
-          </div> */}
           {showTooltip && (
             <div
               className="navbar-tooltip"
@@ -134,7 +127,7 @@ export default function NavBar() {
           {servers.map(server => (
             server && server.members[sessionUser.id] ? (
               <li key={server.Id} >
-                <div className="icon-box-wrapper" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                <div className="icon-box-wrapper" onMouseOver={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                   <div className="icon-box" onClick={addCurrent} onMouseOver={addSelected} onMouseLeave={removeSelected}>
                     <NavLink to={{
                       pathname: `/servers/${server.id}/channels/${server.defaultChannel}`
@@ -162,8 +155,8 @@ export default function NavBar() {
           ))}
         </ul>
 
-        <li key="add-server" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-          <div className="icon-box-wrapper-alt">
+        <li key="add-server" >
+          <div className="icon-box-wrapper-alt" onMouseOver={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <div className="icon-box green"
               onMouseOver={addSelected}
               onMouseLeave={removeSelected}
@@ -216,8 +209,8 @@ export default function NavBar() {
           <div className="nav-line-separator" />
         </div>
 
-        <li key="logout" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-          <div className="icon-box-wrapper">
+        <li key="logout" >
+          <div className="icon-box-wrapper" onMouseOver={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <div className="icon-box red" onMouseOver={addSelected} onMouseLeave={removeSelected}>
               <div onClick={logout}>
                 <div className="icon-wrapper">

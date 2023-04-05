@@ -133,17 +133,10 @@ function FriendsContent() {
             <div className="content">
                 {!buttonStates.at(-1) ? (
                     <div className="friends-show-container">
-                        {/* <div className="friend-show-box"> */}
-                            {buttonStates.at(0) ? (<FriendsOnline/>) : buttonStates.at(1) ? (<FriendsAll/>) : buttonStates.at(2) ? (<FriendsPending/>) : (<FriendsBlocked/>
-                            // <>
-                            //     <div id="blocked-wumpus-image" />
-                            //     <div className="wumpus-desc">
-                            //         You can't unblock the Wumpus.
-                            //     </div>
-                            // </>
-                            )}
-                        </div>
-                    // </div>
+                        {
+                            buttonStates.at(0) ? (<FriendsOnline />) : buttonStates.at(1) ? (<FriendsAll />) : buttonStates.at(2) ? (<FriendsPending />) : (<FriendsBlocked />)
+                        }
+                    </div>
                 ) : (<><div id="add-friend-container"><div id="add-friend-header">
                     <div id="add-friend-title">ADD FRIEND</div>
                     <div className="add-friend-input">

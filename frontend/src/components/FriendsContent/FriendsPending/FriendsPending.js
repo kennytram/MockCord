@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import { getFriendRequests } from "../../../store/FriendRequests";
 import SearchIcon from '@mui/icons-material/Search';
 import CheckIcon from '@mui/icons-material/Check';
@@ -8,6 +9,23 @@ import CloseIcon from '@mui/icons-material/Close';
 function FriendsPending() {
     const friendRequests = useSelector(getFriendRequests);
     const pendingRequests = friendRequests.filter(friendRequest => friendRequest.status === "pending");
+
+    const [showTooltip, setShowTooltip] = useState(false);
+    const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
+
+    const handleMouseOver = (e) => {
+        const { left, top } = e.currentTarget.getBoundingClientRect();
+        setTooltipPosition({ left: 1040, top: top - 45 });
+        setShowTooltip(true);
+    };
+
+    const handleMouseLeave = () => {
+        setShowTooltip(false);
+    };
+
+    const handleScroll = () => {
+        setShowTooltip(false);
+    };
 
     return (
         <>
@@ -24,7 +42,7 @@ function FriendsPending() {
                         return ( */}
 
                     <div className="friendrequests-count-container">Pending - 1</div>
-                    <ul className="friend-request-list">
+                    <ul className="friend-request-list" onScroll={handleScroll}>
                         <div className="friend-request">
                             <div className="friend-request-info">
                                 <div className="friend-request-info-left">
@@ -49,16 +67,23 @@ function FriendsPending() {
                                     </div>
                                 </div>
                                 <div className="friend-request-info-right">
-                                    <button className="friend-request-info-right-button accepted">
+                                    <button className="friend-request-info-right-button accepted accept" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
                                         <CheckIcon/>
-                                    </button>
-                                    <button className="friend-request-info-right-button blocked">
-                                        <CloseIcon/>
-                                        {/* <div className="friend-request-tooltip">
+                                        {showTooltip && <div className="friend-request-tooltip"
+                                            style={{ top: tooltipPosition.top }}>
                                             <div className="tooltip-text">
-                                                Unblock
+                                                Accept
                                             </div>
-                                        </div> */}
+                                        </div>}
+                                    </button>
+                                    <button className="friend-request-info-right-button blocked decline" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
+                                        <CloseIcon/>
+                                        {showTooltip && <div className="friend-request-tooltip"
+                                            style={{ top: tooltipPosition.top }}>
+                                            <div className="tooltip-text">
+                                                Decline
+                                            </div>
+                                        </div>}
                                     </button>
                                 </div>
                             </div>

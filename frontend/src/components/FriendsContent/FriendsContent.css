@@ -372,7 +372,7 @@ svg:hover ~ .toolbar-tooltip:not(:hover) {
     padding: 0 12px;
 
     width: 97%;
-
+    user-select: none;
     cursor: text;
     user-select: none;
     font-size: 16px;
@@ -686,12 +686,14 @@ button.searchbar:hover {
 }
 
 .friend-request-tooltip {
-    position: absolute;
-    bottom: 46.4px;
-    right: -17px;
+    position: fixed;
+    /* bottom: 46.4px;
+    right: -17px; */
+    top: 108px;
+    margin-left: -43px;
     color: var(--off-white);
     background-color: var(--white-form-text-color);
-    z-index: 1002;
+    z-index: 1;
     max-width: 196px;
     word-wrap: break-word;
     font-size: 12px;
@@ -705,6 +707,22 @@ button.searchbar:hover {
     box-shadow: var(--elevation-high);
     cursor: default;
     overflow: visible;
+}
+
+.friend-request-info-right-button:not(.blocked) .friend-request-tooltip {
+    margin-left: -24px;
+}
+
+.friend-request-info-right-button.unblock .friend-request-tooltip {
+    margin-left: -23px;
+}
+
+.friend-request-info-right-button.accept .friend-request-tooltip {
+    margin-left: -18.5px;
+}
+
+.friend-request-info-right-button.decline .friend-request-tooltip {
+    margin-left: -21px;
 }
 
 .friend-request-tooltip .tooltip-text:before {
@@ -731,7 +749,7 @@ button.searchbar:hover {
     /* min-height: calc(100vh - 139px); */
     /* overflow-y: scroll; */
     user-select: none;
-    overflow-y: scroll;
+    overflow: hidden scroll;
 }
 
 .friend-request-info-left-text-tag {
