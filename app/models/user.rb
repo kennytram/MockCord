@@ -66,6 +66,10 @@ class User < ApplicationRecord
   def subscribe_channel(channel)
     ChannelSubscription.create(user_id: self.id, channel_id: channel.id)
   end
+
+  def unsubscribe_channel(channel)
+    ChannelSubscription.find_by(user_id: self.id, channel_id: channel.id).destroy
+  end
   
   def self.find_by_credentials(credential, password)
     # field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : :username

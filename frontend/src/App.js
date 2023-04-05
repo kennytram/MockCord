@@ -11,16 +11,15 @@ import ContentPage from "./components/ContentPage";
 import { Modal } from "./context/Modal";
 import ServerForm from "./components/ServerFormModal/ServerForm";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
-
 import HomePage from "./components/HomePage/HomePage";
+import ServerPage from "./components/ServerPage/ServerPage";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
   const location = useLocation();
   const url = location.pathname;
   const [showServerModal, setShowServerModal] = useState(false);
-  { }
-  { }
-
 
 
   return (
@@ -33,7 +32,7 @@ function App() {
           <TopBar />
           <ContentPage />
         </Route> */}
-        <Route exact path="/servers/:serverId/channels/:channelId" >
+        <Route exact path="/servers/:serverId/channels/:channelId" component={ServerPage}>
           {/* <NavBar />
           <LeftSideBar />
           <UserPanel />
@@ -41,34 +40,22 @@ function App() {
           <ContentPage /> */}
         </Route>
 
-        <Route exact path="/servers/:serverId" component={HomePage}>
-          {/* <NavBar />
-          <LeftSideBar />
-          <UserPanel />
-          { }
-          { }
-          <ContentPage /> */}
+        <Route exact path="/servers/:serverId/invite/:inviteToken" component={HomePage}>
+          {/* <Redirect to="/servers/@me" /> */}
         </Route>
-        { }
+
+        <Route exact path="/servers/:serverId" component={HomePage}/>
 
         <Route exact strict path="/servers/">
           <Redirect to="/servers/@me" />
         </Route>
 
-        <Route path="/login">
-          <LoginFormPage />
-        </Route>
+        <Route path="/login" component={LoginFormPage}/>
 
-        <Route path="/register">
-          <SignupFormPage />
-        </Route>
+        <Route path="/register" component={SignupFormPage}/>
 
-        <Route exact path="/" >
-          <SplashPage />
-        </Route>
-        <Route>
-          <ErrorPage />
-        </Route>
+        <Route exact path="/" component={SplashPage}/>
+        <Route component={ErrorPage}/>
       </Switch>
     </>
   );

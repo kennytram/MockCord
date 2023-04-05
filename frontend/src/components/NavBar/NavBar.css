@@ -5,7 +5,7 @@
     max-width: 72px;
     background-color: var(--navbar-color);
     min-height: 100%;
-    overflow: visible
+    overflow: visible;
 }
 
 ::-webkit-scrollbar {
@@ -37,7 +37,7 @@
     width: 100%;
     max-width: 72px;
     position: relative;
-
+    
 }
 
 #servers .server-icon {

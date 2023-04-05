@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
 import { deleteChannel } from '../../store/channels';
-import "./ServerDelete.css"
+import { getServer, fetchServer } from '../../store/servers';
+// import "./ServerDelete.css"
 function ChannelDelete({ onClose }) {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -11,12 +12,14 @@ function ChannelDelete({ onClose }) {
     const { serverId, channelId } = useParams();
     const [errors, setErrors] = useState([]);
     const history = useHistory();
+    const server = useSelector(getServer(serverId));
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
         return dispatch(deleteChannel(channelId)).then(() => {
             onClose();
-            history.push(`/servers/${serverId}`);
+            if (url.includes(`channels/${channelId}`)) history.push(`/servers/${serverId}/channels/${server.defaultChannel}`);
+            dispatch(fetchServer(serverId));
         })
             .catch(async (res) => {
                 let data;

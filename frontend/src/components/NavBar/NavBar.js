@@ -1,7 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { Redirect, NavLink, useLocation, useHistory } from "react-router-dom";
-import { fetchServer, fetchServers, getServers } from '../../store/servers';
+import { fetchServer, fetchServers, getServers, joinServer } from '../../store/servers';
 import { getChannels } from '../../store/channels';
 import ExploreIcon from "@mui/icons-material/Explore";
 import { DownloadSimple } from 'phosphor-react';
@@ -16,14 +17,14 @@ import { fetchUsers, getUsers } from '../../store/users';
 export default function NavBar() {
   const dispatch = useDispatch();
   const location = useLocation();
-
+  const { serverId, inviteToken } = useParams();
   const selectorRef = useRef(null);
   const url = location.pathname;
   const sessionUser = useSelector(state => state.session.user);
   const servers = useSelector(getServers);
   // const currentUser = useSelector(state => state.users[sessionUser.id]);
   const users = useSelector(getUsers);
-
+  const [loaded, setLoaded] = useState(false);
   const [showServerModal, setShowServerModal] = useState(false);
   const [showRightClickMenu, setShowRightClickMenu] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
@@ -38,8 +39,11 @@ export default function NavBar() {
       }
     }
     Promise.all([
+      inviteToken ? dispatch(joinServer(serverId, inviteToken)) : null,
       dispatch(fetchServers()),
-    ]);
+    ]).then(() => {  
+      setLoaded(true);
+    });
   }, [dispatch]);
 
   const logout = (e) => {
@@ -126,7 +130,7 @@ export default function NavBar() {
         <ul id="servers">
           {servers.map(server => (
             server && server.members[sessionUser.id] ? (
-              <li key={server.Id} >
+              <li key={server.id} >
                 <div className="icon-box-wrapper" onMouseOver={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                   <div className="icon-box" onClick={addCurrent} onMouseOver={addSelected} onMouseLeave={removeSelected}>
                     <NavLink to={{

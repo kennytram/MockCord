@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateServer, destroyServer } from '../../store/servers';
-import "./ServerEdit.css"
+// import "./ServerEdit.css"
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Modal } from '../../context/Modal';

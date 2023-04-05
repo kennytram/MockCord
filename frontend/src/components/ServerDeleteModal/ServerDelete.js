@@ -13,9 +13,8 @@ function ServerDelete({ onClose }) {
         e.preventDefault();
         setErrors([]);
         return dispatch(destroyServer(serverId)).then(() => {
-            onClose();
             history.push("/servers/@me");
-
+            onClose();
         })
             .catch(async (res) => {
                 let data;

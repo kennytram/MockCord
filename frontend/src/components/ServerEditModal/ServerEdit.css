@@ -3,13 +3,13 @@
     box-sizing: border-box;
     display: flex;
     height: auto;
-    cursor: default;
     max-height: calc(100vh - 32px);
     box-shadow: rgba(0, 0, 0, 0.24);
     background: rgb(17, 18, 20);
     border-radius: 4px;
     padding: 6px 8px;
     flex-direction: column;
+    cursor: pointer;
 }
 
 .update-server {

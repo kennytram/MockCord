@@ -9,12 +9,16 @@ function ServerForm({ onClose }) {
         name: ""
     });
     const [errors, setErrors] = useState([]);
-
+    const [error, setError] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
+        if (!server.name.trim()) {
+            setError(true);
+            return;
+        }
         onClose();
         return dispatch(createServer(server))
             .catch(async (res) => {
@@ -41,12 +45,12 @@ function ServerForm({ onClose }) {
             </div>
             <form className="server-create-content" onSubmit={handleSubmit}>
                 <div className="server-form-content">
-                    <div className="server-create-name">SERVER NAME</div>
+                    <div className="server-create-name">SERVER NAME{error && <span className="error"> - Please enter a name</span>}</div>
                     <input type="text"
+                        required
                         value={server.name}
                         onChange={(e) => setServer({ ...server, name: e.target.value })}
                         placeholder="Create a server name here"
-                        required
                     />
                     <div className="create-note">
                         By creating a server, you agree to

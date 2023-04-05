@@ -1,9 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createChannel } from '../../store/channels';
+// import { createChannel } from '../../store/channels';
+import { createServerChannel } from '../../store/servers';
 import { useParams, useHistory } from 'react-router-dom';
-import "./ChannelForm.css"
+import { fetchServer } from '../../store/servers';
+// import "./ChannelForm.css"
 function ChannelForm({ onSuccess, onClose }) {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -11,14 +13,24 @@ function ChannelForm({ onSuccess, onClose }) {
         name: ""
     });
     const [errors, setErrors] = useState([]);
+    const [error, setError] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     const { serverId } = useParams();
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
         channel.serverId = serverId;
+        if (!channel.name.trim()) {
+            setError(true);
+            return;
+        }
         onClose();
-        return dispatch(createChannel(channel))
+        return dispatch(createServerChannel(channel))
+            .then((res) => {
+                if (res.ok) {
+                    dispatch(fetchServer(serverId));
+                }
+            })
             .catch(async (res) => {
                 let data;
                 try {
@@ -45,7 +57,7 @@ function ChannelForm({ onSuccess, onClose }) {
             </ul>
             <form className="server-create-content" onSubmit={handleSubmit}>
                 <div className="server-form-content">
-                    <div className="server-create-name">CHANNEL NAME</div>
+                    <div className="server-create-name">CHANNEL NAME{error && <span className="error"> - Please enter a name</span>}</div>
                     <input type="text"
                         required
                         value={channel.name}

@@ -11,6 +11,7 @@
 #  is_voice     :boolean          default(FALSE), not null
 #
 class Channel < ApplicationRecord
+    validates :name, presence: true
     belongs_to :server, class_name: :Server
     has_many :messages, as: :messageable
 

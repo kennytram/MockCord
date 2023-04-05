@@ -49,7 +49,8 @@
 
 .top-main-icon {
     padding-right: 8px;
-    color: var(--channel-default);
+    color: rgb(152, 154, 162);
+    display: flex;
 }
 
 .top-left-interactions {

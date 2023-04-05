@@ -196,7 +196,7 @@
     display: block;
 }
 
-#dm-title+.add-symbol {
+#dm-title + .add-symbol {
     display: flex;
     justify-content: center;
     align-items: center;

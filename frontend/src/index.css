@@ -19,7 +19,15 @@ html,
 body {
     font-family: 'gg';
     margin: 0;
-    overflow: visible
+    scrollbar-width: none;
+    scrollbar-color: transparent transparent;
+    overflow: hidden scroll;
+    /* overflow: visible */
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }
 
 ul,
@@ -72,12 +80,12 @@ li {
     --text-normal: rgb(219, 222, 225);
 
     --interactive-box-shadow: rgba(2, 2, 2, 0.2) 0px 1px 0px;
-    --box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px, 
-                    rgba(6,6,7,0.05) 0px 1.5px 0px 0px,
-                    rgba(2,2,2,0.05) 0px 2px 0px 0px;
+    --box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 0px 0px,
+        rgba(6, 6, 7, 0.05) 0px 1.5px 0px 0px,
+        rgba(2, 2, 2, 0.05) 0px 2px 0px 0px;
     --elevation-high: 0 8px 16px hsl((0 0 0)/0.24);
-    
-    --channel-default:  rgb(152, 154, 162);
+
+    --channel-default: rgb(152, 154, 162);
 
     --interactive-dm-header-text: rgb(243, 244, 245);
     --message-box-area-color: rgb(56, 58, 64);

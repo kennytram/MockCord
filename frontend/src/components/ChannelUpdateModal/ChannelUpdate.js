@@ -3,22 +3,28 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 import { getChannel, updateChannel } from '../../store/channels';
-import "./ServerUpdate.css"
+import {getServer} from '../../store/servers';
+// import "./ServerUpdate.css"
 function ChannelUpdate({ onClose }) {
     const dispatch = useDispatch();
     const [channelName, setChannelName] = useState("");
     const location = useLocation();
     const url = location.pathname;
     const { serverId, channelId } = useParams();
+    const [error, setError] = useState(false);
     const [errors, setErrors] = useState([]);
-    const channel = useSelector(getChannel(channelId));
+    const server = useSelector(getServer(serverId));
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        channel.name = channelName;
+        if (!channelName.trim()) {
+            setError(true);
+            return;
+        }
+        server.channels[channelId].name = channelName;
         onClose();
-        return dispatch(updateChannel(channel))
+        return dispatch(updateChannel(server.channels[channelId]))
             .catch(async (res) => {
                 let data;
                 try {
@@ -45,7 +51,7 @@ function ChannelUpdate({ onClose }) {
             </ul>
             <form className="server-create-content" onSubmit={handleSubmit}>
                 <div className="server-form-content">
-                    <div className="server-create-name">CHANNEL NAME</div>
+                    <div className="server-create-name">CHANNEL NAME{error && <span className="error"> - Please enter a name</span>}</div>
                     <input type="text"
                         value={channelName}
                         onChange={(e) => setChannelName(e.target.value)}

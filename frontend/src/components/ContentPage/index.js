@@ -96,8 +96,6 @@ export default function ContentPage() {
         const year = date.getFullYear();
         const formattedDate = `${month}/${day}/${year} 
         ${date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })}`;
-
-
         return formattedDate;
     }
 
@@ -243,7 +241,6 @@ export default function ContentPage() {
             otherUserId: otherUserId,
             userId: sessionUser.id
         }
-        console.log(dm);
         return dispatch(createDirectMessage(dm))
             .catch(async (res) => {
                 let data;

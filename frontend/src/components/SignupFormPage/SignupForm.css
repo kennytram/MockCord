@@ -101,6 +101,14 @@ label.error span {
     font-weight: 500;
 }
 
+.error {
+    color: rgb(250, 119, 123);
+}
+
+span.error {
+    font-weight: 700;
+}
+
 #register-button {
     background-color: rgb(88, 101, 242);
     width: 100%;

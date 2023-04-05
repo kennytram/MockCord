@@ -10,6 +10,7 @@
     /* left: 72px; */
     bottom: 0;
     /* overflow-x: hidden; */
+    z-index: 2;
 }
 
 #user-box {

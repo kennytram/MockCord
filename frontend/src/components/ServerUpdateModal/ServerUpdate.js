@@ -9,11 +9,16 @@ function ServerUpdate({ onClose }) {
     const [serverName, setServerName] = useState("");
     const { serverId } = useParams();
     const [errors, setErrors] = useState([]);
+    const [error, setError] = useState(false);
     const server = useSelector(getServer(serverId));
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
+        if (!serverName.trim()) {
+            setError(true);
+            return;
+        }
         server.name = serverName;
         onClose();
         return dispatch(updateServer(server))
@@ -43,7 +48,7 @@ function ServerUpdate({ onClose }) {
             </ul>
             <form className="server-create-content" onSubmit={handleSubmit}>
                 <div className="server-form-content">
-                    <div className="server-create-name">SERVER NAME</div>
+                    <div className="server-create-name">SERVER NAME{error && <span className="error"> - Please enter a name</span>}</div>
                     <input type="text"
                         value={serverName}
                         onChange={(e) => setServerName(e.target.value)}

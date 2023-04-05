@@ -20,7 +20,8 @@ class Api::ServersController < ApplicationController
     def show
         if current_user
             @server = current_user.servers.find(params[:id]) 
-            @invite_link = invite_link(@server.invite_token)
+            # @invite_link = invite_link();
+            @channels = @server.channels
             render :show
         end
     end
@@ -42,17 +43,27 @@ class Api::ServersController < ApplicationController
     def invite_link
         @server = Server.find(params[:id])
         @invite_token = @server.invite_token
-        if Rails.env.production?
-            "https://untitled-w1r2.onrender.com/invite/#{@invite_token}"
-        else
-            "http://localhost:3000/invite/#{@invite_token}"
-        end
+        url = Rails.env.production? ? "https://untitled-w1r2.onrender.com/servers/#{@server.id}/invite/#{@invite_token}" : "http://localhost:3000/servers/#{@server.id}/invite/#{@invite_token}"
+        render json: { invite_link: url }
     end
 
     def join 
-        @server = Server.find(params[:invite_token])
-        @server_subscription = ServerSubscription.create!(user_id: current_user.id, server_id: @server.id)
+        @server = Server.find_by(id: params[:id], invite_token: params[:invite_token])
+        @server_subscription = ServerSubscription.create!(user_id: current_user.id, server_id: @server.id) unless ServerSubscription.find_by(user_id: current_user.id, server_id: @server.id)
         render :show
+    end
+
+    def leave
+        @server = Server.find(params[:id])
+        @server_subscription = ServerSubscription.find_by(user_id: current_user.id, server_id: @server.id)
+        @server_subscription.destroy
+    end
+
+    def kick
+        @server = Server.find(params[:id])
+        @user = User.find(params[:user_id])
+        @server_subscription = ServerSubscription.find_by(user_id: @user.id, server_id: @server.id)
+        @server_subscription.destroy
     end
 
     def server_params

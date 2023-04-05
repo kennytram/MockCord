@@ -23,10 +23,12 @@ function SignupFormPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const usernameTrim = user.username.trim();
+    const emailTrim = user.email.trim();
+    const newUser = {email: emailTrim, username: usernameTrim, password: user.password}
     if (user.password === confirmPassword) {
-
       setErrors([]);
-      return dispatch(sessionActions.signup(user))
+      return dispatch(sessionActions.signup(newUser))
         .catch(async (res) => {
           let data;
           try {
@@ -40,7 +42,6 @@ function SignupFormPage() {
               email: "",
               password: ""
             };
-            console.log(data)
             data.forEach(error => {
               console.log(error)
               if (error.toLowerCase().includes("email")) {
@@ -54,7 +55,6 @@ function SignupFormPage() {
               }
             })
             setErrors(errorData);
-            console.log(errorData);
           }
           else if (data) {
             setErrors([data]);

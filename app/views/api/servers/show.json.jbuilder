@@ -14,9 +14,8 @@ json.server do
                 json.extract! channel, :id, :name, :server_id, :channel_type, :is_voice
             end
         end 
-    end
+    end    
 end
-
 
 
 # json.users do 
