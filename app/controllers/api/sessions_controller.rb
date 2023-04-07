@@ -21,7 +21,7 @@ class Api::SessionsController < ApplicationController
   end
 
   def destroy
-    current_user.update!(is_online: false)
+    current_user.update!(is_online: false) if current_user
     logout!
     render json: { message: 'success' }
   end

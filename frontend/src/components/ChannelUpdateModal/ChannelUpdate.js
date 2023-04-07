@@ -1,14 +1,15 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { getChannel, updateChannel } from '../../store/channels';
-import { getServer } from '../../store/servers';
+import { getServer, updateServerChannel } from '../../store/servers';
 // import "./ServerUpdate.css"
 function ChannelUpdate({ onClose }) {
     const dispatch = useDispatch();
     const [channelName, setChannelName] = useState("");
     const location = useLocation();
+    const history = useHistory();
     const url = location.pathname;
     const { serverId, channelId } = useParams();
     const [error, setError] = useState(false);
@@ -23,8 +24,20 @@ function ChannelUpdate({ onClose }) {
             return;
         }
         server.channels[channelId].name = channelName;
-        onClose();
-        return dispatch(updateChannel(server.channels[channelId]))
+        const newChannel = {
+            name: channelName,
+            serverId: serverId,
+            channelType: "public",
+            isVoice: false,
+            id: channelId
+        }
+        onClose(e);
+        // return dispatch(updateChannel(server.channels[channelId]))
+        return dispatch(updateServerChannel(newChannel)).then(res => {
+            if (res.ok) {
+                history.push(`/channels/${serverId}/${channelId}`);
+            }
+        })
             .catch(async (res) => {
                 let data;
                 try {
@@ -32,6 +45,7 @@ function ChannelUpdate({ onClose }) {
                 } catch {
                     data = await res.text();
                 }
+                console.log(data);
                 if (data?.errors) setErrors(data.errors);
                 else if (data) setErrors([data]);
                 else setErrors([res.statusText]);

@@ -38,13 +38,15 @@ function SplashPage() {
                         <span>&nbsp;&nbsp;MockCord</span>
                     </div>
                     <ul id="home-nav-center">
-                        <li>Download</li>
+                        {/* <li>Download</li>
                         <li>Nitro</li>
                         <li>Discover</li>
                         <li>Safety</li>
                         <li>Support</li>
                         <li>Blog</li>
-                        <li>Careers</li>
+                        <li>Careers</li> */}
+                        <a href="https://github.com/kennytram/kennytram" target="_blank" rel="noreferrer"><li >Github</li></a>
+                        <a href="https://www.linkedin.com/in/kennytram/" target="_blank" rel="noreferrer"><li>LinkedIn</li></a>
                     </ul>
                     <div id="home-nav-right">
                         <button id="home-login-button" onClick={handleOnLoginSubmit}>
@@ -64,8 +66,8 @@ function SplashPage() {
                         and hang out more often.
                     </div>
                     <div id="home-description-buttons">
-                        <button className="button white"><DownloadSimple font={"true"} size={24} fontWeight={700} /><span>&nbsp;Download MockCord</span></button>
-                        <button className="button black"><span>Open MockCord in your browser</span></button>
+                        <button className="button white"onClick={()=>{history.push('/login')}}><DownloadSimple font={"true"} size={24} fontWeight={700} /><span>&nbsp;Download MockCord</span></button>
+                        <button className="button black"onClick={()=>{history.push('/login')}}><span>Open MockCord in your browser</span></button>
                     </div>
                 </div>
             </div>
@@ -146,7 +148,7 @@ function SplashPage() {
                         <div className="section-headline">
                             Ready to start your journey?
                         </div>
-                        <button className="button brand"><DownloadSimple font={"true"} size={24} fontWeight={700} /><span>&nbsp;Download MockCord</span></button>
+                        <button className="button brand" onClick={()=>{history.push('/login')}}><DownloadSimple font={"true"} size={24} fontWeight={700} /><span>&nbsp;Download MockCord</span></button>
                     </div>
                 </div>
             </div>
@@ -163,18 +165,18 @@ function SplashPage() {
                             <div id="caret-down" />
                         </div>
                         <ul id="social-media-icons">
-                            <li id="twitter"><TwitterIcon sx={{ color: "white" }} /></li>
+                            {/* <li id="twitter"><TwitterIcon sx={{ color: "white" }} /></li>
                             <li id="instagram"><InstagramIcon sx={{ color: "white" }} /></li>
                             <li id="facebook"><FacebookIcon sx={{ color: "white" }} /></li>
-                            <li id="youtube"><YouTubeIcon sx={{ color: "white", fontSize: "28px" }} /></li>
+                            <li id="youtube"><YouTubeIcon sx={{ color: "white", fontSize: "28px" }} /></li> */}
                         </ul>
                     </div>
 
                     <ul className="footer-column">
-                        <li>Product</li>
+                        {/* <li>Product</li>
                         <li>Download</li>
                         <li>Nitro</li>
-                        <li>Status</li>
+                        <li>Status</li> */}
                     </ul>
 
                     <ul className="footer-column">

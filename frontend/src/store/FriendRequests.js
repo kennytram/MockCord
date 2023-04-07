@@ -18,10 +18,10 @@ const receiveFriendRequests = (friendRequests) => {
     };
 }
 
-const removeFriendRequest = (friendRequestId) => {
+const removeFriendRequest = (friendRequestId, friendId) => {
     return {
         type: REMOVE_FRIEND_REQUEST,
-        friendRequestId
+        friendRequestId, friendId
     };
 }
 
@@ -34,7 +34,7 @@ export const getFriendRequests = (state) => (
 )
 
 export const fetchFriendRequest = (friendRequestId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/friendRequests/${friendRequestId}`);
+    const response = await csrfFetch(`/api/friend_requests/${friendRequestId}`);
     if (response.ok) {
         const data = await response.json();
         dispatch(receiveFriendRequest(data));
@@ -42,20 +42,20 @@ export const fetchFriendRequest = (friendRequestId) => async (dispatch) => {
 }
 
 export const fetchFriendRequests = () => async (dispatch) => {
-    const response = await csrfFetch('/api/friendRequests');
+    const response = await csrfFetch('/api/friend_requests');
     if (response.ok) {
         const data = await response.json();
         dispatch(receiveFriendRequests(data));
     }
 }
 
-export const createFriendRequest = (friendRequestId) => async (dispatch) => {
-    const response = await csrfFetch('/api/friendRequests', {
+export const createFriendRequest = (friendRequest) => async (dispatch) => {
+    const response = await csrfFetch('/api/friend_requests', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(friendRequestId)
+        body: JSON.stringify({friendRequest : friendRequest})
     });
     if (response.ok) {
         const data = await response.json();
@@ -63,39 +63,54 @@ export const createFriendRequest = (friendRequestId) => async (dispatch) => {
     }
 }
 
-export const deleteFriendRequest = (friendRequestId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/friendRequests/${friendRequestId}`, {
+export const createSearchFriendRequest = (searchFriend) => async (dispatch) => {
+    const response = await csrfFetch('/api/friend_requests/search', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({user: searchFriend})
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(receiveFriendRequest(data));
+    }
+}
+
+export const deleteFriendRequest = (friendRequestId, friendId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/friend_requests/${friendRequestId}`, {
         method: 'DELETE'
-    });
+    })
     if (response.ok) {
-        dispatch(removeFriendRequest(friendRequestId));
+        dispatch(removeFriendRequest(friendRequestId, friendId));
     }
 }
 
-export const updateFriendRequest = (friendRequestId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/friendRequests/${friendRequestId}`, {
-        method: 'PUT'
+export const updateFriendRequest = (friendRequest) => async (dispatch) => {
+    const response = await csrfFetch(`/api/friend_requests/${friendRequest.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ friendRequest })
     });
     if (response.ok) {
         const data = await response.json();
         dispatch(receiveFriendRequest(data));
+        return response;
     }
 }
 
 const initialState = {};
 
 const friendRequestsReducer = (state = initialState, action) => {
-    let newState;
+    let newState = {...state};
     switch (action.type) {
         case RECEIVE_FRIEND_REQUEST:
-            newState = Object.assign({}, state, { [action.payload.id]: action.payload });
+            const friendId = action.payload.friendRequest.friendId;
+            newState[friendId] = action.payload.friendRequest[friendId]
             return newState;
         case RECEIVE_FRIEND_REQUESTS:
-            newState = Object.assign({}, state, action.friendRequests);
-            return newState;
+            return action.friendRequests;
         case REMOVE_FRIEND_REQUEST:
-            newState = Object.assign({}, state);
-            delete newState[action.friendRequestId];
+            delete newState[action.friendId];
             return newState;
         default:
             return state;

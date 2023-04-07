@@ -77,7 +77,7 @@ function LoginFormPage() {
               <input required type="password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" id="input-password" />
             </div>
             <div id="forgot-password-box">
-              <div><NavLink to="/">Forgot your password?</NavLink></div>
+              <div><NavLink to="/">Take me back to the Splash Page</NavLink></div>
             </div>
             <div id="login-button-box">
               <button type="submit" id="login-button">Log In</button>

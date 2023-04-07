@@ -51,16 +51,48 @@ class User < ApplicationRecord
     sender_friend_arr = self.sent_friend_requests.where(sender_id: self.id, status: "accepted").map { |request| request.receiver }
     receiver_friend_arr = self.received_friend_requests.where(receiver_id: self.id, status: "accepted").map { |request| request.sender }
     friends_arr = sender_friend_arr + receiver_friend_arr
-    friendships = {}
-    friends_arr.each do |friend|
-      friendships[friend.id] = {
-        id: friend.id,
-        username: friend.username,
-        tag: friend.tag,
-        status: friend.status
+    # friendships = {}
+    # friends_arr.each do |friend|
+    #   friendships[friend.id] = {
+    #     id: friend.id,
+    #     username: friend.username,
+    #     tag: friend.tag,
+    #     status: friend.status
+    #   }
+    # end
+    # friendships
+  end
+
+  def friend_requests
+    sender_friend_request_arr = self.sent_friend_requests.where(sender_id: self.id)
+    receiver_friend_request_arr = self.received_friend_requests.where(receiver_id: self.id)
+
+    friend_requests = {}
+    
+    sender_friend_request_arr.each do |friend_request|
+      friend_requests[friend_request.receiver_id] = {
+        id: friend_request.id,
+        sender_id: self.id,
+        receiver_id: friend_request.receiver_id,
+        status: friend_request.status,
+        created_at: friend_request.created_at,
+        updated_at: friend_request.updated_at
       }
     end
-    friendships
+    
+    receiver_friend_request_arr.each do |friend_request|
+      friend_requests[friend_request.sender_id] = {
+        id: friend_request.id,
+        sender_id: friend_request.sender_id,
+        receiver_id: self.id,
+        status: friend_request.status,
+        created_at: friend_request.created_at,
+        updated_at: friend_request.updated_at
+      }
+    end
+    
+    # friend_requests
+    friend_requests.values.map { |request_data| FriendRequest.new(request_data) }
   end
 
   def subscribe_channel(channel)

@@ -4,7 +4,7 @@
     background-color: var(--left-sidebar-color);
     position: relative;
     width: 240px;
-    z-index: 1;
+    z-index: 2;
 }
 #left-navbar-header {
     width: 240px;
@@ -166,14 +166,14 @@
 .channel-delete:hover > .add-channel-symbol-tooltip {
     display: flex;
     font-weight: 500;
-    color: var(--off-white) !important;
+    color: var(--off-white);
     -webkit-text-stroke: 0px;
 }
 
 .channel-edit:hover > .add-channel-symbol-tooltip {
     display: flex;
     font-weight: 500;
-    color: var(--off-white) !important;
+    color: var(--off-white);
     -webkit-text-stroke: 0px;
 }
 

@@ -1,0 +1,12 @@
+.top-main-header > .user-status-bubble {
+    position: unset;
+    margin-left: 10px;
+    height: 12px;
+    width: 12px;
+    outline: 3.5px solid var(--icon-bg);
+}
+
+.top-main-header > .user-status-bubble > .user-status-bubble-inner {
+    position: unset;
+    margin-left: 10px;
+}

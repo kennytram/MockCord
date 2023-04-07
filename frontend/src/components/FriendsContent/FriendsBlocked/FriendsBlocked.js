@@ -30,7 +30,7 @@ function FriendsBlocked() {
 
     return (
         <>
-            {blockedRequests.length === 0 ? (
+            {blockedRequests.length > 0  ? (
                 <div className="friends-show-box">
                     <div className="searchbar-friendrequests-container">
                         <div className="searchbar-friendrequests">

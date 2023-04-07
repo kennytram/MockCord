@@ -7,11 +7,12 @@ import HelpIcon from '@mui/icons-material/Help';
 import ExploreIcon from "@mui/icons-material/Explore";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { getChannels } from '../../store/channels';
-import { fetchFriendRequests } from '../../store/FriendRequests';
+import { fetchFriendRequests, createSearchFriendRequest } from '../../store/FriendRequests';
 import FriendsOnline from './FriendsOnline/FriendsOnline';
 import FriendsAll from './FriendsAll/FriendsAll';
 import FriendsPending from './FriendsPending/FriendsPending';
 import FriendsBlocked from './FriendsBlocked/FriendsBlocked';
+
 import './FriendsContent.css';
 
 function FriendsContent() {
@@ -20,13 +21,14 @@ function FriendsContent() {
         false, false, true]);
     const [loaded, setLoaded] = useState(false);
     const addFriendRef = useRef(null);
+    const [errors, setErrors] = useState([]);
     const sessionUser = useSelector(state => state.session.user);
     const channels = useSelector(getChannels);
     const users = useSelector(state => state.users);
-
-    const groupDMSVG = <svg x="0" y="0" aria-hidden="true" role="img" width="24" height="24" viewBox="0 0 24 24">
-        <path fill="currentColor" fillRule="evenodd" clipRule="evenodd" d="M20.998 0V3H23.998V5H20.998V8H18.998V5H15.998V3H18.998V0H20.998ZM2.99805 20V24L8.33205 20H14.998C16.102 20 16.998 19.103 16.998 18V9C16.998 7.896 16.102 7 14.998 7H1.99805C0.894047 7 -0.00195312 7.896 -0.00195312 9V18C-0.00195312 19.103 0.894047 20 1.99805 20H2.99805Z"></path>
-    </svg>
+    const friendRequests = useSelector(state => state.friendRequests);
+    const [otherUser, setOtherUser] = useState("");
+    const [successFriendRequest, setSuccessFriendRequest] = useState(false);
+    const searchInputRef = useRef(null);
 
     const friendSVG = <svg aria-hidden="true" role="img" width="24" height="24" viewBox="0 0 24 24"><g fill="none" fillRule="evenodd"><path fill="currentColor" fillRule="nonzero" d="M0.5,0 L0.5,1.5 C0.5,5.65 2.71,9.28 6,11.3 L6,16 L21,16 L21,14 C21,11.34 15.67,10 13,10 C13,10 12.83,10 12.75,10 C8,10 4,6 4,1.5 L4,0 L0.5,0 Z M13,0 C10.790861,0 9,1.790861 9,4 C9,6.209139 10.790861,8 13,8 C15.209139,8 17,6.209139 17,4 C17,1.790861 15.209139,0 13,0 Z" transform="translate(2 4)"></path><path d="M0,0 L24,0 L24,24 L0,24 L0,0 Z M0,0 L24,0 L24,24 L0,24 L0,0 Z M0,0 L24,0 L24,24 L0,24 L0,0 Z"></path></g></svg>;
 
@@ -69,12 +71,126 @@ function FriendsContent() {
         else addFriendRef.current.classList.remove('active');
     };
 
-    // useEffect(() => {
-    //     Promise.all([
-    //         dispatch(fetchFriendRequests()),
-    //     ]).then(() => setLoaded(true));
-    // }, [dispatch, sessionUser]);
+    useEffect(() => {
+        Promise.all([
+            dispatch(fetchFriendRequests()),
+        ]).then(() => setLoaded(true));
+    }, [dispatch]);
 
+    const handleAddFriend = (e) => {
+        e.preventDefault();
+        setErrors([]);
+        setSuccessFriendRequest(false);
+        if (!otherUser.includes('#')) {
+            setErrors([`We need ${otherUser}'s four digit tag so we know which one they are.`]);
+            searchInputRef.current.classList.add('search-error');
+            return;
+        }
+        const lastHashIndex = otherUser.lastIndexOf('#');
+        const username = otherUser.slice(0, lastHashIndex);
+        const tag = otherUser.slice(lastHashIndex + 1);
+        if (/^\d+$/.test(tag)) {
+        } else {
+            setErrors(['Tag must be digits only']);
+            searchInputRef.current.classList.add('search-error');
+            return;
+        }
+        const friend = {
+            username: username,
+            tag: tag,
+        }
+        // const isValidInput = checkValidInput(otherUser);
+        return dispatch(createSearchFriendRequest(friend)).then(() => {
+            setSuccessFriendRequest(true);
+            searchInputRef.current.classList.remove('search-error');
+            searchInputRef.current.classList.add('search-success');
+        }).catch(async (res) => {
+            let data;
+            searchInputRef.current.classList.add('search-error');
+            try {
+                data = await res.clone().json();
+            } catch {
+                data = await res.text();
+            }
+            if (data?.errors) setErrors(data.errors);
+            else if (data) setErrors([data]);
+            else setErrors([res.statusText]);
+        });
+    };
+
+    const checkValidInput = (e) => {
+        const userInput = e.target.value;
+        const pattern = /^[^\s]{1,30}#[0-9]{4}$/;
+        const isValidInput = pattern.test(userInput);
+
+        return isValidInput;
+    };
+
+    const handleKeyDown = (e) => {
+        searchInputRef.current.classList.remove('search-error');
+        searchInputRef.current.classList.remove('search-success');
+        const input = e.target;
+        const value = input.value;
+        const cursorPosition = input.selectionStart;
+
+        if (value.length < 30) {
+            return;
+        }
+
+        if (value.length === 30 && e.key === '#') {
+            return;
+        }
+
+        if (value.length >= 31 && value.length <= 34 && /[0-9]/.test(e.key)) {
+            return;
+        }
+
+        if (value.length >= 30 && e.key !== 'Backspace' && !(e.ctrlKey && (e.key === 'a' || e.key === 'c')) && e.key !== 'Delete') {
+            e.preventDefault();
+        }
+
+        if (value.length >= 34 && cursorPosition >= 34 && !(e.ctrlKey && (e.key === 'a' || e.key === 'c')) && e.key !== 'Backspace' && e.key !== 'Delete') {
+            e.preventDefault();
+        }
+    }
+
+    const handlePaste = (e) => {
+        searchInputRef.current.classList.remove('search-error');
+        searchInputRef.current.classList.remove('search-success');
+        const input = e.target;
+        const pastedData = e.clipboardData.getData('text');
+        const value = input.value;
+
+        if (value.length < 30) {
+            return;
+        }
+
+        if (value.length === 30 && pastedData.startsWith('#')) {
+            return;
+        }
+
+        if (value.length === 30 && !pastedData.startsWith('#')) {
+            e.preventDefault();
+            return;
+        }
+
+        if (value.length === 31 && pastedData.startsWith('#') && /^\d{0,3}$/.test(pastedData.slice(1))) {
+            return;
+        }
+
+        if (value.length >= 32 && value.length <= 35 && /^\d{0,4}$/.test(pastedData)) {
+            return;
+        }
+
+        if (value.length > 35) {
+            e.preventDefault();
+            return;
+        }
+
+        if (value.length >= 31 && !pastedData.startsWith('#')) {
+            e.preventDefault();
+        }
+    }
 
     return (
         <div className="friends-content">
@@ -141,17 +257,31 @@ function FriendsContent() {
                             buttonStates.at(0) ? (<FriendsOnline />) : buttonStates.at(1) ? (<FriendsAll />) : buttonStates.at(2) ? (<FriendsPending />) : (<FriendsBlocked />)
                         }
                     </div>
-                ) : (<><div id="add-friend-container"><div id="add-friend-header">
-                    <div id="add-friend-title">ADD FRIEND</div>
-                    <div className="add-friend-input">
-                        <div id="add-friend-desc">You can add a friend with their username. It's cAsE sEnSitIvE!</div>
-                        <input className="searchbar friend" type="text" disabled value="Enter a Username#0000" />
-                    </div>
-                </div>
-                    <div id="other-places-header">
-                        OTHER PLACES TO MAKE FRIENDS
-                    </div>
-                    {/* <div className="explore-box">
+                ) : (<>
+                    <div id="add-friend-container">
+                        <div id="add-friend-header">
+                            <div id="add-friend-title">ADD FRIEND</div>
+                            <form className="add-friend-input" onSubmit={handleAddFriend}>
+                                <div id="add-friend-desc">You can add a friend with their username. It's cAsE sEnSitIvE!</div>
+                                <input ref={searchInputRef} className="searchbar friend" type="text" placeholder="Enter a Username#0000"
+                                    onKeyDown={handleKeyDown}
+                                    onPaste={handlePaste}
+                                    onChange={(e) => { setOtherUser(e.target.value) }}
+                                    value={otherUser} />
+                            </form>
+
+                            {errors ? (<div className="add-friend error">
+                                {errors.map((error, i) => <div key={i}>{error}</div>)}
+                            </div>) : null}
+                            {successFriendRequest && otherUser ? (<div className="add-friend success">
+                                Success! Your friend request to {otherUser} was sent.
+                            </div>) : null}
+                        </div>
+
+                        <div id="other-places-header">
+                            OTHER PLACES TO MAKE FRIENDS
+                        </div>
+                        {/* <div className="explore-box">
                         <button className="explore-button">
                             <div id="left-explore-buttonside"><ExploreIcon className="public-server-friend-icon" /><span>
                                 &nbsp;&nbsp;Explore Public Servers</span></div>
@@ -159,12 +289,12 @@ function FriendsContent() {
                             <div id="right-explore-buttonside"><KeyboardArrowRightIcon /></div>
                         </button>
                     </div> */}
-                    <div id="add-friend-wumpus">
-                        <div className="all-wumpus-image" />
-                        <div className="wumpus-desc">
-                            Wumpus is waiting on friends. You don't have to though!
-                        </div></div>
-                </div></>)}
+                        <div id="add-friend-wumpus">
+                            <div className="all-wumpus-image" />
+                            <div className="wumpus-desc">
+                                Wumpus is waiting on friends. You don't have to though!
+                            </div></div>
+                    </div></>)}
                 <div className="activity-bar">
                     <div className="activity-bar-container">
                         <div className="activity-bar-wrapper">
@@ -175,8 +305,7 @@ function FriendsContent() {
                                     It's quiet for now...
                                 </div>
                                 <div id="activity-desc">
-                                    When a friend starts an activity-like playing a game or
-                                    hanging out on voice-we'll show it here!
+                                    {"When a friend starts an activity-like playing a game \n or hanging out on voice-we'll show it here!"}
                                 </div>
                             </div>
                         </div>

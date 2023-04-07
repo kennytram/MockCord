@@ -1,6 +1,7 @@
 import csrfFetch from './csrf';
 import { RECEIVE_SERVER } from './servers';
 import { RECEIVE_DMS } from './dms';
+import { RECEIVE_FRIEND_REQUEST } from './FriendRequests';
 
 export const RECEIVE_CHANNEL = 'RECEIVE_CHANNEL';
 export const RECEIVE_CHANNELS = 'RECEIVE_CHANNELS';
@@ -109,6 +110,11 @@ export default function channelsReducer(state = {}, action) {
             return action.channels;
         case RECEIVE_CHANNEL:
             newState[action.payload.channel.id] = action.payload.channel;
+            return newState;
+        case RECEIVE_FRIEND_REQUEST:
+            if (action.payload.channel) {
+                newState[action.payload.channel.id] = action.payload.channel;
+            }
             return newState;
         case REMOVE_CHANNEL:
             const channelId = action.channelId;

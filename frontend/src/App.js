@@ -13,6 +13,7 @@ import ServerForm from "./components/ServerFormModal/ServerForm";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import HomePage from "./components/HomePage/HomePage";
 import ServerPage from "./components/ServerPage/ServerPage";
+import FriendMessagePage from "./components/FriendMessagePage/FriendMessagePage";
 import { useDispatch } from "react-redux";
 
 function App() {
@@ -25,20 +26,8 @@ function App() {
   return (
     <>
       <Switch>
-        {/* <Route exact path="/servers/@me/dms/:dmId" >
-          <NavBar />
-          <LeftSideBar />
-          <UserPanel />
-          <TopBar />
-          <ContentPage />
-        </Route> */}
-        <Route exact path="/channels/:serverId(\d+)/:channelId(\d+)" component={ServerPage}>
-          {/* <NavBar />
-          <LeftSideBar />
-          <UserPanel />
-          <TopBar />
-          <ContentPage /> */}
-        </Route>
+        <Route exact path="/channels/@me/:channelId(\d+)" component={FriendMessagePage}/>
+        <Route exact path="/channels/:serverId(\d+)/:channelId(\d+)" component={ServerPage}/>
 
         <Route exact path="/channels/:serverId(\d+)/:inviteToken" component={HomePage}/>
 

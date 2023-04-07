@@ -56,7 +56,6 @@ export const fetchUsers = () => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-
         dispatch(receiveUsers(data));
     }
 }
@@ -85,7 +84,6 @@ export default function usersReducer(state = {}, action) {
     const newState = { ...state };
     switch (action.type) {
         case RECEIVE_USERS:
-
             return action.payload.users;
         case RECEIVE_USER:
             const user = action.user;
@@ -94,6 +92,14 @@ export default function usersReducer(state = {}, action) {
         case REMOVE_USER:
             const userId = action.userId;
             delete newState[userId];
+            return newState;
+        case RECEIVE_SERVER:
+            const users = action.payload.users
+            if(users) {
+                Object.values(users).forEach(user => {
+                    newState[user.id] = user;
+                })
+            }
             return newState;
         case RECEIVE_DMS:
 

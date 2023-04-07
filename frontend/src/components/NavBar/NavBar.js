@@ -17,6 +17,7 @@ import { fetchUsers, getUsers } from '../../store/users';
 export default function NavBar() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const history= useHistory();
   const { serverId, inviteToken } = useParams();
   const selectorRef = useRef(null);
   const url = location.pathname;
@@ -33,6 +34,12 @@ export default function NavBar() {
 
 
   useEffect(() => {
+    if (selectorRef.current) {
+      const navLink = selectorRef.current.querySelector('a.active');
+      if (navLink) {
+        navLink.parentElement.parentElement.classList.add('current');
+      }
+    }
     Promise.all([
       inviteToken ? dispatch(joinServer(serverId, inviteToken)) : null,
       dispatch(fetchServers()),
@@ -47,19 +54,11 @@ export default function NavBar() {
     });
   }, [dispatch]);
 
-  useEffect(() => {
-    // console.log(url.split('/'));
-    if (selectorRef.current) {
-      const navLink = selectorRef.current.querySelector('a.active');
-      if (navLink) {
-        navLink.parentElement.parentElement.classList.add('current');
-      }
-    }
-  }, [url]);
-
   const logout = (e) => {
     e.preventDefault();
-    dispatch(sessionActions.logout());
+    dispatch(sessionActions.logout()).then (() => {
+      history.push('/login');
+    });
   };
 
   const addSelected = (e) => {
@@ -102,9 +101,10 @@ export default function NavBar() {
   };
 
   if (!sessionUser) return <Redirect to="/login" />;
-  if (!url.includes('/channels')
-    && !url.includes('/guild-discovery')
-    && !url.includes('/store')) return null;
+
+  // if (!url.includes('/channels')
+  //   && !url.includes('/guild-discovery')
+  //   && !url.includes('/store')) return null;
   return (
     <nav id="navbar">
       <ul id="server-list" ref={selectorRef} onScroll={handleScroll}>
@@ -140,7 +140,7 @@ export default function NavBar() {
 
         <ul id="servers">
           {servers.map(server => (
-            server && server.members[sessionUser.id] ? (
+            server && sessionUser && server.members[sessionUser.id] ? (
               <li key={server.id} >
                 <div className="icon-box-wrapper" onMouseOver={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                   <div className="icon-box" onClick={addCurrent} onMouseOver={addSelected} onMouseLeave={removeSelected}>
@@ -171,7 +171,7 @@ export default function NavBar() {
         </ul>
 
         <li key="add-server" ref={addServerElement}>
-          <div className="icon-box-wrapper-alt" >
+          <div className="icon-box-wrapper-alt" onMouseOver={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <div
               className="icon-box green"
               onMouseOver={addSelected}

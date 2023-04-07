@@ -1,6 +1,6 @@
 .top-bar {
     height: 48px;
-    box-shadow: var(--interactive-box-shadow);
+    box-shadow: var(--box-shadow);
     background-color: var(--icon-bg);
     width: 100%;
     min-width: 0%;
@@ -15,7 +15,7 @@
     white-space: nowrap;
     letter-spacing: 0.015em;
 
-    position: unset;
+    position: fixed;
 }
 
 .top-left-side {

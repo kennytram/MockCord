@@ -15,10 +15,12 @@ Rails.application.routes.draw do
     resources :channels, only:[ :show, :create, :destroy, :update, :index]
     # resources :direct_messages, only: [:index, :show, :create, :destroy, :update]
     resources :messages, only: [ :create, :update, :destroy]
-    resources :members, only: [:create, :destroy]
+    
+    resources :friend_requests, only: [:create, :destroy, :update, :show, :index]
     
     get "/servers/:id/invite", to: "servers#invite_link", as: :invite_link_server
     post "/servers/:id/invite/:invite_token", to: "servers#join", as: :join_server
+    post "/friend_requests/search", to: "friend_requests#search_create", as: :search_create_friend_request
     delete "/servers/:id/leave", to: "servers#leave", as: :leave_server
     delete "/servers/:id/leave/:user_id", to: "servers#kick", as: :kick_server
     post "/channels/:id/subscribe/:user_id", to: "channels#subscribe", as: :subscribe_channel

@@ -1,0 +1,67 @@
+.friend-message-page {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.friend-message-page-content {
+    height: 100%;
+    width: calc(100% - 312px);
+}
+
+
+
+
+
+
+.welcome-dm {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-left: 1.1rem;
+}
+
+.profile-icon {
+    width: 80px;
+    height: 80px;
+}
+
+
+
+.welcome-dm-heading {
+    font-weight: 700;
+    margin: 8px 0;
+    color: var(--off-white);
+    font-size: 32px;
+    line-height: 40px;
+
+}
+
+.welcome-dm-desc {
+    color: var(--interactive);
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.highlighted-user {
+    color: var(--off-white);
+    letter-spacing: 0.5px;
+}
+
+.welcome-dm-wrapper > .message-user-icon {
+    width: 80px;
+    height: 80px;
+    position: unset;
+}
+
+.message-input {
+    font-family: 'gg';
+    height: auto;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+}

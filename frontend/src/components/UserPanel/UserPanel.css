@@ -33,7 +33,7 @@
 }
 
 #user-box-wrapper {
-    padding-left: 9px;
+    margin-left: 9px;
 }
 
 .user-icon {
@@ -41,6 +41,8 @@
     justify-content: center;
     align-items: center;
 
+    min-width: 32px;
+    min-height: 32px;
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -63,6 +65,13 @@
     display:flex;
     justify-content: center;
     align-items: center;
+}
+
+#user-panel-username {
+    width: 80px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 
 .user-status-bubble.online{
@@ -107,14 +116,16 @@
     padding-bottom: 3px;
     padding-left: 8px;
     padding-top: 3px;
-
     font-weight: 600;
     font-size: 14px;
     line-height: 18px;
-    /* overflow-x: hidden; */
-    white-space: nowrap;
     display: flex;
     flex-direction: column;
+}
+
+#user-panel-info span {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #user-panel-tag {

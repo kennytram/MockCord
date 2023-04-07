@@ -10,20 +10,16 @@ import './ServerPage.css';
 function ServerPage() {
     const dispatch = useDispatch();
     const [loaded, setLoaded] = useState(false);
-    // useEffect(() => {
-    //     Promise.all([
-    //         dispatch(fetchChannels()),
-    //     ]).then(() => setLoaded(true));
-    // }, [dispatch]);
+
     return (
         <div className="server-page">
             <NavBar />
             <ChannelBar/>
             {/* <ServerToolBar/> */}
-            {/* <div className="server-page-content">
+            <div className="server-page-content">
                 <ServerToolBar />
                 <ServerContent />
-            </div>  */}
+            </div> 
         </div>
     )
 }

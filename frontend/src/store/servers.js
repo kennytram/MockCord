@@ -5,6 +5,7 @@ export const RECEIVE_SERVERS = 'RECEIVE_SERVERS';
 export const REMOVE_SERVER = 'REMOVE_SERVER';
 
 export const RECEIVE_SERVER_CHANNEL = 'RECEIVE_SERVER_CHANNEL';
+export const DELETE_SERVER_CHANNEL = 'DELETE_SERVER_CHANNEL';
 
 const receiveServer = (payload) => {
 
@@ -18,6 +19,13 @@ const receiveServerChannel = (payload) => {
     return {
         type: RECEIVE_SERVER_CHANNEL,
         payload
+    };
+};
+
+const removeServerChannel = (serverId, channelId) => {
+    return {
+        type: DELETE_SERVER_CHANNEL,
+        serverId, channelId
     };
 };
 
@@ -93,6 +101,15 @@ export const leaveServer = (serverId) => async (dispatch) => {
     }
 }
 
+export const kickMemberServer = (serverId, userId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/servers/${serverId}/leave/${userId}`, {
+        method: 'DELETE'
+    });
+    if (response.ok) {
+        dispatch(fetchServer(serverId));
+    }
+}
+
 
 export const createServer = (server) => async (dispatch) => {
 
@@ -135,6 +152,18 @@ export const updateServer = (server) => async (dispatch) => {
     }
 }
 
+export const updateServerChannel = (channel) => async (dispatch) => {
+    const response = await csrfFetch(`/api/channels/${channel.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ channel })
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(receiveServerChannel(data));
+        return response;
+    }
+}
+
 export const destroyServer = (serverId) => async (dispatch) => {
     const response = await csrfFetch(`/api/servers/${serverId}`, {
         method: 'DELETE'
@@ -142,6 +171,15 @@ export const destroyServer = (serverId) => async (dispatch) => {
     if (response.ok) {
         
         dispatch(removeServer(serverId));
+    }
+}
+
+export const destroyServerChannel = (serverId, channelId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/channels/${channelId}`, {
+        method: 'DELETE'
+    })
+    if (response.ok) {
+        dispatch(removeServerChannel(serverId, channelId));
     }
 }
 
@@ -160,6 +198,10 @@ export default function serversReducer(state = initialState, action) {
             return newState;
         case RECEIVE_SERVER_CHANNEL:
             newState[action.payload.channel.serverId].channels[action.payload.channel.id] = action.payload.channel;
+            return newState;
+        case DELETE_SERVER_CHANNEL:
+            const channelId = action.channelId;
+            delete newState[action.serverId].channels[channelId];
             return newState;
         case REMOVE_SERVER:
             const serverId = action.serverId;

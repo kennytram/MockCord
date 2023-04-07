@@ -6,8 +6,8 @@ class Api::UsersController < ApplicationController
     @user.status = "online"
     @user.tag = @user.generate_unique_username_tag
     if @user.save
+      @user.update!(is_online: true)
       login!(@user)
-      @user.is_online = true
       render :show
     else
       render json: @user.errors.full_messages, status: :unprocessable_entity

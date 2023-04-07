@@ -115,7 +115,7 @@ function ChannelBar() {
                     <ul id="channels" >
                         {server && server.channels ? Object.values(server.channels).map(channel => (
                             <Link key={channel.id} className="channel-navlink" to={`/channels/${serverId}/${channel.id}`}>
-                                <div className="channel-wrapper">
+                                <div className="channel-wrapper" onMouseOver={()=>setEditChannel(channel)}>
                                     <li >
                                         <div className="channel-item">
                                             <NumbersIcon className="tag-icon" />&nbsp; <div>
@@ -125,22 +125,22 @@ function ChannelBar() {
                                         <div className="channel-edit-delete">
                                             <div className="channel-edit" >
                                                 <EditIcon onClick={(e) => {
-                                                    e.preventDefault();
-                                                    e.stopPropagation();
+                                                    // e.preventDefault();
+                                                    // e.stopPropagation();
                                                     document.body.style.overflow = 'hidden';
-                                                    setEditChannel(channel);
+                                                    // setEditChannel(channel);
                                                     setShowUpdateChannelModal(true);
                                                 }} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} />
                                                 {showUpdateChannelModal && editChannel === channel && (
                                                     <Modal onClose={(e) => {
-                                                        e.preventDefault();
-                                                        e.stopPropagation();
+                                                        // e.preventDefault();
+                                                        // e.stopPropagation();
                                                         document.body.style.overflow = 'unset';
                                                         setShowUpdateChannelModal(false);
                                                     }} className="create-server">
                                                         <ChannelUpdate onClose={(e) => {
-                                                            e.preventDefault();
-                                                            e.stopPropagation();
+                                                            // e.preventDefault();
+                                                            // e.stopPropagation();
                                                             document.body.style.overflow = 'unset';
                                                             setShowUpdateChannelModal(false);
                                                         }} />
@@ -157,22 +157,21 @@ function ChannelBar() {
                                             {channel.id !== server.defaultChannel ? (
                                                 <div className="channel-delete" >
                                                     <CloseIcon onClick={(e) => {
-                                                        e.preventDefault();
-                                                        e.stopPropagation();
+                                                        // e.preventDefault();
+                                                        // e.stopPropagation();
                                                         document.body.style.overflow = 'hidden';
-                                                        setEditChannel(channel);
                                                         setShowDeleteChannelModal(true);
                                                     }} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} />
                                                     {showDeleteChannelModal && editChannel === channel && (
                                                         <Modal onClose={(e) => {
-                                                            e.preventDefault();
-                                                            e.stopPropagation();
+                                                            // e.preventDefault();
+                                                            // e.stopPropagation();
                                                             document.body.style.overflow = 'unset';
                                                             setShowDeleteChannelModal(false);
                                                         }} className="create-server">
                                                             <ChannelDelete onClose={(e) => {
-                                                                e.preventDefault();
-                                                                e.stopPropagation();
+                                                                // e.preventDefault();
+                                                                // e.stopPropagation();
                                                                 document.body.style.overflow = 'unset';
                                                                 setShowDeleteChannelModal(false);
                                                             }} />

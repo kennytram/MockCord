@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
@@ -13,7 +14,7 @@ import DeleteForever from '@mui/icons-material/DeleteForever';
 import { Modal } from '../../context/Modal';
 import ChannelUpdate from '../ChannelUpdateModal/ChannelUpdate';
 import ChannelDelete from '../ChannelDeleteModal/ChannelDelete';
-import { getServer } from '../../store/servers';
+import { getServer, fetchServer } from '../../store/servers';
 import './ServerToolBar.css'
 
 function ServerToolBar() {
@@ -27,18 +28,16 @@ function ServerToolBar() {
     const sessionUser = useSelector(state => state.session.user);
 
     const users = useSelector(state => state.users);
-
+    
     if(!channelId) return null;
-
     return (
         <div className="top-bar">
 
             <ul className="top-left-side">
                 <li>
                     <div className="top-main-header">
-
                         <NumbersIcon className="top-main-icon" />
-                        {server && server.channels ? server.channels[channelId].name : "general"}
+                        {server && Object.keys(server?.channels).length > 0 && channelId && server.channels[channelId]?.name ? server?.channels[channelId].name : "general"}
                     </div>
                 </li>
             </ul>

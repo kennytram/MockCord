@@ -82,8 +82,13 @@ export default function messagesReducer(state = {}, action) {
 
     switch (action.type) {
         case RECEIVE_MESSAGES:
-
-            return action.messages;
+            const messages = action.messages
+            if(messages) {
+                Object.values(messages).forEach(message => {
+                    newState[message.id] = message;
+                })
+            }
+            return newState;
         case RECEIVE_MESSAGE:
 
             newState[action.payload.id] = action.payload;
@@ -93,8 +98,13 @@ export default function messagesReducer(state = {}, action) {
             delete newState[messageId];
             return newState;
         case RECEIVE_CHANNEL:
-            if (action.payload.messages)
-                return action.payload.messages;
+            const channelMessages = action.payload.messages
+            if (channelMessages) {
+                Object.values(channelMessages).forEach(message => {
+                    newState[message.id] = message;
+                })
+            }
+            return newState;
         case RESET_MESSAGES:
             return {};
         case RECEIVE_DM:
