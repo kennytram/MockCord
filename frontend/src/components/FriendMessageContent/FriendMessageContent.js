@@ -37,7 +37,7 @@ function FriendMessageContent({ loaded }) {
         if (channelId) {
             dispatch(fetchChannel(channelId)).then(() => {
                 if (chatMessagesRef) chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
-            });
+            }).catch(() => { history.push(`/channels/@me`) });
 
         }
         const subscription = consumer.subscriptions.create(

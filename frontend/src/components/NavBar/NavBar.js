@@ -52,7 +52,7 @@ export default function NavBar() {
         navLink.parentElement.parentElement.classList.add('current');
       }
     }
-    
+
     Promise.all([
       inviteToken ? joinServer(serverId, inviteToken) : null,
       dispatch(fetchServers()),
@@ -65,6 +65,32 @@ export default function NavBar() {
         }
       }
     });
+
+    // const subscription = consumer.subscriptions.create(
+    //   { channel: "UsersChannel", id: sessionUser.id },
+    //   {
+    //     received: (server) => {
+    //       switch (server.type) {
+    //         case "DELETE_SERVER":
+    //           dispatch(receiveServer(channel));
+    //           break;
+    //         case "UPDATE_SERVER":
+    //           dispatch(receiveServer(server));
+    //           break;
+    //         default:
+    //           break;
+    //       }
+    //     },
+    //     error: () => {
+    //       history.push("/channels/@me");
+    //     }
+    //   }
+    // );
+    // return () => {
+    //   subscription.unsubscribe();
+    // }
+
+
   }, [dispatch]);
 
   const logout = (e) => {
