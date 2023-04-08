@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Redirect, NavLink, useLocation, useHistory } from "react-router-dom";
-import { fetchServer, fetchServers, getServers, joinServer } from '../../store/servers';
+import { fetchServer, fetchServers, getServers, joinServer, removeServer, receiveServer } from '../../store/servers';
 import { getChannels } from '../../store/channels';
 import ExploreIcon from "@mui/icons-material/Explore";
 import { DownloadSimple } from 'phosphor-react';
@@ -15,7 +15,7 @@ import ServerForm from '../ServerFormModal/ServerForm';
 import { fetchUsers, getUsers } from '../../store/users';
 import consumer from '../../consumer';
 
-export default function NavBar() {
+export default function NavBar({ refreshServerState }) {
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
@@ -67,31 +67,33 @@ export default function NavBar() {
     });
 
     // const subscription = consumer.subscriptions.create(
-    //   { channel: "UsersChannel", id: sessionUser.id },
+    //   { channel: "ServersChannel", id: serverId },
     //   {
+
     //     received: (server) => {
+    //       console.log('testing');
     //       switch (server.type) {
     //         case "DELETE_SERVER":
-    //           dispatch(receiveServer(channel));
+    //           console.log("server deleted");
+    //           dispatch(removeServer(server.id));
+    //           if (+serverId === server.id) { history.push(`/channels/@me`)} 
     //           break;
     //         case "UPDATE_SERVER":
+    //           console.log("server updated");
     //           dispatch(receiveServer(server));
     //           break;
     //         default:
     //           break;
     //       }
     //     },
-    //     error: () => {
-    //       history.push("/channels/@me");
-    //     }
     //   }
-    // );
+    // )
     // return () => {
     //   subscription.unsubscribe();
     // }
 
 
-  }, [dispatch]);
+  }, [dispatch, refreshServerState]);
 
   const logout = (e) => {
     e.preventDefault();
@@ -140,6 +142,7 @@ export default function NavBar() {
   };
 
   if (!sessionUser) return <Redirect to="/login" />;
+
 
   // if (!url.includes('/channels')
   //   && !url.includes('/guild-discovery')

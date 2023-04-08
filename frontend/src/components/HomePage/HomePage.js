@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
 import UserBar from '../UserBar/UserBar';
 import FriendsContent from '../FriendsContent/FriendsContent';
 import { fetchUsers } from '../../store/users';
-import { fetchServers, joinServer } from '../../store/servers';
+import { fetchServers, joinServer, receiveServer, removeServer } from '../../store/servers';
 import { receiveFriendRequest, removeFriendRequest } from '../../store/FriendRequests';
 import consumer from '../../consumer';
 import './HomePage.css';
@@ -16,6 +17,8 @@ function HomePage() {
     const [loaded, setLoaded] = useState(false);
     const [refreshState, setRefreshState] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
+    const {serverId} = useParams();
+    const history = useHistory();
 
 
     useEffect(() => {
@@ -51,16 +54,41 @@ function HomePage() {
                 }
             }
         );
+
+        const subscription = consumer.subscriptions.create(
+            { channel: "ServersChannel", id: serverId },
+            {
+              
+              received: (server) => {
+                console.log('testing');
+                switch (server.type) {
+                  case "DELETE_SERVER":
+                    console.log("server deleted");
+                    dispatch(removeServer(server.id));
+                    if (+serverId === server.id) { history.push(`/channels/@me`)} 
+                    break;
+                  case "UPDATE_SERVER":
+                    console.log("server updated");
+                    dispatch(receiveServer(server));
+                    break;
+                  default:
+                    break;
+                }
+                // setRefreshState(!refreshServerState);
+              },
+            }
+          );
     
         return () => {
             friendRequestsSubscription?.unsubscribe();
+            subscription?.unsubscribe();
         }
 
     }, [dispatch, refreshState]);
 
     return (
         <div className="home-page">
-            <NavBar />
+            <NavBar refreshState={refreshState}/>
             <UserBar refreshState={refreshState}/>
             <FriendsContent refreshState={refreshState}/>
         </div>

@@ -12,21 +12,24 @@ function ServerDelete({ onClose }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        return dispatch(destroyServer(serverId)).then(() => {
-            history.push("/channels/@me");
-            onClose();
-        })
-            .catch(async (res) => {
-                let data;
-                try {
-                    data = await res.clone().json();
-                } catch {
-                    data = await res.text();
-                }
-                if (data?.errors) setErrors(data.errors);
-                else if (data) setErrors([data]);
-                else setErrors([res.statusText]);
-            });
+        destroyServer(serverId);
+        history.push("/channels/@me");
+        onClose();
+        // return dispatch(destroyServer(serverId)).then(() => {
+        //     history.push("/channels/@me");
+        //     onClose();
+        // })
+        //     .catch(async (res) => {
+        //         let data;
+        //         try {
+        //             data = await res.clone().json();
+        //         } catch {
+        //             data = await res.text();
+        //         }
+        //         if (data?.errors) setErrors(data.errors);
+        //         else if (data) setErrors([data]);
+        //         else setErrors([res.statusText]);
+        //     });
     };
 
     return (

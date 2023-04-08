@@ -21,18 +21,19 @@ function ServerUpdate({ onClose }) {
         }
         server.name = serverName;
         onClose();
-        return dispatch(updateServer(server))
-            .catch(async (res) => {
-                let data;
-                try {
-                    data = await res.clone().json();
-                } catch {
-                    data = await res.text();
-                }
-                if (data?.errors) setErrors(data.errors);
-                else if (data) setErrors([data]);
-                else setErrors([res.statusText]);
-            });
+        updateServer(server);
+        // return dispatch(updateServer(server))
+        //     .catch(async (res) => {
+        //         let data;
+        //         try {
+        //             data = await res.clone().json();
+        //         } catch {
+        //             data = await res.text();
+        //         }
+        //         if (data?.errors) setErrors(data.errors);
+        //         else if (data) setErrors([data]);
+        //         else setErrors([res.statusText]);
+        //     });
     };
 
     return (

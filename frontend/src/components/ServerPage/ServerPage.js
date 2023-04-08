@@ -10,7 +10,7 @@ import { fetchChannels } from '../../store/channels';
 import consumer from '../../consumer';
 import { useParams } from 'react-router-dom';
 import { receiveChannel, fetchChannel, deleteChannel, updateChannel } from '../../store/channels';
-import { receiveServerChannel, removeServerChannel } from '../../store/servers';
+import { receiveServerChannel, removeServerChannel, receiveServer, removeServer } from '../../store/servers';
 import './ServerPage.css';
 
 function ServerPage() {
@@ -21,6 +21,7 @@ function ServerPage() {
     const [data, setData] = useState(null);
     const [id, setId] = useState(null);
     const [refreshState, setRefreshState] = useState(false);
+    const [refreshServerState, setRefreshServerState] = useState(false);
     const server = useSelector(state => state.servers[serverId]);
     const [count, setCount] = useState(0);
 
@@ -49,8 +50,34 @@ function ServerPage() {
 
             }
         );
+
+        const subscription = consumer.subscriptions.create(
+            { channel: "ServersChannel", id: serverId },
+            {
+              
+              received: (server) => {
+                console.log('testing');
+                switch (server.type) {
+                  case "DELETE_SERVER":
+                    console.log("server deleted");
+                    dispatch(removeServer(server.id));
+                    if (+serverId === server.id) { history.push(`/channels/@me`)} 
+                    break;
+                  case "UPDATE_SERVER":
+                    console.log("server updated");
+                    dispatch(receiveServer(server));
+                    break;
+                  default:
+                    break;
+                }
+                // setRefreshServerState(!refreshServerState);
+              },
+            }
+          );
+
         return () => {
             channelSubscription?.unsubscribe();
+            subscription.unsubscribe();
         }
 
 
@@ -59,7 +86,7 @@ function ServerPage() {
 
     return (
         <div className="server-page">
-            <NavBar />
+            <NavBar refreshServerState={refreshServerState}/>
             <ChannelBar refreshState={refreshState}/>
             <div className="server-page-content">
                 <ServerToolBar refreshState={refreshState}/>

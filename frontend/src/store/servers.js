@@ -161,19 +161,27 @@ export const createServerChannel = (channel) => {
     })
 }
 
-export const updateServer = (server) => async (dispatch) => {
+// export const updateServer = (server) => async (dispatch) => {
 
-    const response = await csrfFetch(`/api/servers/${server.id}`, {
+//     const response = await csrfFetch(`/api/servers/${server.id}`, {
+//         method: 'PATCH',
+//         body: JSON.stringify({ server: server })
+//     })
+
+//     if (response.ok) {
+
+//         const data = await response.json();
+
+//         dispatch(receiveServer(data));
+//     }
+// }
+
+export const updateServer = (server) => {
+
+    csrfFetch(`/api/servers/${server.id}`, {
         method: 'PATCH',
         body: JSON.stringify({ server: server })
     })
-
-    if (response.ok) {
-
-        const data = await response.json();
-
-        dispatch(receiveServer(data));
-    }
 }
 
 // export const updateServerChannel = (channel) => async (dispatch) => {
@@ -195,14 +203,20 @@ export const updateServerChannel = (channel) => {
     })
 }
 
-export const destroyServer = (serverId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/servers/${serverId}`, {
+// export const destroyServer = (serverId) => async (dispatch) => {
+//     const response = await csrfFetch(`/api/servers/${serverId}`, {
+//         method: 'DELETE'
+//     })
+//     if (response.ok) {
+        
+//         dispatch(removeServer(serverId));
+//     }
+// }
+
+export const destroyServer = (serverId) => {
+    csrfFetch(`/api/servers/${serverId}`, {
         method: 'DELETE'
     })
-    if (response.ok) {
-        
-        dispatch(removeServer(serverId));
-    }
 }
 
 // export const destroyServerChannel = (serverId, channelId) => async (dispatch) => {
@@ -230,7 +244,7 @@ export default function serversReducer(state = initialState, action) {
         case RECEIVE_SERVERS:
             return action.servers;
         case RECEIVE_SERVER:
-
+            // debugger
             newState[action.payload.server.id] = action.payload.server;
             return newState;
         case RECEIVE_SERVER_CHANNEL:

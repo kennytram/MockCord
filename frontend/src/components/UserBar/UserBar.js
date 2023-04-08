@@ -188,11 +188,9 @@ function UserBar({ refreshState }) {
                                                 >
                                                     <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
                                                     <div className={`user-status-bubble 
-                                    ${acceptedRequest && sessionUser && users && acceptedRequest.receiverId && acceptedRequest.senderId && users[acceptedRequest.receiverID] && users[acceptedRequest.receiverID].isOnline
-                                                            && users[acceptedRequest.senderId] && users[acceptedRequest.senderId].isOnline && acceptedRequest.senderId === sessionUser.id ?
+                                    ${acceptedRequest && acceptedRequest.senderId === sessionUser.id ?
                                                             users[acceptedRequest.receiverId].isOnline ? users[acceptedRequest.receiverId].status : "invisible"
-                                                            :
-                                                            users[acceptedRequest.senderId].isOnline ? users[acceptedRequest.senderId].status : "invisible"} 
+                                                            : users[acceptedRequest.senderId].isOnline ? users[acceptedRequest.senderId].status : "invisible"}
                                     friends-status-bubble`}>
                                                         <div className={`user-status-bubble-inner 
                                         ${acceptedRequest && acceptedRequest.senderId === sessionUser.id ?

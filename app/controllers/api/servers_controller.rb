@@ -28,12 +28,19 @@ class Api::ServersController < ApplicationController
     def destroy
         @server = Server.find(params[:id])
         @server.destroy if @server.owner_id == current_user.id
+        ServersChannel.broadcast_to @server,
+            type: "DESTROY_SERVER",
+            id: @server.id
     end
 
     def update 
         @server = Server.find(params[:id])
         if @server.update(server_params)
-            render :show
+            ServersChannel.broadcast_to @server,
+                type: "UPDATE_SERVER",
+                **from_template('api/servers/show', server: @server)
+            render json: nil, status: :ok
+            # render :show
         else
             render json: { errors: @server.errors.full_messages }, status: :unprocessable_entity
         end
