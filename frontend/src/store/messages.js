@@ -10,11 +10,11 @@ export const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
 export const RESET_MESSAGES = 'RESET_MESSAGES';
 
 
-const receiveMessage = (payload) => {
+export const receiveMessage = (message) => {
 
     return {
         type: RECEIVE_MESSAGE,
-        payload
+        message
     };
 };
 
@@ -25,7 +25,7 @@ const receiveMessages = (messages) => {
     };
 };
 
-const removeMessage = (messageId) => {
+export const removeMessage = (messageId) => {
     return {
         type: REMOVE_MESSAGE,
         messageId
@@ -45,37 +45,59 @@ export const fetchMessages = () => async (dispatch) => {
     }
 }
 
-export const createMessage = (message) => async (dispatch) => {
-    const response = await csrfFetch('/api/messages', {
+// export const createMessage = (message) => async (dispatch) => {
+//     debugger
+//     const response = await csrfFetch('/api/messages', {
+//         method: 'POST',
+//         body: JSON.stringify({ message: message })
+//     })
+//     if (response.ok) {
+//         const data = await response.json();
+//         dispatch(receiveMessage(data));
+//         return response;
+//     }
+// }
+
+export const createMessage = (message) => {
+    csrfFetch('/api/messages', {
         method: 'POST',
-        body: JSON.stringify({ message: message })
+        body: JSON.stringify({message: message})
     })
-    if (response.ok) {
-        const data = await response.json();
-        dispatch(receiveMessage(data));
-        return response;
-    }
 }
 
-export const updateMessage = (message) => async (dispatch) => {
-    const response = await csrfFetch(`/api/messages/${message.id}`, {
+// export const updateMessage = (message) => async (dispatch) => {
+//     const response = await csrfFetch(`/api/messages/${message.id}`, {
+//         method: 'PATCH',
+//         body: JSON.stringify({ message: message })
+//     })
+//     if (response.ok) {
+//         const data = await response.json();
+//         dispatch(receiveMessage(data));
+//     }
+// }
+
+export const updateMessage = (message) => {
+    csrfFetch(`/api/messages/${message.id}`, {
         method: 'PATCH',
         body: JSON.stringify({ message: message })
     })
-    if (response.ok) {
-        const data = await response.json();
-        dispatch(receiveMessage(data));
-    }
 }
 
-export const deleteMessage = (messageId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/messages/${messageId}`, {
+// export const deleteMessage = (messageId) => async (dispatch) => {
+//     const response = await csrfFetch(`/api/messages/${messageId}`, {
+//         method: 'DELETE'
+//     })
+//     if (response.ok) {
+//         dispatch(removeMessage(messageId));
+//     }
+// }
+
+export const deleteMessage = (messageId) => {
+    csrfFetch(`/api/messages/${messageId}`, {
         method: 'DELETE'
     })
-    if (response.ok) {
-        dispatch(removeMessage(messageId));
-    }
 }
+
 
 export default function messagesReducer(state = {}, action) {
     const newState = { ...state };
@@ -90,8 +112,7 @@ export default function messagesReducer(state = {}, action) {
             }
             return newState;
         case RECEIVE_MESSAGE:
-
-            newState[action.payload.id] = action.payload;
+            newState[action.message.id] = action.message;
             return newState;
         case REMOVE_MESSAGE:
             const messageId = action.messageId;

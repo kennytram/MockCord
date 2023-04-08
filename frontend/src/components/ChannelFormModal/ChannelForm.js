@@ -42,6 +42,8 @@ function ChannelForm({ onSuccess, onClose }) {
                 else if (data) setErrors([data]);
                 else setErrors([res.statusText]);
             });
+        // createServerChannel(channel);
+        // dispatch(fetchServer(serverId));
     };
 
     

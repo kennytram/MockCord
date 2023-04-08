@@ -15,7 +15,6 @@ import { Modal } from '../../context/Modal';
 import ServerEdit from '../ServerEditModal/ServerEdit';
 import ChannelForm from '../ChannelFormModal/ChannelForm';
 import { fetchUsers } from '../../store/users';
-import DirectMessageDelete from '../DirectMessageDeleteModal/DirectMessageDelete';
 import UserPanel from '../UserPanel/UserPanel';
 import './UserBar.css';
 
@@ -76,8 +75,6 @@ function UserBar() {
         e.preventDefault();
         setErrors([]);
         const newChannel = { ...currentChannel, channelType: currentChannel.channelType + ` hidden/${sessionUser.id}` };
-        console.log(newChannel);
-        console.log(currentChannel);
         return dispatch(updateChannel(newChannel)).then(() => {
             setCurrentChannel(null);
         }).catch(async (res) => {

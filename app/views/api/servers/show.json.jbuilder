@@ -1,6 +1,6 @@
 json.server do
     json.extract! @server, :id, :name, :owner_id, :invite_token
-    json.defaultChannel @server.channels.sort_by{|channel| channel.id}[0].id
+    json.default_channel @server.channels.sort_by{|channel| channel.id}[0].id
     json.members do
         @server.members.each do |member|
             json.set! member.id do

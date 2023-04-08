@@ -15,14 +15,14 @@ const receiveServer = (payload) => {
     };
 };
 
-const receiveServerChannel = (payload) => {
+export const receiveServerChannel = (payload) => {
     return {
         type: RECEIVE_SERVER_CHANNEL,
         payload
     };
 };
 
-const removeServerChannel = (serverId, channelId) => {
+export const removeServerChannel = (serverId, channelId) => {
     return {
         type: DELETE_SERVER_CHANNEL,
         serverId, channelId
@@ -137,6 +137,13 @@ export const createServerChannel = (channel) => async (dispatch) => {
     }
 }
 
+// export const createServerChannel = (channel) => {
+//     csrfFetch(`/api/channels`, {
+//         method: 'POST',
+//         body: JSON.stringify({ channel: channel })
+//     })
+// }
+
 export const updateServer = (server) => async (dispatch) => {
 
     const response = await csrfFetch(`/api/servers/${server.id}`, {
@@ -164,6 +171,13 @@ export const updateServerChannel = (channel) => async (dispatch) => {
     }
 }
 
+// export const updateServerChannel = (channel) => {
+//     csrfFetch(`/api/channels/${channel.id}`, {
+//         method: 'PATCH',
+//         body: JSON.stringify({ channel: channel })
+//     })
+// }
+
 export const destroyServer = (serverId) => async (dispatch) => {
     const response = await csrfFetch(`/api/servers/${serverId}`, {
         method: 'DELETE'
@@ -183,6 +197,12 @@ export const destroyServerChannel = (serverId, channelId) => async (dispatch) =>
     }
 }
 
+// export const destroyServerChannel = (serverId, channelId) => {
+//     csrfFetch(`/api/channels/${channelId}`, {
+//         method: 'DELETE'
+//     })
+// }
+
 const initialState = {
     
 };
@@ -197,11 +217,13 @@ export default function serversReducer(state = initialState, action) {
             newState[action.payload.server.id] = action.payload.server;
             return newState;
         case RECEIVE_SERVER_CHANNEL:
+            // debugger
             newState[action.payload.channel.serverId].channels[action.payload.channel.id] = action.payload.channel;
             return newState;
         case DELETE_SERVER_CHANNEL:
-            const channelId = action.channelId;
-            delete newState[action.serverId].channels[channelId];
+            // debugger
+            // const channelId = action.channelId;
+            delete newState[action.serverId]?.channels[action.channelId];
             return newState;
         case REMOVE_SERVER:
             const serverId = action.serverId;

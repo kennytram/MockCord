@@ -13,11 +13,12 @@ import './NavBar.css';
 import { Modal } from '../../context/Modal';
 import ServerForm from '../ServerFormModal/ServerForm';
 import { fetchUsers, getUsers } from '../../store/users';
+import consumer from '../../consumer';
 
 export default function NavBar() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const history= useHistory();
+  const history = useHistory();
   const { serverId, inviteToken } = useParams();
   const selectorRef = useRef(null);
   const url = location.pathname;
@@ -32,6 +33,17 @@ export default function NavBar() {
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ left: 0, top: 0 });
 
+  //   import consumer from '../channels/consumer';
+
+  // consumer.subscriptions.create(
+  //   { channel: 'ChatChannel', room_id: 123 },
+  //   {
+  //     received: data => {
+  //       console.log('Received data:', data);
+  //     }
+  //   }
+  // );
+
 
   useEffect(() => {
     if (selectorRef.current) {
@@ -40,6 +52,7 @@ export default function NavBar() {
         navLink.parentElement.parentElement.classList.add('current');
       }
     }
+    
     Promise.all([
       inviteToken ? dispatch(joinServer(serverId, inviteToken)) : null,
       dispatch(fetchServers()),
@@ -56,7 +69,7 @@ export default function NavBar() {
 
   const logout = (e) => {
     e.preventDefault();
-    dispatch(sessionActions.logout()).then (() => {
+    dispatch(sessionActions.logout()).then(() => {
       history.push('/login');
     });
   };

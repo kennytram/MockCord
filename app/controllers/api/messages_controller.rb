@@ -1,5 +1,5 @@
 class Api::MessagesController < ApplicationController
-    
+    include Rails.application.routes.url_helpers   
     def index
         @channel = Channel.find(params[:channel_id])
         @messages = @channel.messages
@@ -9,9 +9,12 @@ class Api::MessagesController < ApplicationController
     def create
         @message = Message.new(message_params)
         @message.author_id ||= current_user.id
-        
-        if @message.save
-            render :show
+        if @message.messageable and @message.save
+            # ChannelsChannel.broadcast_to(@message.messageable, { type: "RECEIVE_MESSAGE", message: @message })
+            ChannelsChannel.broadcast_to @message.messageable,
+                type: "RECEIVE_MESSAGE",
+                **from_template('api/messages/show', message: @message)
+            render json: nil, status: :ok
         else
             render json: @message.errors.full_messages, status: 422
         end
@@ -25,7 +28,10 @@ class Api::MessagesController < ApplicationController
     def update
         @message = Message.find(params[:id])
         if @message.update(message_params)
-            render :show
+            ChannelsChannel.broadcast_to @message.messageable,
+                type: "UPDATE_MESSAGE",
+                **from_template('api/messages/show', message: @message)
+            render json: nil, status: :ok
         else
             render json: { errors: @channel.errors.full_messages }, status: :unprocessable_entity
         end
@@ -33,7 +39,11 @@ class Api::MessagesController < ApplicationController
 
     def destroy
         @message = Message.find(params[:id]);
-        @message.destroy;
+        @message.destroy
+        ChannelsChannel.broadcast_to @message.messageable,
+            type: "DELETE_MESSAGE",
+            id: @message.id
+        render json: nil, status: :ok
     end
 
     def message_params

@@ -110,8 +110,6 @@ function FriendsAll() {
             });
         }
         history.push('/channels/@me/' + dmChannelId);
-        //stuff here
-
     }
     
     return (

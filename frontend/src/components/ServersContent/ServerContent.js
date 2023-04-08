@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Redirect, useLocation, useParams, useHistory } from "react-router-dom";
-import { fetchMessages, createMessage, getMessages, updateMessage } from '../../store/messages';
+import { fetchMessages, createMessage, getMessages, updateMessage, deleteMessage } from '../../store/messages';
+import { receiveMessage, removeMessage } from '../../store/messages';
 import { fetchChannel } from '../../store/channels';
 import { getServer } from '../../store/servers';
 import EditIcon from '@mui/icons-material/Edit';
@@ -13,6 +14,9 @@ import { getUsers, resetUsers } from '../../store/users';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { getFriendRequests, fetchFriendRequests, createFriendRequest } from '../../store/FriendRequests';
 import { kickMemberServer } from '../../store/servers';
+import {receiveServerChannel, removeServerChannel} from '../../store/servers';
+import {receiveFriendRequest, removeFriendRequest} from '../../store/FriendRequests';
+import consumer from '../../consumer';
 import './ServerContent.css';
 
 function ServerContent() {
@@ -57,11 +61,63 @@ function ServerContent() {
             }).catch(() => { history.push(`/channels/@me`) })
 
         }
+        const messageSubscription = consumer.subscriptions.create(
+            { channel: "ChannelsChannel", id: channelId },
+            {
+                received: (message) => {
+                    switch(message.type) {
+                        case "RECEIVE_MESSAGE":
+                            dispatch(receiveMessage(message));
+                            break;
+                        case "DELETE_MESSAGE": 
+                            dispatch(removeMessage(message.id));
+                            break;
+                        case "UPDATE_MESSAGE":
+                            dispatch(receiveMessage(message));
+                            break;
+                        default:
+                            break;
+                    }
+                    chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+                }
+            }
+        );
 
+        
+        return () => {
+            messageSubscription?.unsubscribe();
+        }
     }, [dispatch, channelId]);
 
     useEffect(() => {
         dispatch(fetchFriendRequests());
+        
+        // const friendRequestsSubscription = consumer.subscriptions.create(
+        //     { channel: "FriendRequestsChannel", id: sessionUser.id },
+        //     {
+        //         received: (friendRequest) => {
+        //             switch(friendRequest.type) {
+        //                 case "RECEIVE_FRIEND_REQUEST":
+        //                     dispatch(receiveFriendRequest(friendRequest));
+        //                     break;
+        //                 case "DESTROY_FRIEND_REQUEST": 
+        //                     dispatch(removeFriendRequest(friendRequest.id));
+        //                     break;
+        //                 case "UPDATE_FRIEND_REQUEST":
+        //                     dispatch(receiveFriendRequest(friendRequest));
+        //                     break;
+        //                 default:
+        //                     break;
+        //             }
+        //         }
+        //     }
+        // );
+
+        
+        // return () => {
+        //     friendRequestsSubscription?.unsubscribe();
+        // }
+
     }, [dispatch])
 
     const colors = {
@@ -130,20 +186,22 @@ function ServerContent() {
         }
         setText("");
         setRows(1);
-        return dispatch(createMessage(message)).then(() => {
-            chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
-        })
-            .catch(async (res) => {
-                let data;
-                try {
-                    data = await res.clone().json();
-                } catch {
-                    data = await res.text();
-                }
-                if (data?.errors) setErrors(data.errors);
-                else if (data) setErrors([data]);
-                else setErrors([res.statusText]);
-            });
+        createMessage(message);
+        
+        // return dispatch(createMessage(message)).then(() => {
+        //     chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+        // })
+        //     .catch(async (res) => {
+        //         let data;
+        //         try {
+        //             data = await res.clone().json();
+        //         } catch {
+        //             data = await res.text();
+        //         }
+        //         if (data?.errors) setErrors(data.errors);
+        //         else if (data) setErrors([data]);
+        //         else setErrors([res.statusText]);
+        //     });
     };
 
     const handleShowEditForm = (message) => {
@@ -164,18 +222,19 @@ function ServerContent() {
         if(!editMessageText) return;
         setErrors([]);
         editMessage.text = editMessageText;
-        return dispatch(updateMessage(editMessage))
-            .catch(async (res) => {
-                let data;
-                try {
-                    data = await res.clone().json();
-                } catch {
-                    data = await res.text();
-                }
-                if (data?.errors) setErrors(data.errors);
-                else if (data) setErrors([data]);
-                else setErrors([res.statusText]);
-            });
+        updateMessage(editMessage);
+        // return dispatch(updateMessage(editMessage))
+        //     .catch(async (res) => {
+        //         let data;
+        //         try {
+        //             data = await res.clone().json();
+        //         } catch {
+        //             data = await res.text();
+        //         }
+        //         if (data?.errors) setErrors(data.errors);
+        //         else if (data) setErrors([data]);
+        //         else setErrors([res.statusText]);
+        //     });
     };
 
     const handleShowDeleteModal = (messageId) => {
@@ -217,6 +276,8 @@ function ServerContent() {
         const friendRequest = {
             receiverId: otherUserId,
         }
+        // createFriendRequest(friendRequest);
+        // showAddButton(false);
         return dispatch(createFriendRequest(friendRequest)).then(() => {
             showAddButton(false);
         }).catch(async (res) => {
@@ -251,23 +312,23 @@ function ServerContent() {
         });
     };
 
-    const handleInput = (event) => {
+    const handleInput = (e) => {
         const textareaLineHeight = 24; // adjust this value to match the line-height of your textarea
-        const previousRows = event.target.rows;
-        event.target.rows = 1; // reset the rows to 1 in order to calculate the new height
+        const previousRows = e.target.rows;
+        e.target.rows = 1; // reset the rows to 1 in order to calculate the new height
 
-        const currentRows = Math.floor(event.target.scrollHeight / textareaLineHeight);
+        const currentRows = Math.floor(e.target.scrollHeight / textareaLineHeight);
         if (currentRows === previousRows) {
-            event.target.rows = currentRows;
+            e.target.rows = currentRows;
         }
         setRows(currentRows);
-        setText(event.target.value);
+        setText(e.target.value);
     };
 
-    const handleKeyDown = (event) => {
-        if (event.key === 'Enter' && !event.shiftKey) {
-            event.preventDefault();
-            handleMessageSubmit(event);
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleMessageSubmit(e);
         }
     };
 
@@ -358,7 +419,7 @@ function ServerContent() {
                                                             <DeleteForeverIcon />
                                                         </div>
                                                         {showDeleteModal && editMessage === message && (
-                                                            <Modal onClose={() => setShowDeleteModal(false)} className="create-server">
+                                                            <Modal onClose={() => setShowDeleteModal(false)} className="create-server delete">
                                                                 <MessageDelete messageId={deleteMessageId} onClose={() => setShowDeleteModal(false)} />
                                                             </Modal>
                                                         )}
@@ -383,10 +444,10 @@ function ServerContent() {
                                 All Members - {server && server?.members ? Object.values(server.members).length : 0}
                             </li>
 
-                            {Object.values(users).map(member => (
-                                server && server.members && server.members[member.id] && (
+                            {sessionUser && sessionUser.id && Object.keys(users).length && Object.values(users).map(member => (
+                                server && sessionUser.id && member.id && server.members && server.members[member.id] && (
                                     <li key={member.id} className="member-container" onMouseOver={
-                                        sessionUser && sessionUser.id !== member.id ?
+                                        sessionUser && sessionUser.id && sessionUser.id !== member.id ?
                                             () => { handleShowAdd(member) } : null} onMouseLeave={() => {
                                                 showAddButton(false);
                                                 showKickButton(false);
@@ -409,7 +470,7 @@ function ServerContent() {
                                                 </div>
 
                                             )}
-                                            {otherUser === member && otherUserId === member.id && addButton ? (
+                                            {member.id && otherUser === member && otherUserId === member.id && addButton ? (
                                                 <div className="add-friend-button" onClick={(e) => {
                                                     e.currentTarget.nextSibling.children[0].innerText = "Friend Request Sent";
                                                     handleAddFriend(e);
@@ -429,7 +490,6 @@ function ServerContent() {
                                                     handleKickMember(e);
                                                 }}>
                                                     <GroupRemoveIcon onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} />
-                                                    {/* <DeleteForeverIcon/> */}
                                                 </div>) : null}
                                             {showTooltip && (
                                                 <div className="add-channel-symbol-tooltip" style={{ left: tooltipPosition.left, top: tooltipPosition.top }}>

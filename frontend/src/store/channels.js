@@ -8,7 +8,7 @@ export const RECEIVE_CHANNELS = 'RECEIVE_CHANNELS';
 export const REMOVE_CHANNEL = 'REMOVE_CHANNEL';
 export const RESET_CHANNELS = 'RESET_CHANNELS';
 
-const receiveChannel = (payload) => {
+export const receiveChannel = (payload) => {
     return {
         type: RECEIVE_CHANNEL,
         payload
@@ -22,7 +22,7 @@ const receiveChannels = (channels) => {
     };
 };
 
-const removeChannel = (channelId) => {
+export const removeChannel = (channelId) => {
     return {
         type: REMOVE_CHANNEL,
         channelId
@@ -72,6 +72,13 @@ export const createChannel = (channel) => async (dispatch) => {
 
 }
 
+// export const createChannel = (channel) => {
+//     csrfFetch('/api/channels', {
+//         method: 'POST',
+//         data: { channel }
+//     })
+// }
+
 export const updateChannel = (channel) => async (dispatch) => {
     const response = await csrfFetch(`/api/channels/${channel.id}`, {
         method: 'PATCH',
@@ -83,6 +90,14 @@ export const updateChannel = (channel) => async (dispatch) => {
     }
 }
 
+// export const updateChannel = (channel) => {
+//     csrfFetch(`/api/channels/${channel.id}`, {
+//         method: 'PATCH',
+//         body: JSON.stringify({ channel: channel })
+//     })
+// }
+
+
 export const deleteChannel = (channelId) => async (dispatch) => {
     const response = await csrfFetch(`/api/channels/${channelId}`, {
         method: 'DELETE'
@@ -91,6 +106,12 @@ export const deleteChannel = (channelId) => async (dispatch) => {
         dispatch(removeChannel(channelId));
     }
 }
+
+// export const deleteChannel = (channelId) => {
+//     csrfFetch(`/api/channels/${channelId}`, {
+//         method: 'DELETE'
+//     })
+// }
 
 export const joinChannel = (channel, userId) => async (dispatch) => {
     const response = await csrfFetch(`/api/channels/${channel.id}/subscribe`, {
@@ -102,6 +123,13 @@ export const joinChannel = (channel, userId) => async (dispatch) => {
         dispatch(receiveChannel(data));
     }
 }
+
+// export const joinChannel = (channel, userId) => {
+//     csrfFetch(`/api/channels/${channel.id}/subscribe`, {
+//         method: 'POST',
+//         body: JSON.stringify({ userId })
+//     })
+// }
 
 export default function channelsReducer(state = {}, action) {
     const newState = { ...state };

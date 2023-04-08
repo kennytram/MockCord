@@ -50,6 +50,8 @@ function ChannelUpdate({ onClose }) {
                 else if (data) setErrors([data]);
                 else setErrors([res.statusText]);
             });
+        // updateServerChannel(newChannel);
+        // history.push(`/channels/${serverId}/${channelId}`);
     };
 
     return (

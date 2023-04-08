@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { deleteChannel } from '../../store/channels';
 import { getServer, fetchServer, destroyServerChannel } from '../../store/servers';
-// import "./ServerDelete.css"
+import "./ServerDelete.css"
 function ChannelDelete({ onClose }) {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -17,7 +17,6 @@ function ChannelDelete({ onClose }) {
         e.preventDefault();
         setErrors([]);
         // return dispatch(deleteChannel(channelId)).then(() => {
-        console.log(channelId);
         return dispatch(destroyServerChannel(serverId, channelId)).then(() => {
             onClose();
             if (url.includes(`${channelId}`)) history.push(`/channels/${serverId}/${server.defaultChannel}`);
@@ -34,10 +33,13 @@ function ChannelDelete({ onClose }) {
                 else if (data) setErrors([data]);
                 else setErrors([res.statusText]);
             });
+        // destroyServerChannel(serverId, channelId);
+        // onClose();
+        // if (url.includes(`${channelId}`)) history.push(`/channels/${serverId}/${server.defaultChannel}`);
     };
-
+    
     return (
-        <div className="server-create-form">
+        <div className="server-create-form delete">
             <div className="server-create-header">
                 <div className="server-create-title">Delete your channel</div>
                 <div className="server-create-desc">

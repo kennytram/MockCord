@@ -20,9 +20,9 @@ function FriendMessageToolBar() {
                 <li>
                     <div className="top-main-header">
                         <AlternateEmailIcon className="top-main-icon email" />
-                        {dmChannelName && sessionUser ? sessionUser.username === dmChannelName[0] ? dmChannelName[1] : dmChannelName[0] : ""}
-                        
-                        {dmChannel && Object.keys(dmChannel.dmMembers).length > 0 && Object.keys(users).length > 0 && sessionUser && Object.values(dmChannel.dmMembers).map(member => {
+                        {dmChannelName && sessionUser && sessionUser?.username ? sessionUser.username === dmChannelName[0] ? dmChannelName[1] : dmChannelName[0] : ""}
+
+                        {Object.keys(dmChannel).length && dmChannel.dmMembers && Object.keys(users).length && sessionUser && sessionUser.id && Object.values(dmChannel.dmMembers).map(member => {
                             if (member.id !== sessionUser.id) {
                                 return (
                                     <div key={member.id} className={users[member.id].isOnline ? `user-status-bubble ${users[member.id].status}` : `user-status-bubble invisible`}>

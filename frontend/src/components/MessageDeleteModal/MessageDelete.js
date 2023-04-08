@@ -9,27 +9,28 @@ function MessageDelete({ onClose, messageId }) {
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
     const handleSubmit = (e) => {
-        console.log(messageId);
         e.preventDefault();
         setErrors([]);
-        return dispatch(deleteMessage(messageId)).then(() => {
-            onClose();
-        })
-            .catch(async (res) => {
-                let data;
-                try {
-                    data = await res.clone().json();
-                } catch {
-                    data = await res.text();
-                }
-                if (data?.errors) setErrors(data.errors);
-                else if (data) setErrors([data]);
-                else setErrors([res.statusText]);
-            });
+        deleteMessage(messageId);
+        onClose();
+        // return dispatch(deleteMessage(messageId)).then(() => {
+        //     onClose();
+        // })
+        //     .catch(async (res) => {
+        //         let data;
+        //         try {
+        //             data = await res.clone().json();
+        //         } catch {
+        //             data = await res.text();
+        //         }
+        //         if (data?.errors) setErrors(data.errors);
+        //         else if (data) setErrors([data]);
+        //         else setErrors([res.statusText]);
+        //     });
     };
 
     return (
-        <div className="server-create-form">
+        <div className="server-create-form delete">
             <div className="server-create-header">
                 <div className="server-create-title">Delete your message</div>
                 <div className="server-create-desc">

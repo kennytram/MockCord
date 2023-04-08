@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Redirect, useLocation, useParams, useHistory } from "react-router-dom";
-import { fetchMessages, createMessage, getMessages, updateMessage } from '../../store/messages';
-import { getServer } from '../../store/servers';
-import { getChannel, fetchChannels, fetchChannel, resetChannels } from '../../store/channels';
+import { fetchMessages, createMessage, getMessages, updateMessage } from '../../../store/messages';
+import { getServer } from '../../../store/servers';
+import { getChannel, fetchChannels, fetchChannel, resetChannels } from '../../../store/channels';
 // import './ContentPage.css';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
@@ -14,13 +14,13 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { Modal } from '../../context/Modal';
-import MessageDelete from '../MessageDeleteModal/MessageDelete';
-import { getUsers, resetUsers } from '../../store/users';
+import { Modal } from '../../../context/Modal';
+import MessageDelete from '../../MessageDeleteModal/MessageDelete';
+import { getUsers, resetUsers } from '../../../store/users';
 import {
     createDirectMessage, fetchDirectMessages, fetchDirectMessage,
     getDirectMessage, getDirectMessages
-} from '../../store/dms';
+} from '../../../store/dms';
 
 export default function ContentPage() {
     const dispatch = useDispatch();
@@ -530,14 +530,10 @@ export default function ContentPage() {
                                         <div className="welcome-dm-heading">
                                             {dm && dm.otherUserId && Object.keys(users).length ?
                                                 users[dm.otherUserId] ? users[dm.otherUserId].username : "User" : "User"}
-                                            { }
-                                            { }
 
                                         </div>
                                         <div className="welcome-dm-desc">
                                             This is the beginning of your direct message history with <span className="highlighted-user">@
-                                                { }
-                                                { }
                                                 {dm && dm.otherUserId && Object.keys(users).length ?
                                                     users[dm.otherUserId] ? users[dm.otherUserId].username : "User" : "User"}
                                             </span>.

@@ -88,7 +88,7 @@ function ServerEdit({ onClose, ...props }) {
       </Modal>
     )}
     {showDeleteModal && (
-      <Modal onClose={handleCloseFirstModal} className="create-server">
+      <Modal onClose={handleCloseFirstModal} className="create-server delete">
         <ServerDelete onClose={handleCloseFirstModal} />
       </Modal>
     )}

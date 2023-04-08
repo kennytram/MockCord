@@ -115,3 +115,62 @@
     margin-top: 0;
 } */
 
+/* .server-create-form.delete{
+    background-color: var(--white-form-input-text);
+    color: var(--text-normal);
+} */
+
+.server-create-form.delete .brand.button {
+    background-color: var(--danger);
+}
+
+.server-create-form.delete .brand.button:hover {
+    background-color: var(--danger-hover);
+}
+
+.server-create-form.delete .server-create-header > .server-create-title{
+    color: var(--text-normal);
+}
+
+.server-create-form.delete .server-create-header > .server-create-desc{
+    color: var(--text-normal);
+}
+
+.server-create-form.delete .server-create-desc {
+    color: var(--text-normal);
+}
+
+.server-create-form.delete .server-create-name {
+    color: var(--text-normal);
+}
+
+.server-create-form.delete .server-form-content input {
+    background-color: var(--white-form-input-bg);
+    color: var(--text-normal);
+}
+
+.server-create-form.delete .back-button {
+    color: var(--text-normal);
+    margin-left: 9px;
+}
+
+.server-create-form.delete .server-create-content {
+    margin-top: 22px;
+}
+
+/* .server-create-form.delete .server-form-content input::placeholder {
+    color: var(--text-muted);
+}
+
+.server-create-form.delete .server-form-content input:focus {
+    background-color: var(--white-form-input-bg);
+    color: var(--text-normal);
+}
+
+.server-create-form.delete .server-create-buttons .brand.button {
+    background-color: var(--text-normal);
+}
+
+.server-create-form.delete .server-create-buttons .brand.button:hover {
+    background-color: var(--text-normal-hover);
+} */

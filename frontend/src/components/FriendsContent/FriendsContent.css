@@ -384,6 +384,7 @@ svg:hover ~ .toolbar-tooltip:not(:hover) {
     padding: 20px 30px;
     border-bottom: 1px solid var(--line-separator-color);
     user-select: none;
+    white-space: pre-wrap;
 }
 
 #add-friend-title {
@@ -421,9 +422,9 @@ svg:hover ~ .toolbar-tooltip:not(:hover) {
     transition: border-color .2s ease-in-out;
 }
 
-.searchbar.friend:active {
+/* .searchbar.friend:active {
     border-color: var(--focus-border);
-}
+} */
 
 #other-places-header {
     color: var(--interactive-dm-header-text);
@@ -709,9 +710,9 @@ button.searchbar:hover {
     /* overflow: hidden; */
 }
 
-.friend-request-info-right-button.blocked {
-    /* position:fixed; */
-}
+/* .friend-request-info-right-button.blocked {
+    position:fixed;
+} */
 .friend-request-info-right > .friend-request-info-right-button:hover {
     color: var(--text-normal);
 }

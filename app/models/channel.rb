@@ -13,7 +13,7 @@
 class Channel < ApplicationRecord
     validates :name, presence: true
     belongs_to :server, class_name: :Server
-    has_many :messages, as: :messageable
+    has_many :messages, dependent: :destroy, as: :messageable
 
     has_many :dm_subscriptions, foreign_key: :channel_id, class_name: :ChannelSubscription, dependent: :destroy
     has_many :dm_members, through: :dm_subscriptions, source: :user

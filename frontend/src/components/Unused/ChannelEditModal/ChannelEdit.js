@@ -1,14 +1,15 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateServer, destroyServer } from '../../store/servers';
-import "./ServerEdit.css"
+import { updateServer, destroyServer } from '../../../store/servers';
+// import "./ServerEdit.css"
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import PersonAddAlt1 from '@mui/icons-material/PersonAddAlt1';
-import { Modal } from '../../context/Modal';
+import { Modal } from '../../../context/Modal';
+import ChannelUpdate from '../../ChannelUpdateModal/ChannelUpdate';
+import ChannelDelete from '../../ChannelDeleteModal/ChannelDelete';
 
-function ServerEdit({ onClose, ...props }) {
+function ChannelEdit({ onClose }) {
   const [errors, setErrors] = useState([]);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -26,23 +27,32 @@ function ServerEdit({ onClose, ...props }) {
   const handleOpenThirdModal = (e) => {
     setShowDeleteModal(true);
   };
+
+  const handleCloseSecondModal = (e) => {
+    setShowUpdateModal(false);
+  };
+
+  const handleCloseThirdModal = (e) => {
+    setShowDeleteModal(false);
+  };
+
   return (
     <div className="server-edit-form">
       <div className="update-server" onClick={handleOpenSecondModal}>
-        <div>Update Server</div>
+        <div>Update Channel</div>
         <EditIcon />
       </div>
       {showUpdateModal && (
         <Modal onClose={handleCloseFirstModal} className="create-server">
-          <ServerUpdate onClose={handleCloseFirstModal} />
+          <ChannelUpdate onClose={handleCloseFirstModal} />
         </Modal>
       )}
       <div className="edit-seperator" />
       <div className="delete-server" onClick={handleOpenThirdModal}>
-        <div>Delete Server</div>
+        <div>Delete Channel</div>
         <DeleteForeverIcon />{showDeleteModal && (
-          <Modal onClose={handleCloseFirstModal} className="create-server">
-            <ServerDelete onClose={handleCloseFirstModal} />
+          <Modal onClick={onClose} onClose={onClose()} className="create-server">
+            <ChannelDelete onClick={onClose} onClose={onClose()} />
           </Modal>
         )}
       </div>
@@ -50,4 +60,4 @@ function ServerEdit({ onClose, ...props }) {
   );
 }
 
-export default ServerEdit;
+export default ChannelEdit;

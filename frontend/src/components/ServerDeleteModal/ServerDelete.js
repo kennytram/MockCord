@@ -30,7 +30,7 @@ function ServerDelete({ onClose }) {
     };
 
     return (
-        <div className="server-create-form">
+        <div className="server-create-form delete">
             <div className="server-create-header">
                 <div className="server-create-title">Delete your server</div>
                 <div className="server-create-desc">

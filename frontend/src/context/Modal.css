@@ -77,3 +77,9 @@
   position: absolute;
   background-color: transparent;
 }
+
+.create-server#modal-content.delete {
+  position: absolute;
+  background-color: var(--white-form-input-text);
+  color: var(--text-normal);
+}

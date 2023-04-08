@@ -330,3 +330,7 @@
 .user-status-bubble-inner.bar-status-bubble:not(.online){
     background-color: transparent;
 }
+
+.dm-link:hover {
+    text-decoration: none;
+}

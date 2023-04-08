@@ -95,7 +95,6 @@ function FriendsOnline() {
         const dmChannel = channels[dmChannelId];
         if (dmChannel.channelType.includes(`hidden/${sessionUser.id}`)) {
             dmChannel.channelType = dmChannel.channelType.replace(`hidden/${sessionUser.id}`, "").trim();
-            console.log(dmChannel);
             return dispatch(updateChannel(dmChannel)).then(() => {
                 history.push('/channels/@me/' + dmChannelId);
             }).catch(async (res) => {

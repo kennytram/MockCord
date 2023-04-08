@@ -15,6 +15,7 @@ import { Modal } from '../../context/Modal';
 import ChannelUpdate from '../ChannelUpdateModal/ChannelUpdate';
 import ChannelDelete from '../ChannelDeleteModal/ChannelDelete';
 import { getServer, fetchServer } from '../../store/servers';
+import { fetchChannel } from '../../store/channels';
 import './ServerToolBar.css'
 
 function ServerToolBar() {
@@ -24,10 +25,13 @@ function ServerToolBar() {
     const url = location.pathname;
     const { serverId, channelId } = useParams();
     const server = useSelector(getServer(serverId));
-
+    const dataServerName = useState[server?.name];
+    const [count, setCount] = useState(0);
     const sessionUser = useSelector(state => state.session.user);
 
     const users = useSelector(state => state.users);
+
+    useEffect(() => {}, [dispatch, channelId, serverId]);
     
     if(!channelId) return null;
     return (
@@ -35,7 +39,7 @@ function ServerToolBar() {
 
             <ul className="top-left-side">
                 <li>
-                    <div className="top-main-header">
+                    <div className="top-main-header" onClick={()=>setCount(count+1)}>
                         <NumbersIcon className="top-main-icon" />
                         {server && Object.keys(server?.channels).length > 0 && channelId && server.channels[channelId]?.name ? server?.channels[channelId].name : "general"}
                     </div>

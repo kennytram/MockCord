@@ -29,6 +29,10 @@ class ApplicationController < ActionController::API
         render json: { message: 'Unauthorized' }, status: :unauthorized 
       end
     end
+
+    def from_template(template, locals = {})
+      JSON.parse(self.class.render(:json, template: template, locals: locals))
+    end
   
     private
   

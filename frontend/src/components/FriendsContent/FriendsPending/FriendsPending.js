@@ -159,8 +159,8 @@ function FriendsPending() {
                                         </div>
                                         <div className="friend-request-info-right">
                                             {pendingRequest && sessionUser && pendingRequest.senderId !== sessionUser.id &&
-                                                <button className="friend-request-info-right-button accepted accept" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
-                                                    <CheckIcon onClick={handleAddFriendRequest} />
+                                                <button onClick={handleAddFriendRequest} className="friend-request-info-right-button accepted accept" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
+                                                    <CheckIcon />
                                                     {showTooltip && <div className="friend-request-tooltip"
                                                         style={{ top: tooltipPosition.top }}>
                                                         <div className="tooltip-text">

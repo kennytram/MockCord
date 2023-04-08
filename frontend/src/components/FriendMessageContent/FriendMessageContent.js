@@ -1,12 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Redirect, useLocation, useParams, useHistory } from "react-router-dom";
-import { fetchMessages, createMessage, getMessages, updateMessage } from '../../store/messages';
+import { fetchMessages, createMessage, getMessages, updateMessage, receiveMessage, removeMessage } from '../../store/messages';
 import { fetchChannel } from '../../store/channels';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Modal } from '../../context/Modal';
 import MessageDelete from '../MessageDeleteModal/MessageDelete';
+import consumer from '../../consumer';
 import { getFriendRequests, fetchFriendRequests, createFriendRequest } from '../../store/FriendRequests';
 
 function FriendMessageContent() {
@@ -38,6 +39,34 @@ function FriendMessageContent() {
                 if (chatMessagesRef) chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
             }).catch(() => { history.push(`/channels/@me`) })
 
+        }
+        const subscription = consumer.subscriptions.create(
+            { channel: "ChannelsChannel", id: channelId },
+            {
+                received: (message) => {
+                    switch(message.type) {
+                        case "RECEIVE_MESSAGE":
+                            dispatch(receiveMessage(message)).catch(async (res) => { history.push(`/channels/@me`) });
+                            break;
+                        case "DELETE_MESSAGE": 
+                            dispatch(removeMessage(message.id)).catch(() => { history.push(`/channels/@me`) });
+                            break;
+                        case "UPDATE_MESSAGE":
+                            dispatch(receiveMessage(message)).catch(() => { history.push(`/channels/@me`) });
+                            break;
+                        default:
+                            break;
+                    }
+                    if (chatMessagesRef) chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+                    
+                },
+                error: () => {
+                    history.push("/channels/@me");
+                }
+            }
+        );
+        return () => {
+            subscription.unsubscribe();
         }
 
     }, [dispatch, channelId]);
@@ -108,20 +137,22 @@ function FriendMessageContent() {
         }
         setText("");
         setRows(1);
-        return dispatch(createMessage(message)).then(() => {
-            chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
-        })
-            .catch(async (res) => {
-                let data;
-                try {
-                    data = await res.clone().json();
-                } catch {
-                    data = await res.text();
-                }
-                if (data?.errors) setErrors(data.errors);
-                else if (data) setErrors([data]);
-                else setErrors([res.statusText]);
-            });
+        createMessage(message);
+        
+        // return dispatch(createMessage(message)).then(() => {
+        //     chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+        // })
+        //     .catch(async (res) => {
+        //         let data;
+        //         try {
+        //             data = await res.clone().json();
+        //         } catch {
+        //             data = await res.text();
+        //         }
+        //         if (data?.errors) setErrors(data.errors);
+        //         else if (data) setErrors([data]);
+        //         else setErrors([res.statusText]);
+        //     });
     };
 
     const handleShowEditForm = (message) => {
@@ -142,18 +173,19 @@ function FriendMessageContent() {
         if(!editMessageText) return;
         setErrors([]);
         editMessage.text = editMessageText;
-        return dispatch(updateMessage(editMessage))
-            .catch(async (res) => {
-                let data;
-                try {
-                    data = await res.clone().json();
-                } catch {
-                    data = await res.text();
-                }
-                if (data?.errors) setErrors(data.errors);
-                else if (data) setErrors([data]);
-                else setErrors([res.statusText]);
-            });
+        updateMessage(editMessage);
+        // return dispatch(updateMessage(editMessage))
+        //     .catch(async (res) => {
+        //         let data;
+        //         try {
+        //             data = await res.clone().json();
+        //         } catch {
+        //             data = await res.text();
+        //         }
+        //         if (data?.errors) setErrors(data.errors);
+        //         else if (data) setErrors([data]);
+        //         else setErrors([res.statusText]);
+        //     });
     };
 
     const handleShowDeleteModal = (messageId) => {
@@ -216,7 +248,7 @@ function FriendMessageContent() {
                     <li className="welcome-dm">
 
                         <div className="welcome-dm-wrapper">
-                            {dmChannel && Object.keys(dmChannel.dmMembers).length > 0 && Object.keys(users).length > 0 && sessionUser && Object.values(dmChannel.dmMembers).map(member => {
+                            {Object.keys(dmChannel).length && Object.keys(dmChannel.dmMembers).length && Object.keys(users).length && sessionUser && sessionUser.id && Object.values(dmChannel.dmMembers).map(member => {
                                 if (member.id !== sessionUser.id) {
                                     return (
                                         <div key={member.id} className="message-user-icon" style={{ backgroundColor: `${colorById(member.id)}` }}>
@@ -311,7 +343,7 @@ function FriendMessageContent() {
                 </ul>
                 <form className="message-input-form" onSubmit={handleMessageSubmit}>
                     <textarea className="message-input" type="text" value={text} ref={textareaRef} rows={rows} onInput={handleInput} onKeyDown={handleKeyDown}
-                        onChange={(e) => setText(e.target.value)} placeholder={dmChannelName && sessionUser ? sessionUser.username === dmChannelName[0] ? dmChannelName[1] : `Message @${dmChannelName[0]}` : "Message here"} />
+                        onChange={(e) => setText(e.target.value)} placeholder={dmChannelName && sessionUser ? sessionUser.username === dmChannelName[0] ? `Message @${dmChannelName[1]}` : `Message @${dmChannelName[0]}` : "Message here"} />
                 </form>
             </div>
         </div >

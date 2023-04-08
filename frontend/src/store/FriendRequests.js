@@ -4,7 +4,7 @@ export const RECEIVE_FRIEND_REQUEST = 'RECEIVE_FRIEND_REQUEST';
 export const RECEIVE_FRIEND_REQUESTS = 'RECEIVE_FRIEND_REQUESTS';
 export const REMOVE_FRIEND_REQUEST = 'REMOVE_FRIEND_REQUEST';
 
-const receiveFriendRequest = (payload) => {
+export const receiveFriendRequest = (payload) => {
     return {
         type: RECEIVE_FRIEND_REQUEST,
         payload
@@ -18,7 +18,7 @@ const receiveFriendRequests = (friendRequests) => {
     };
 }
 
-const removeFriendRequest = (friendRequestId, friendId) => {
+export const removeFriendRequest = (friendRequestId, friendId) => {
     return {
         type: REMOVE_FRIEND_REQUEST,
         friendRequestId, friendId
@@ -63,19 +63,40 @@ export const createFriendRequest = (friendRequest) => async (dispatch) => {
     }
 }
 
+// export const createFriendRequest = (friendRequest) => {
+//     csrfFetch('/api/friend_requests', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ friendRequest: friendRequest })
+//     });
+// }
+
+
 export const createSearchFriendRequest = (searchFriend) => async (dispatch) => {
     const response = await csrfFetch('/api/friend_requests/search', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({user: searchFriend})
+        body: JSON.stringify({ user: searchFriend })
     });
     if (response.ok) {
         const data = await response.json();
         dispatch(receiveFriendRequest(data));
     }
 }
+
+// export const createSearchFriendRequest = (searchFriend) => {
+//     csrfFetch('/api/friend_requests/search', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ user: searchFriend })
+//     });
+// }
 
 export const deleteFriendRequest = (friendRequestId, friendId) => async (dispatch) => {
     const response = await csrfFetch(`/api/friend_requests/${friendRequestId}`, {
@@ -85,6 +106,12 @@ export const deleteFriendRequest = (friendRequestId, friendId) => async (dispatc
         dispatch(removeFriendRequest(friendRequestId, friendId));
     }
 }
+
+// export const deleteFriendRequest = (friendRequestId, friendId) => {
+//     csrfFetch(`/api/friend_requests/${friendRequestId}`, {
+//         method: 'DELETE'
+//     })
+// }
 
 export const updateFriendRequest = (friendRequest) => async (dispatch) => {
     const response = await csrfFetch(`/api/friend_requests/${friendRequest.id}`, {
@@ -98,10 +125,17 @@ export const updateFriendRequest = (friendRequest) => async (dispatch) => {
     }
 }
 
+// export const updateFriendRequest = (friendRequest) => {
+//     csrfFetch(`/api/friend_requests/${friendRequest.id}`, {
+//         method: 'PATCH',
+//         body: JSON.stringify({ friendRequest })
+//     });
+// }
+
 const initialState = {};
 
 const friendRequestsReducer = (state = initialState, action) => {
-    let newState = {...state};
+    let newState = { ...state };
     switch (action.type) {
         case RECEIVE_FRIEND_REQUEST:
             const friendId = action.payload.friendRequest.friendId;

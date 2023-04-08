@@ -65,6 +65,7 @@ li {
     --off-white-text: rgb(224, 225, 229);
     --icon-bg: rgb(49, 51, 56);
     --danger: rgb(242, 63, 66);
+    --danger-hover: rgb(161,40,40);
     --green-cord: rgb(35, 169, 89);
     --red-cord: #ED4245;
     --line-separator-color: rgba(78, 80, 88, 0.48);
@@ -91,7 +92,7 @@ li {
     --interactive-dm-header-text: rgb(243, 244, 245);
     --message-box-area-color: rgb(56, 58, 64);
     --nice-green: rgb(36, 128, 70);
-
+    --header-color: rgb(242, 243, 245);
     --white-form-text-color: rgb(6, 6, 7);
     --desc-text: rgb(78, 80, 88);
     --white-form-input-text: rgb(49, 51, 56);
