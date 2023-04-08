@@ -25,25 +25,25 @@ function ChannelForm({ onSuccess, onClose }) {
             return;
         }
         onClose();
-        return dispatch(createServerChannel(channel))
-            .then((res) => {
-                if (res.ok) {
-                    dispatch(fetchServer(serverId));
-                }
-            })
-            .catch(async (res) => {
-                let data;
-                try {
-                    data = await res.clone().json();
-                } catch {
-                    data = await res.text();
-                }
-                if (data?.errors) setErrors(data.errors);
-                else if (data) setErrors([data]);
-                else setErrors([res.statusText]);
-            });
-        // createServerChannel(channel);
-        // dispatch(fetchServer(serverId));
+        // return dispatch(createServerChannel(channel))
+        //     .then((res) => {
+        //         if (res.ok) {
+        //             dispatch(fetchServer(serverId));
+        //         }
+        //     })
+        //     .catch(async (res) => {
+        //         let data;
+        //         try {
+        //             data = await res.clone().json();
+        //         } catch {
+        //             data = await res.text();
+        //         }
+        //         if (data?.errors) setErrors(data.errors);
+        //         else if (data) setErrors([data]);
+        //         else setErrors([res.statusText]);
+        //     });
+        createServerChannel(channel);
+        dispatch(fetchServer(serverId));
     };
 
     

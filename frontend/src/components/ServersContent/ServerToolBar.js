@@ -18,7 +18,7 @@ import { getServer, fetchServer } from '../../store/servers';
 import { fetchChannel } from '../../store/channels';
 import './ServerToolBar.css'
 
-function ServerToolBar() {
+function ServerToolBar({refreshState}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
@@ -26,12 +26,11 @@ function ServerToolBar() {
     const { serverId, channelId } = useParams();
     const server = useSelector(getServer(serverId));
     const dataServerName = useState[server?.name];
-    const [count, setCount] = useState(0);
     const sessionUser = useSelector(state => state.session.user);
 
     const users = useSelector(state => state.users);
 
-    useEffect(() => {}, [dispatch, channelId, serverId]);
+    useEffect(() => {}, [dispatch, channelId, serverId, refreshState]);
     
     if(!channelId) return null;
     return (
@@ -39,7 +38,7 @@ function ServerToolBar() {
 
             <ul className="top-left-side">
                 <li>
-                    <div className="top-main-header" onClick={()=>setCount(count+1)}>
+                    <div className="top-main-header">
                         <NumbersIcon className="top-main-icon" />
                         {server && Object.keys(server?.channels).length > 0 && channelId && server.channels[channelId]?.name ? server?.channels[channelId].name : "general"}
                     </div>

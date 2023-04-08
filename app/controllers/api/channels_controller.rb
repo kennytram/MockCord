@@ -10,11 +10,11 @@ class Api::ChannelsController < ApplicationController
         if @channel.save
             # render :show
             # ServersChannel.broadcast_to(@channel.server, { type: "CREATE_CHANNEL", channel: @channel })
-            render 'api/channels/show'
-            # ServersChannel.broadcast_to @channel.server,
-            #     type: "RECEIVE_CHANNEL",
-            #     **from_template('api/channels/show', channel: @channel)
-            # render json: nil, status: :ok
+            # render 'api/channels/show'
+            ServersChannel.broadcast_to @channel.server,
+                type: "RECEIVE_CHANNEL",
+                **from_template('api/channels/show', channel: @channel)
+            render json: nil, status: :ok
         else
             render json: @channel.errors.full_messages, status: 422
         end
@@ -26,11 +26,11 @@ class Api::ChannelsController < ApplicationController
         @server = @channel.server
         if @channel.update(channel_params)
             # render :show
-            render 'api/channels/show'
-            # ServersChannel.broadcast_to @channel.server,
-            #     type: "UPDATE_CHANNEL",
-            #     **from_template('api/channels/show', channel: @channel)
-            # render json: nil, status: :ok
+            # render 'api/channels/show'
+            ServersChannel.broadcast_to @channel.server,
+                type: "UPDATE_CHANNEL",
+                **from_template('api/channels/show', channel: @channel)
+            render json: nil, status: :ok
         else
             render json: { errors: @channel.errors.full_messages }, status: :unprocessable_entity
         end
@@ -40,9 +40,9 @@ class Api::ChannelsController < ApplicationController
         @channel = Channel.find(params[:id])
         @server = @channel.server
         @channel.destroy
-        # ServersChannel.broadcast_to @server,
-        #     type: "DESTROY_CHANNEL",
-        #     id: @channel.id
+        ServersChannel.broadcast_to @server,
+            type: "DESTROY_CHANNEL",
+            id: @channel.id
     end
 
     def show 

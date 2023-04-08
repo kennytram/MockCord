@@ -125,24 +125,24 @@ export const createServer = (server) => async (dispatch) => {
     }
 }
 
-export const createServerChannel = (channel) => async (dispatch) => {
-    const response = await csrfFetch(`/api/channels`, {
-        method: 'POST',
-        body: JSON.stringify({ channel: channel })
-    })
-    if (response.ok) {
-        const data = await response.json();
-        dispatch(receiveServerChannel(data));
-        return response;
-    }
-}
-
-// export const createServerChannel = (channel) => {
-//     csrfFetch(`/api/channels`, {
+// export const createServerChannel = (channel) => async (dispatch) => {
+//     const response = await csrfFetch(`/api/channels`, {
 //         method: 'POST',
 //         body: JSON.stringify({ channel: channel })
 //     })
+//     if (response.ok) {
+//         const data = await response.json();
+//         dispatch(receiveServerChannel(data));
+//         return response;
+//     }
 // }
+
+export const createServerChannel = (channel) => {
+    csrfFetch(`/api/channels`, {
+        method: 'POST',
+        body: JSON.stringify({ channel: channel })
+    })
+}
 
 export const updateServer = (server) => async (dispatch) => {
 
@@ -159,24 +159,24 @@ export const updateServer = (server) => async (dispatch) => {
     }
 }
 
-export const updateServerChannel = (channel) => async (dispatch) => {
-    const response = await csrfFetch(`/api/channels/${channel.id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({ channel })
-    })
-    if (response.ok) {
-        const data = await response.json();
-        dispatch(receiveServerChannel(data));
-        return response;
-    }
-}
-
-// export const updateServerChannel = (channel) => {
-//     csrfFetch(`/api/channels/${channel.id}`, {
+// export const updateServerChannel = (channel) => async (dispatch) => {
+//     const response = await csrfFetch(`/api/channels/${channel.id}`, {
 //         method: 'PATCH',
-//         body: JSON.stringify({ channel: channel })
+//         body: JSON.stringify({ channel })
 //     })
+//     if (response.ok) {
+//         const data = await response.json();
+//         dispatch(receiveServerChannel(data));
+//         return response;
+//     }
 // }
+
+export const updateServerChannel = (channel) => {
+    csrfFetch(`/api/channels/${channel.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ channel: channel })
+    })
+}
 
 export const destroyServer = (serverId) => async (dispatch) => {
     const response = await csrfFetch(`/api/servers/${serverId}`, {
@@ -188,20 +188,20 @@ export const destroyServer = (serverId) => async (dispatch) => {
     }
 }
 
-export const destroyServerChannel = (serverId, channelId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/channels/${channelId}`, {
-        method: 'DELETE'
-    })
-    if (response.ok) {
-        dispatch(removeServerChannel(serverId, channelId));
-    }
-}
-
-// export const destroyServerChannel = (serverId, channelId) => {
-//     csrfFetch(`/api/channels/${channelId}`, {
+// export const destroyServerChannel = (serverId, channelId) => async (dispatch) => {
+//     const response = await csrfFetch(`/api/channels/${channelId}`, {
 //         method: 'DELETE'
 //     })
+//     if (response.ok) {
+//         dispatch(removeServerChannel(serverId, channelId));
+//     }
 // }
+
+export const destroyServerChannel = (serverId, channelId) => {
+    csrfFetch(`/api/channels/${channelId}`, {
+        method: 'DELETE'
+    })
+}
 
 const initialState = {
     

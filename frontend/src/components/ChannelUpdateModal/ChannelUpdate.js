@@ -33,25 +33,25 @@ function ChannelUpdate({ onClose }) {
         }
         onClose(e);
         // return dispatch(updateChannel(server.channels[channelId]))
-        return dispatch(updateServerChannel(newChannel)).then(res => {
-            if (res.ok) {
-                history.push(`/channels/${serverId}/${channelId}`);
-            }
-        })
-            .catch(async (res) => {
-                let data;
-                try {
-                    data = await res.clone().json();
-                } catch {
-                    data = await res.text();
-                }
-                console.log(data);
-                if (data?.errors) setErrors(data.errors);
-                else if (data) setErrors([data]);
-                else setErrors([res.statusText]);
-            });
-        // updateServerChannel(newChannel);
-        // history.push(`/channels/${serverId}/${channelId}`);
+        // return dispatch(updateServerChannel(newChannel)).then(res => {
+        //     if (res.ok) {
+        //         history.push(`/channels/${serverId}/${channelId}`);
+        //     }
+        // })
+        //     .catch(async (res) => {
+        //         let data;
+        //         try {
+        //             data = await res.clone().json();
+        //         } catch {
+        //             data = await res.text();
+        //         }
+        //         console.log(data);
+        //         if (data?.errors) setErrors(data.errors);
+        //         else if (data) setErrors([data]);
+        //         else setErrors([res.statusText]);
+        //     });
+        updateServerChannel(newChannel);
+        history.push(`/channels/${serverId}/${channelId}`);
     };
 
     return (

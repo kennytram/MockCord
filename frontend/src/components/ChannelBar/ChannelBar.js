@@ -16,7 +16,7 @@ import consumer from '../../consumer';
 import {receiveServerChannel, removeServerChannel} from '../../store/servers';
 import './ChannelBar.css';
 
-function ChannelBar() {
+function ChannelBar({refreshState}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
@@ -65,7 +65,7 @@ function ChannelBar() {
 
         
 
-    }, [dispatch, serverId]);
+    }, [dispatch, serverId, refreshState]);
 
     const handleMouseOver = (e) => {
         const { left, top } = e.currentTarget.getBoundingClientRect();

@@ -87,7 +87,7 @@ function ServerContent() {
         return () => {
             messageSubscription?.unsubscribe();
         }
-    }, [dispatch, channelId]);
+    }, [dispatch, channelId, history]);
 
     useEffect(() => {
         dispatch(fetchFriendRequests());

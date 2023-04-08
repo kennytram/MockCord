@@ -17,25 +17,25 @@ function ChannelDelete({ onClose }) {
         e.preventDefault();
         setErrors([]);
         // return dispatch(deleteChannel(channelId)).then(() => {
-        return dispatch(destroyServerChannel(serverId, channelId)).then(() => {
-            onClose();
-            if (url.includes(`${channelId}`)) history.push(`/channels/${serverId}/${server.defaultChannel}`);
-            // dispatch(fetchServer(serverId));
-        })
-            .catch(async (res) => {
-                let data;
-                try {
-                    data = await res.clone().json();
-                } catch {
-                    data = await res.text();
-                }
-                if (data?.errors) setErrors(data.errors);
-                else if (data) setErrors([data]);
-                else setErrors([res.statusText]);
-            });
-        // destroyServerChannel(serverId, channelId);
-        // onClose();
-        // if (url.includes(`${channelId}`)) history.push(`/channels/${serverId}/${server.defaultChannel}`);
+        // return dispatch(destroyServerChannel(serverId, channelId)).then(() => {
+        //     onClose();
+        //     if (url.includes(`${channelId}`)) history.push(`/channels/${serverId}/${server.defaultChannel}`);
+        //     // dispatch(fetchServer(serverId));
+        // })
+        //     .catch(async (res) => {
+        //         let data;
+        //         try {
+        //             data = await res.clone().json();
+        //         } catch {
+        //             data = await res.text();
+        //         }
+        //         if (data?.errors) setErrors(data.errors);
+        //         else if (data) setErrors([data]);
+        //         else setErrors([res.statusText]);
+        //     });
+        destroyServerChannel(serverId, channelId);
+        onClose();
+        if (url.includes(`${channelId}`)) history.push(`/channels/${serverId}/${server.defaultChannel}`);
     };
     
     return (
