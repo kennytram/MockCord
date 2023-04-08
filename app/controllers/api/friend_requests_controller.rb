@@ -44,7 +44,11 @@ class Api::FriendRequestsController < ApplicationController
                 # render 'api/friend_requests/show'
                 render json: nil, status: :ok
             else
-                render json: ["There's already an existing friend request with this user."], status: 422
+                if friend === current_user
+                    render json: ["Aren't you already friends with yourself?"], status: 422
+                else 
+                    render json: ["There's already an existing friend request with this user."], status: 422
+                end
             end
         else
             # render json: ["User not found"], status: 404

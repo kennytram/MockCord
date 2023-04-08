@@ -7,7 +7,7 @@ import HelpIcon from '@mui/icons-material/Help';
 import ExploreIcon from "@mui/icons-material/Explore";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { getChannels } from '../../store/channels';
-import { fetchFriendRequests, createSearchFriendRequest } from '../../store/FriendRequests';
+import { fetchFriendRequests, createSearchFriendRequest,receiveFriendRequest } from '../../store/FriendRequests';
 import FriendsOnline from './FriendsOnline/FriendsOnline';
 import FriendsAll from './FriendsAll/FriendsAll';
 import FriendsPending from './FriendsPending/FriendsPending';
@@ -70,7 +70,32 @@ function FriendsContent({ refreshState }) {
         Promise.all([
             dispatch(fetchFriendRequests()),
         ]).then(() => setLoaded(true));
+        
+        const friendRequestsSubscription = consumer.subscriptions.create(
+            { channel: "FriendRequestsChannel", id: sessionUser.id },
+            {
+                received: (friendRequest) => {
+                    switch (friendRequest.type) {
+                        case "RECEIVE_FRIEND_REQUEST":
+                            // console.log(friendRequest);
+                            dispatch(receiveFriendRequest(friendRequest));
+                            // if (users[friendRequest.id]) {
+                            //     searchInputRef.current.classList.add('search-success');
+                            // }
+                            // else {
+                            //     searchInputRef.current.classList.add('search-error');
+                            // }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        );
 
+        return () => {
+            friendRequestsSubscription?.unsubscribe();
+        }
 
     }, [dispatch, refreshState]);
 
@@ -108,12 +133,23 @@ function FriendsContent({ refreshState }) {
         }
         // const isValidInput = checkValidInput(otherUser);
 
-        createSearchFriendRequest(friend);
-        setSuccessFriendRequest(true);
-        setSuccessFriend(otherUser);
-        setOtherUser("");
-        searchInputRef.current.classList.remove('search-error');
-        searchInputRef.current.classList.add('search-success');
+        createSearchFriendRequest(friend).then(() => {
+            setSuccessFriendRequest(true);
+            setSuccessFriend(otherUser);
+            setOtherUser("");
+            searchInputRef.current.classList.remove('search-error');
+            searchInputRef.current.classList.add('search-success');
+        }).catch(function(error) {
+            let errorArr = [];
+            error.json().then(errorData=> {
+                errorArr.push(errorData);
+                console.log(errorData);
+                searchInputRef.current.classList.add('search-error');
+                setErrors(errorArr);
+            }) 
+        });
+        // searchInputRef.current.clasasList.remove('search-success');
+        // searchInputRef.current.classList.add('search-success');
         // searchInputRef.current.classList.add('search-error');
 
         // return dispatch(createSearchFriendRequest(friend)).then(() => {

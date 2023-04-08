@@ -89,13 +89,14 @@ export const createFriendRequest = (friendRequest) => {
 // }
 
 export const createSearchFriendRequest = (searchFriend) => {
-    csrfFetch('/api/friend_requests/search', {
+    const response = csrfFetch('/api/friend_requests/search', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ user: searchFriend })
     });
+    return response;
 }
 
 // export const deleteFriendRequest = (friendRequestId, friendId) => async (dispatch) => {
