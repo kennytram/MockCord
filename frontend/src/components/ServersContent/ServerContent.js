@@ -13,7 +13,7 @@ import MessageDelete from '../MessageDeleteModal/MessageDelete';
 import { getUsers, resetUsers } from '../../store/users';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { getFriendRequests, fetchFriendRequests, createFriendRequest } from '../../store/FriendRequests';
-import { kickMemberServer } from '../../store/servers';
+import { kickMemberServer, receiveServer, removeServer } from '../../store/servers';
 import {receiveServerChannel, removeServerChannel} from '../../store/servers';
 import {receiveFriendRequest, removeFriendRequest} from '../../store/FriendRequests';
 import consumer from '../../consumer';
@@ -83,9 +83,33 @@ function ServerContent() {
             }
         );
 
+        const serverSubscription = consumer.subscriptions.create(
+            { channel: "ServersChannel", id: serverId },
+            {
+                received: (server) => {
+                    switch(server.type) {
+                        case "JOIN_SERVER":
+                            dispatch(receiveServer(server));
+                            break;
+                        case "LEAVE_SERVER": 
+                            dispatch(removeServer(server.id));
+                            break;
+                        case "KICK_SERVER":
+                            dispatch(removeServer(server));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        );
+
+
+
         
         return () => {
             messageSubscription?.unsubscribe();
+            serverSubscription?.unsubscribe();
         }
     }, [dispatch, channelId, history]);
 
@@ -296,20 +320,23 @@ function ServerContent() {
     const handleKickMember = (e) => {
         e.preventDefault();
         setErrors([]);
-        return dispatch(kickMemberServer(serverId, otherUserId)).then(() => {
-            showKickButton(false);
-            showAddButton(false);
-        }).catch(async (res) => {
-            let data;
-            try {
-                data = await res.clone().json();
-            } catch {
-                data = await res.text();
-            }
-            if (data?.errors) setErrors(data.errors);
-            else if (data) setErrors([data]);
-            else setErrors([res.statusText]);
-        });
+        // return dispatch(kickMemberServer(serverId, otherUserId)).then(() => {
+        //     showKickButton(false);
+        //     showAddButton(false);
+        // }).catch(async (res) => {
+        //     let data;
+        //     try {
+        //         data = await res.clone().json();
+        //     } catch {
+        //         data = await res.text();
+        //     }
+        //     if (data?.errors) setErrors(data.errors);
+        //     else if (data) setErrors([data]);
+        //     else setErrors([res.statusText]);
+        // });
+        kickMemberServer(serverId, otherUserId);
+        showKickButton(false);
+        showAddButton(false);
     };
 
     const handleInput = (e) => {
@@ -375,7 +402,7 @@ function ServerContent() {
                                         </div>
                                         <div className="message-topping">
                                             <span className="message-username">
-                                                {message && Object.keys(users).length && message.authorId ? users[message.authorId].username : "User"}
+                                                {message && Object.keys(users).length && message.authorId && users[message.authorId] ? users[message.authorId].username : "User"}
                                             </span>
                                             <span className="message-date">
                                                 {handleTime(message.createdAt)}

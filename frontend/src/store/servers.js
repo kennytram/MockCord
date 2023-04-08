@@ -7,7 +7,7 @@ export const REMOVE_SERVER = 'REMOVE_SERVER';
 export const RECEIVE_SERVER_CHANNEL = 'RECEIVE_SERVER_CHANNEL';
 export const DELETE_SERVER_CHANNEL = 'DELETE_SERVER_CHANNEL';
 
-const receiveServer = (payload) => {
+export const receiveServer = (payload) => {
 
     return {
         type: RECEIVE_SERVER,
@@ -36,7 +36,7 @@ const receiveServers = (servers) => {
     };
 };
 
-const removeServer = (serverId) => {
+export const removeServer = (serverId) => {
     return {
         type: REMOVE_SERVER,
         serverId
@@ -80,36 +80,53 @@ export const fetchServerInvite = (serverId) => async (dispatch) => {
     }
 }
 
-export const joinServer = (serverId, inviteToken) => async (dispatch) => {
-    const response = await csrfFetch(`/api/servers/${serverId}/invite/${inviteToken}`, {
+// export const joinServer = (serverId, inviteToken) => async (dispatch) => {
+//     const response = await csrfFetch(`/api/servers/${serverId}/invite/${inviteToken}`, {
+//         method: 'POST'
+//     });
+//     if (response.ok) {
+//         const data = await response.json();
+
+//         // dispatch(receiveServer(data));
+//         return response;
+//     }
+// }
+
+export const joinServer = (serverId, inviteToken) => {
+    csrfFetch(`/api/servers/${serverId}/invite/${inviteToken}`, {
         method: 'POST'
     });
-    if (response.ok) {
-        const data = await response.json();
-
-        // dispatch(receiveServer(data));
-        return response;
-    }
 }
 
-export const leaveServer = (serverId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/servers/${serverId}/leave`, {
+// export const leaveServer = (serverId) => async (dispatch) => {
+//     const response = await csrfFetch(`/api/servers/${serverId}/leave`, {
+//         method: 'DELETE'
+//     });
+//     if (response.ok) {
+//         dispatch(removeServer(serverId));
+//     }
+// }
+
+export const leaveServer = (serverId) => {
+    csrfFetch(`/api/servers/${serverId}/leave`, {
         method: 'DELETE'
     });
-    if (response.ok) {
-        dispatch(removeServer(serverId));
-    }
 }
 
-export const kickMemberServer = (serverId, userId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/servers/${serverId}/leave/${userId}`, {
+// export const kickMemberServer = (serverId, userId) => async (dispatch) => {
+//     const response = await csrfFetch(`/api/servers/${serverId}/leave/${userId}`, {
+//         method: 'DELETE'
+//     });
+//     if (response.ok) {
+//         dispatch(fetchServer(serverId));
+//     }
+// }
+
+export const kickMemberServer = (serverId, userId) => {
+    csrfFetch(`/api/servers/${serverId}/leave/${userId}`, {
         method: 'DELETE'
     });
-    if (response.ok) {
-        dispatch(fetchServer(serverId));
-    }
 }
-
 
 export const createServer = (server) => async (dispatch) => {
 

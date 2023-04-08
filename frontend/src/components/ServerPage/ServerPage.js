@@ -35,7 +35,7 @@ function ServerPage() {
                             dispatch(receiveServerChannel(channel));
                             break;
                         case "DESTROY_CHANNEL":
-                            dispatch(removeServerChannel(channel.id));
+                            dispatch(removeServerChannel(serverId, channel.id));
                             if (+channelId === channel.id) { history.push(`/channels/${serverId}/${server.defaultChannel}`)} 
                             break;
                         case "UPDATE_CHANNEL":

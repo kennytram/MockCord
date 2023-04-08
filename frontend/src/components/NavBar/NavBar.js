@@ -54,7 +54,7 @@ export default function NavBar() {
     }
     
     Promise.all([
-      inviteToken ? dispatch(joinServer(serverId, inviteToken)) : null,
+      inviteToken ? joinServer(serverId, inviteToken) : null,
       dispatch(fetchServers()),
     ]).then(() => {
       setLoaded(true);

@@ -49,6 +49,9 @@ class Api::ServersController < ApplicationController
     def join 
         @server = Server.find_by(id: params[:id], invite_token: params[:invite_token])
         @server_subscription = ServerSubscription.create!(user_id: current_user.id, server_id: @server.id) unless ServerSubscription.find_by(user_id: current_user.id, server_id: @server.id)
+        ServersChannel.broadcast_to @server,
+            type: "JOIN_SERVER",
+            **from_template('api/servers/show', server: @server)
         render :show
     end
 
@@ -56,6 +59,9 @@ class Api::ServersController < ApplicationController
         @server = Server.find(params[:id])
         @server_subscription = ServerSubscription.find_by(user_id: current_user.id, server_id: @server.id)
         @server_subscription.destroy
+        ServersChannel.broadcast_to @server,
+            type: "LEAVE_SERVER",
+            id: @server.id
     end
 
     def kick
@@ -63,6 +69,9 @@ class Api::ServersController < ApplicationController
         @user = User.find(params[:user_id])
         @server_subscription = ServerSubscription.find_by(user_id: @user.id, server_id: @server.id)
         @server_subscription.destroy
+        ServersChannel.broadcast_to @server,
+            type: "KICK_SERVER",
+            id: @server.id
     end
 
     def server_params

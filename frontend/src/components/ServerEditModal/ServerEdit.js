@@ -74,7 +74,8 @@ function ServerEdit({ onClose, ...props }) {
         <div>Delete Server</div>
         <DeleteForeverIcon />
       </div>) : <div className="delete-server" onClick={()=> {
-        dispatch(leaveServer(serverId));
+        // dispatch(leaveServer(serverId));
+        leaveServer(serverId);
         history.push(`/channels/@me`);
         onClose();
       }}>
