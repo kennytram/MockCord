@@ -45,7 +45,6 @@ function ChannelBar({refreshState}) {
             
             [dispatch(fetchServer(serverId))]
         ).then(() => {
-            console.log('test3')
             setLoaded(true);
         })
         .catch(() => {

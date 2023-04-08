@@ -67,38 +67,42 @@ function FriendsPending() {
         setErrors([]);
         const friendId = friendRequest.senderId === sessionUser.id ? friendRequest.receiverId : friendRequest.senderId;
         friendRequest.status = "accepted";
-        return dispatch(updateFriendRequest(friendRequest)).then(() => {
-            setFriendRequest(null);
-        }).catch(async (res) => {
-            let data;
-            try {
-                data = await res.clone().json();
-            } catch {
-                data = await res.text();
-            }
-            if (data?.errors) setErrors(data.errors);
-            else if (data) setErrors([data]);
-            else setErrors([res.statusText]);
-        });
+        // return dispatch(updateFriendRequest(friendRequest)).then(() => {
+        //     setFriendRequest(null);
+        // }).catch(async (res) => {
+        //     let data;
+        //     try {
+        //         data = await res.clone().json();
+        //     } catch {
+        //         data = await res.text();
+        //     }
+        //     if (data?.errors) setErrors(data.errors);
+        //     else if (data) setErrors([data]);
+        //     else setErrors([res.statusText]);
+        // });
+        updateFriendRequest(friendRequest);
+        setFriendRequest(null);
     }
 
     const handleDeclineFriendRequest = (e) => {
         e.preventDefault();
         setErrors([]);
         const friendId = friendRequest.senderId === sessionUser.id ? friendRequest.receiverId : friendRequest.senderId;
-        return dispatch(deleteFriendRequest(friendRequest.id, friendId)).then(() => {
-            setFriendRequest(null);
-        }).catch(async (res) => {
-            let data;
-            try {
-                data = await res.clone().json();
-            } catch {
-                data = await res.text();
-            }
-            if (data?.errors) setErrors(data.errors);
-            else if (data) setErrors([data]);
-            else setErrors([res.statusText]);
-        });
+        // return dispatch(deleteFriendRequest(friendRequest.id, friendId)).then(() => {
+        //     setFriendRequest(null);
+        // }).catch(async (res) => {
+        //     let data;
+        //     try {
+        //         data = await res.clone().json();
+        //     } catch {
+        //         data = await res.text();
+        //     }
+        //     if (data?.errors) setErrors(data.errors);
+        //     else if (data) setErrors([data]);
+        //     else setErrors([res.statusText]);
+        // });
+        deleteFriendRequest(friendRequest.id, friendId);
+        setFriendRequest(null);
     }
 
     return (

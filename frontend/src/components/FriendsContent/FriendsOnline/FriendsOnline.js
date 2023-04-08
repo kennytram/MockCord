@@ -73,19 +73,21 @@ function FriendsOnline() {
         e.preventDefault();
         setErrors([]);
         const friendId = friendRequest.senderId === sessionUser.id ? friendRequest.receiverId : friendRequest.senderId;
-        return dispatch(deleteFriendRequest(friendRequest.id, friendId)).then(() => {
-            setFriendRequest(null);
-        }).catch(async (res) => {
-            let data;
-            try {
-                data = await res.clone().json();
-            } catch {
-                data = await res.text();
-            }
-            if (data?.errors) setErrors(data.errors);
-            else if (data) setErrors([data]);
-            else setErrors([res.statusText]);
-        });
+        // return dispatch(deleteFriendRequest(friendRequest.id, friendId)).then(() => {
+        //     setFriendRequest(null);
+        // }).catch(async (res) => {
+        //     let data;
+        //     try {
+        //         data = await res.clone().json();
+        //     } catch {
+        //         data = await res.text();
+        //     }
+        //     if (data?.errors) setErrors(data.errors);
+        //     else if (data) setErrors([data]);
+        //     else setErrors([res.statusText]);
+        // });
+        deleteFriendRequest(friendRequest.id, friendId);
+        setFriendRequest(null);
     }
 
     const handleMessageFriend = (e) => {
@@ -95,19 +97,20 @@ function FriendsOnline() {
         const dmChannel = channels[dmChannelId];
         if (dmChannel.channelType.includes(`hidden/${sessionUser.id}`)) {
             dmChannel.channelType = dmChannel.channelType.replace(`hidden/${sessionUser.id}`, "").trim();
-            return dispatch(updateChannel(dmChannel)).then(() => {
-                history.push('/channels/@me/' + dmChannelId);
-            }).catch(async (res) => {
-                let data;
-                try {
-                    data = await res.clone().json();
-                } catch {
-                    data = await res.text();
-                }
-                if (data?.errors) setErrors(data.errors);
-                else if (data) setErrors([data]);
-                else setErrors([res.statusText]);
-            });
+            // return dispatch(updateChannel(dmChannel)).then(() => {
+            //     history.push('/channels/@me/' + dmChannelId);
+            // }).catch(async (res) => {
+            //     let data;
+            //     try {
+            //         data = await res.clone().json();
+            //     } catch {
+            //         data = await res.text();
+            //     }
+            //     if (data?.errors) setErrors(data.errors);
+            //     else if (data) setErrors([data]);
+            //     else setErrors([res.statusText]);
+            // });
+            updateChannel(dmChannel);
         }
         history.push('/channels/@me/' + dmChannelId);
 

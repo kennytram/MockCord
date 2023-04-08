@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Redirect, useLocation, useParams, useHistory, Link } from "react-router-dom";
-import { getChannels, resetChannels, fetchChannels, updateChannel } from '../../store/channels';
+import { getChannels, resetChannels, fetchChannels, updateChannel, receiveChannel } from '../../store/channels';
 import { getServer, fetchServer } from '../../store/servers';
 import { getFriendRequests } from '../../store/FriendRequests';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -17,8 +17,9 @@ import ChannelForm from '../ChannelFormModal/ChannelForm';
 import { fetchUsers } from '../../store/users';
 import UserPanel from '../UserPanel/UserPanel';
 import './UserBar.css';
+import consumer from '../../consumer';
 
-function UserBar() {
+function UserBar({ refreshState }) {
     const dispatch = useDispatch();
     const location = useLocation();
     const history = useHistory();
@@ -75,26 +76,51 @@ function UserBar() {
         e.preventDefault();
         setErrors([]);
         const newChannel = { ...currentChannel, channelType: currentChannel.channelType + ` hidden/${sessionUser.id}` };
-        return dispatch(updateChannel(newChannel)).then(() => {
-            setCurrentChannel(null);
-        }).catch(async (res) => {
-            let data;
-            try {
-                data = await res.clone().json();
-            } catch {
-                data = await res.text();
-            }
-            if (data?.errors) setErrors(data.errors);
-            else if (data) setErrors([data]);
-            else setErrors([res.statusText]);
-        });
+        // return dispatch(updateChannel(newChannel)).then(() => {
+        //     setCurrentChannel(null);
+        // }).catch(async (res) => {
+        //     let data;
+        //     try {
+        //         data = await res.clone().json();
+        //     } catch {
+        //         data = await res.text();
+        //     }
+        //     if (data?.errors) setErrors(data.errors);
+        //     else if (data) setErrors([data]);
+        //     else setErrors([res.statusText]);
+        // });
+        updateChannel(newChannel);
+        setCurrentChannel(null);
     }
 
     useEffect(() => {
         Promise.all([
             dispatch(fetchChannels()),
         ]).then(() => setLoaded(true));
-    }, [dispatch, serverId, channelId, channels.length]);
+
+        const subscription = consumer.subscriptions.create(
+            { channel: "UsersChannel", id: sessionUser.id },
+            {
+                received: (channel) => {
+                    switch (channel.type) {
+                        case "UPDATE_CHANNEL":
+                            dispatch(receiveChannel(channel));
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                error: () => {
+                    history.push("/channels/@me");
+                }
+            }
+        );
+        return () => {
+            subscription.unsubscribe();
+        }
+
+    }, [dispatch, serverId, channelId, channels.length, refreshState]);
+
 
     return (
         <div className="user-bar">

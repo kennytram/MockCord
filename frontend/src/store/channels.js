@@ -79,23 +79,23 @@ export const createChannel = (channel) => async (dispatch) => {
 //     })
 // }
 
-export const updateChannel = (channel) => async (dispatch) => {
-    const response = await csrfFetch(`/api/channels/${channel.id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({ channel: channel })
-    })
-    if (response.ok) {
-        const data = await response.json();
-        dispatch(receiveChannel(data));
-    }
-}
-
-// export const updateChannel = (channel) => {
-//     csrfFetch(`/api/channels/${channel.id}`, {
+// export const updateChannel = (channel) => async (dispatch) => {
+//     const response = await csrfFetch(`/api/channels/${channel.id}`, {
 //         method: 'PATCH',
 //         body: JSON.stringify({ channel: channel })
 //     })
+//     if (response.ok) {
+//         const data = await response.json();
+//         dispatch(receiveChannel(data));
+//     }
 // }
+
+export const updateChannel = (channel) => {
+    csrfFetch(`/api/channels/${channel.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ channel: channel })
+    })
+}
 
 
 export const deleteChannel = (channelId) => async (dispatch) => {

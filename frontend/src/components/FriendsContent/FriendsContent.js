@@ -16,7 +16,7 @@ import consumer from '../../consumer';
 
 import './FriendsContent.css';
 
-function FriendsContent() {
+function FriendsContent({ refreshState }) {
     const dispatch = useDispatch();
     const [buttonStates, setButtonStates] = useState([false, false,
         false, false, true]);
@@ -66,6 +66,15 @@ function FriendsContent() {
         }
     }
 
+    useEffect(() => {
+        Promise.all([
+            dispatch(fetchFriendRequests()),
+        ]).then(() => setLoaded(true));
+
+
+    }, [dispatch, refreshState]);
+
+
     const handleButtonClick = (e, index) => {
         const newButtonStates = buttonStates.map((buttonState, i) => i === index);
         setButtonStates(newButtonStates);
@@ -73,13 +82,6 @@ function FriendsContent() {
         else addFriendRef.current.classList.remove('active');
     };
 
-    useEffect(() => {
-        Promise.all([
-            dispatch(fetchFriendRequests()),
-        ]).then(() => setLoaded(true));
-
-
-    }, [dispatch]);
 
     const handleAddFriend = (e) => {
         e.preventDefault();
@@ -105,32 +107,34 @@ function FriendsContent() {
             tag: tag,
         }
         // const isValidInput = checkValidInput(otherUser);
-        // createSearchFriendRequest(friend);
-        // setSuccessFriendRequest(true);
-        // setSuccessFriend(otherUser);
-        // setOtherUser("");
-        // searchInputRef.current.classList.remove('search-error');
-        // searchInputRef.current.classList.add('search-success');
-        // searchInputRef.current.classList.add('search-error');
-        return dispatch(createSearchFriendRequest(friend)).then(() => {
-            setSuccessFriendRequest(true);
-            setSuccessFriend(otherUser);
-            setOtherUser("");
-            searchInputRef.current.classList.remove('search-error');
-            searchInputRef.current.classList.add('search-success');
-        }).catch(async (res) => {
-            let data;
 
-            searchInputRef.current.classList.add('search-error');
-            try {
-                data = await res.clone().json();
-            } catch {
-                data = await res.text();
-            }
-            if (data?.errors) setErrors(data.errors);
-            else if (data) setErrors([data]);
-            else setErrors([res.statusText]);
-        });
+        createSearchFriendRequest(friend);
+        setSuccessFriendRequest(true);
+        setSuccessFriend(otherUser);
+        setOtherUser("");
+        searchInputRef.current.classList.remove('search-error');
+        searchInputRef.current.classList.add('search-success');
+        // searchInputRef.current.classList.add('search-error');
+
+        // return dispatch(createSearchFriendRequest(friend)).then(() => {
+        //     setSuccessFriendRequest(true);
+        //     setSuccessFriend(otherUser);
+        //     setOtherUser("");
+        //     searchInputRef.current.classList.remove('search-error');
+        //     searchInputRef.current.classList.add('search-success');
+        // }).catch(async (res) => {
+        //     let data;
+
+        //     searchInputRef.current.classList.add('search-error');
+        //     try {
+        //         data = await res.clone().json();
+        //     } catch {
+        //         data = await res.text();
+        //     }
+        //     if (data?.errors) setErrors(data.errors);
+        //     else if (data) setErrors([data]);
+        //     else setErrors([res.statusText]);
+        // });
     };
 
     const checkValidInput = (e) => {
@@ -285,9 +289,9 @@ function FriendsContent() {
                                     value={otherUser} />
                             </form>
 
-                            {errors ? (<div className="add-friend error">
-                                {errors.map((error, i) => <div key={i}>{error}</div>)}
-                            </div>) : null}
+                            <div className={`add-friend${errors ? ' error' : ''}`}>
+                                {errors && errors.map((error, i) => <div key={i}>{error}</div>)}
+                            </div>
                             {successFriendRequest ? (<div className="add-friend success">
                                 Success! Your friend request to {successFriend} was sent.
                             </div>) : null}

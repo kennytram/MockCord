@@ -10,10 +10,10 @@ import MessageDelete from '../MessageDeleteModal/MessageDelete';
 import consumer from '../../consumer';
 import { getFriendRequests, fetchFriendRequests, createFriendRequest } from '../../store/FriendRequests';
 
-function FriendMessageContent() {
+function FriendMessageContent({ loaded }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [loaded, setLoaded] = useState(false);
+    // const [loaded, setLoaded] = useState(false);
     const users = useSelector(state => state.users);
     const chatMessagesRef = useRef(null);
     const { channelId } = useParams();
@@ -37,28 +37,28 @@ function FriendMessageContent() {
         if (channelId) {
             dispatch(fetchChannel(channelId)).then(() => {
                 if (chatMessagesRef) chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
-            }).catch(() => { history.push(`/channels/@me`) })
+            });
 
         }
         const subscription = consumer.subscriptions.create(
             { channel: "ChannelsChannel", id: channelId },
             {
                 received: (message) => {
-                    switch(message.type) {
+                    switch (message.type) {
                         case "RECEIVE_MESSAGE":
-                            dispatch(receiveMessage(message)).catch(async (res) => { history.push(`/channels/@me`) });
+                            dispatch(receiveMessage(message));
                             break;
-                        case "DELETE_MESSAGE": 
-                            dispatch(removeMessage(message.id)).catch(() => { history.push(`/channels/@me`) });
+                        case "DELETE_MESSAGE":
+                            dispatch(removeMessage(message.id));
                             break;
                         case "UPDATE_MESSAGE":
-                            dispatch(receiveMessage(message)).catch(() => { history.push(`/channels/@me`) });
+                            dispatch(receiveMessage(message));
                             break;
                         default:
                             break;
                     }
                     if (chatMessagesRef) chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
-                    
+
                 },
                 error: () => {
                     history.push("/channels/@me");
@@ -128,7 +128,7 @@ function FriendMessageContent() {
 
     const handleMessageSubmit = (e) => {
         e.preventDefault();
-        if(!text) return;
+        if (!text) return;
         const msgId = channelId;
         const message = {
             text: text,
@@ -138,7 +138,7 @@ function FriendMessageContent() {
         setText("");
         setRows(1);
         createMessage(message);
-        
+
         // return dispatch(createMessage(message)).then(() => {
         //     chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
         // })
@@ -170,7 +170,7 @@ function FriendMessageContent() {
 
     const handleEditSubmit = (e) => {
         e.preventDefault();
-        if(!editMessageText) return;
+        if (!editMessageText) return;
         setErrors([]);
         editMessage.text = editMessageText;
         updateMessage(editMessage);
@@ -233,11 +233,12 @@ function FriendMessageContent() {
             </div>
         </div>
     </li> */}
-    return (
-        <div className="content">
-            <div className="message-show-container" >
-                <ul className="messages" ref={chatMessagesRef}>
-                    {/* <li className="welcome-channel">
+    if (loaded) {
+        return (
+            <div className="content">
+                <div className="message-show-container" >
+                    <ul className="messages" ref={chatMessagesRef}>
+                        {/* <li className="welcome-channel">
                         <div className="welcome-channel-wrapper">
                             <div className="welcome-channel-heading">Welcome to <br />
                                 {dmChannel && Object.keys(server?.channels).length > 0 && channelId && server.channels[channelId]?.name ? server?.channels[channelId].name : "general"}
@@ -245,109 +246,151 @@ function FriendMessageContent() {
                             <div className="welcome-channel-desc">This is the beginning of this server.</div>
                         </div>
                     </li> */}
-                    <li className="welcome-dm">
+                        <li className="welcome-dm">
 
-                        <div className="welcome-dm-wrapper">
-                            {Object.keys(dmChannel).length && Object.keys(dmChannel.dmMembers).length && Object.keys(users).length && sessionUser && sessionUser.id && Object.values(dmChannel.dmMembers).map(member => {
-                                if (member.id !== sessionUser.id) {
-                                    return (
-                                        <div key={member.id} className="message-user-icon" style={{ backgroundColor: `${colorById(member.id)}` }}>
-                                            <span className="material-icons user-icon profile-icon" style={{ color: "white", fontSize: 60 }}>discord</span>
-                                        </div>
-                                    );
-                                } else {
-                                    return null;
-                                }
-                            }
-                            )}
-                            <div className="welcome-dm-heading">
-                                {dmChannelName && sessionUser ? sessionUser.username === dmChannelName[0] ? dmChannelName[1] : dmChannelName[0] : ""}
-                            </div>
-                            <div className="welcome-dm-desc">
-                                This is the beginning of your direct message history with <span className="highlighted-user">
-                                    {dmChannelName && sessionUser ? sessionUser.username === dmChannelName[0] ? dmChannelName[1] : dmChannelName[0] : ""}
-                                </span>.
-                            </div>
-                        </div>
-                    </li>
-
-                    <li className="timeline-dividier">
-                        <span>Chat in Real-time!</span>
-                    </li>
-
-                    {messages.map(message => (
-                        message.messageableId === parseInt(channelId) && message.messageableType === "Channel" && (
-                            <li className={showEditForm && editMessage === message ? "message editing" : "message"} key={message.id}>
-                                <div className="message-header">
-                                    <div className="message-user-icon" style={{ backgroundColor: `${colorById(message.authorId)}` }}>
-                                        <span className="material-icons user-icon messenger-icon" style={{ color: "white", fontSize: 30 }}>discord</span>
-                                    </div>
-                                    <div className="message-topping">
-                                        <span className="message-username">
-                                            {message && Object.keys(users).length && message.authorId ? users[message.authorId].username : "User"}
-                                        </span>
-                                        <span className="message-date">
-                                            {handleTime(message.createdAt)}
-                                        </span>
-                                    </div>
-                                </div>
-                                {showEditForm && editMessage === message ? (
-                                    <form className="edit-message-form" onSubmit={handleEditSubmit}>
-                                        <div className="message-editor">
-                                            <input className="message-update-input"
-                                                onChange={(e) => setEditMessageText(e.target.value)}
-                                                onKeyDown={handleEditClose}
-                                                value={editMessageText}>
-                                            </input>
-                                            <div className="message-editor-tooltip">
-                                                escape to <span className="fake-light-blue-links" onClick={() => {
-                                                    setEditMessageText(message.text);
-                                                    setShowEditForm(false);
-                                                    setEditMessage(null);
-                                                }}> cancel </span> • enter to
-                                                <span className="fake-light-blue-links" onClick={handleEditSubmit}> save</span>
+                            <div className="welcome-dm-wrapper">
+                                {dmChannel && Object.keys(dmChannel).length && Object.keys(dmChannel.dmMembers).length && Object.keys(users).length && sessionUser && sessionUser.id && Object.values(dmChannel.dmMembers).map(member => {
+                                    if (member.id !== sessionUser.id) {
+                                        return (
+                                            <div key={member.id} className="message-user-icon" style={{ backgroundColor: `${colorById(member.id)}` }}>
+                                                <span className="material-icons user-icon profile-icon" style={{ color: "white", fontSize: 60 }}>discord</span>
                                             </div>
+                                        );
+                                    } else {
+                                        return null;
+                                    }
+                                }
+                                )}
+                                <div className="welcome-dm-heading">
+                                    {dmChannelName && sessionUser ? sessionUser.username === dmChannelName[0] ? dmChannelName[1] : dmChannelName[0] : ""}
+                                </div>
+                                <div className="welcome-dm-desc">
+                                    This is the beginning of your direct message history with <span className="highlighted-user">
+                                        {dmChannelName && sessionUser ? sessionUser.username === dmChannelName[0] ? dmChannelName[1] : dmChannelName[0] : ""}
+                                    </span>.
+                                </div>
+                            </div>
+                        </li>
+
+                        <li className="timeline-dividier">
+                            <span>Chat in Real-time!</span>
+                        </li>
+
+                        {messages.map(message => (
+                            message.messageableId === parseInt(channelId) && message.messageableType === "Channel" && (
+                                <li className={showEditForm && editMessage === message ? "message editing" : "message"} key={message.id}>
+                                    <div className="message-header">
+                                        <div className="message-user-icon" style={{ backgroundColor: `${colorById(message.authorId)}` }}>
+                                            <span className="material-icons user-icon messenger-icon" style={{ color: "white", fontSize: 30 }}>discord</span>
                                         </div>
-                                    </form>) : (
-                                    <>
-                                        <div className="message-content">
-                                            {`${message.text}`}
+                                        <div className="message-topping">
+                                            <span className="message-username">
+                                                {message && Object.keys(users).length && message.authorId ? users[message.authorId].username : "User"}
+                                            </span>
+                                            <span className="message-date">
+                                                {handleTime(message.createdAt)}
+                                            </span>
                                         </div>
-                                        {sessionUser && message.authorId === sessionUser.id && (
-                                            <div className="modal-container">
-                                                <div className="message-edit-form">
-                                                    <div className="edit-button-message" onClick={() => handleShowEditForm(message)}>
-                                                        <EditIcon />
-                                                    </div>
-                                                    <div className="edit-button-message" onClick={() => {
-                                                        setEditMessage(message);
+                                    </div>
+                                    {showEditForm && editMessage === message ? (
+                                        <form className="edit-message-form" onSubmit={handleEditSubmit}>
+                                            <div className="message-editor">
+                                                <input className="message-update-input"
+                                                    onChange={(e) => setEditMessageText(e.target.value)}
+                                                    onKeyDown={handleEditClose}
+                                                    value={editMessageText}>
+                                                </input>
+                                                <div className="message-editor-tooltip">
+                                                    escape to <span className="fake-light-blue-links" onClick={() => {
+                                                        setEditMessageText(message.text);
                                                         setShowEditForm(false);
-                                                        handleShowDeleteModal(message.id)
-                                                    }
-                                                    }>
-                                                        <DeleteForeverIcon />
-                                                    </div>
-                                                    {showDeleteModal && editMessage === message && (
-                                                        <Modal onClose={() => setShowDeleteModal(false)} className="create-server">
-                                                            <MessageDelete messageId={deleteMessageId} onClose={() => setShowDeleteModal(false)} />
-                                                        </Modal>
-                                                    )}
+                                                        setEditMessage(null);
+                                                    }}> cancel </span> • enter to
+                                                    <span className="fake-light-blue-links" onClick={handleEditSubmit}> save</span>
                                                 </div>
                                             </div>
-                                        )}
-                                    </>
-                                )}
-                            </li>
-                        )
-                    ))}
-                </ul>
-                <form className="message-input-form" onSubmit={handleMessageSubmit}>
-                    <textarea className="message-input" type="text" value={text} ref={textareaRef} rows={rows} onInput={handleInput} onKeyDown={handleKeyDown}
-                        onChange={(e) => setText(e.target.value)} placeholder={dmChannelName && sessionUser ? sessionUser.username === dmChannelName[0] ? `Message @${dmChannelName[1]}` : `Message @${dmChannelName[0]}` : "Message here"} />
-                </form>
-            </div>
-        </div >
-    )
+                                        </form>) : (
+                                        <>
+                                            <div className="message-content">
+                                                {`${message.text}`}
+                                            </div>
+                                            {sessionUser && message.authorId === sessionUser.id && (
+                                                <div className="modal-container">
+                                                    <div className="message-edit-form">
+                                                        <div className="edit-button-message" onClick={() => handleShowEditForm(message)}>
+                                                            <EditIcon />
+                                                        </div>
+                                                        <div className="edit-button-message" onClick={() => {
+                                                            setEditMessage(message);
+                                                            setShowEditForm(false);
+                                                            handleShowDeleteModal(message.id)
+                                                        }
+                                                        }>
+                                                            <DeleteForeverIcon />
+                                                        </div>
+                                                        {showDeleteModal && editMessage === message && (
+                                                            <Modal onClose={() => setShowDeleteModal(false)} className="create-server">
+                                                                <MessageDelete messageId={deleteMessageId} onClose={() => setShowDeleteModal(false)} />
+                                                            </Modal>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </>
+                                    )}
+                                </li>
+                            )
+                        ))}
+                    </ul>
+                    <form className="message-input-form" onSubmit={handleMessageSubmit}>
+                        <textarea className="message-input" type="text" value={text} ref={textareaRef} rows={rows} onInput={handleInput} onKeyDown={handleKeyDown}
+                            onChange={(e) => setText(e.target.value)} placeholder={dmChannelName && sessionUser ? sessionUser.username === dmChannelName[0] ? `Message @${dmChannelName[1]}` : `Message @${dmChannelName[0]}` : "Message here"} />
+                    </form>
+                </div>
+            </div >
+        )
+    }
+    else {
+        return (
+            <div className="content">
+                <div className="message-show-container" >
+                    <ul className="messages" ref={chatMessagesRef}>
+                        {/* <li className="welcome-channel">
+                        <div className="welcome-channel-wrapper">
+                            <div className="welcome-channel-heading">Welcome to <br />
+                                {dmChannel && Object.keys(server?.channels).length > 0 && channelId && server.channels[channelId]?.name ? server?.channels[channelId].name : "general"}
+                            </div>
+                            <div className="welcome-channel-desc">This is the beginning of this server.</div>
+                        </div>
+                    </li> */}
+                        <li className="welcome-dm">
+                            <div className="welcome-dm-wrapper">
+                                <div className="message-user-icon">
+                                    <span className="material-icons user-icon profile-icon" style={{ color: "white", fontSize: 60 }}>discord</span>
+                                </div>
+                                <div className="welcome-dm-heading" style={{marginTop:36}}>
+                                    <div style={{ marginTop: 36 }}>{""}</div>
+                                </div>
+                                <div className="welcome-dm-desc" style={{marginTop:56}}>
+                                    This is the beginning of your direct message history with <span className="highlighted-user">
+
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li className="timeline-dividier">
+                            <span>Chat in Real-time!</span>
+                        </li>
+                    </ul>
+                    <form className="message-input-form" >
+                        <textarea className="message-input" type="text" value={text} ref={textareaRef} rows={rows} onInput={handleInput} onKeyDown={handleKeyDown}
+                            onChange={(e) => setText(e.target.value)} placeholder={dmChannelName && sessionUser ? sessionUser.username === dmChannelName[0] ? `Message @${dmChannelName[1]}` : `Message @${dmChannelName[0]}` : "Message "} />
+                    </form>
+                </div>
+            </div >
+        )
+    }
 }
 
 export default FriendMessageContent;

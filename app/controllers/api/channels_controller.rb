@@ -27,9 +27,15 @@ class Api::ChannelsController < ApplicationController
         if @channel.update(channel_params)
             # render :show
             # render 'api/channels/show'
-            ServersChannel.broadcast_to @channel.server,
-                type: "UPDATE_CHANNEL",
-                **from_template('api/channels/show', channel: @channel)
+            if @server
+                ServersChannel.broadcast_to @channel.server,
+                    type: "UPDATE_CHANNEL",
+                    **from_template('api/channels/show', channel: @channel)
+            else
+                UsersChannel.broadcast_to current_user,
+                    type: "UPDATE_CHANNEL",
+                    **from_template('api/channels/show', channel: @channel)
+            end
             render json: nil, status: :ok
         else
             render json: { errors: @channel.errors.full_messages }, status: :unprocessable_entity

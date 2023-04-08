@@ -52,7 +52,8 @@ class Api::ServersController < ApplicationController
         ServersChannel.broadcast_to @server,
             type: "JOIN_SERVER",
             **from_template('api/servers/show', server: @server)
-        render :show
+        # render :show
+        render json: nil, status: :ok
     end
 
     def leave

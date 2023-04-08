@@ -1,7 +1,6 @@
 json.friend_request do
   friend_request ||= @friend_request
-  current_user ||= @current_user
-  friend_id = friend_request.sender_id != @current_user.id ? @friend_request.sender_id : @friend_request.receiver_id
+  friend_id = friend_request.sender_id != current_user.id ? friend_request.sender_id : friend_request.receiver_id
   json.friend_id friend_id
   json.set! friend_id do
     dm_channel ||= @dm_channel

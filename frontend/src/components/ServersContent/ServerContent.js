@@ -19,7 +19,7 @@ import {receiveFriendRequest, removeFriendRequest} from '../../store/FriendReque
 import consumer from '../../consumer';
 import './ServerContent.css';
 
-function ServerContent() {
+function ServerContent({refreshState}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const chatMessagesRef = useRef(null);
@@ -55,6 +55,7 @@ function ServerContent() {
     const serverOwnerSVG = <svg aria-label="Server Owner" aria-hidden="false" role="img" width="16" height="16" viewBox="0 0 16 16"><path fillRule="evenodd" clipRule="evenodd" d="M13.6572 5.42868C13.8879 5.29002 14.1806 5.30402 14.3973 5.46468C14.6133 5.62602 14.7119 5.90068 14.6473 6.16202L13.3139 11.4954C13.2393 11.7927 12.9726 12.0007 12.6666 12.0007H3.33325C3.02725 12.0007 2.76058 11.792 2.68592 11.4954L1.35258 6.16202C1.28792 5.90068 1.38658 5.62602 1.60258 5.46468C1.81992 5.30468 2.11192 5.29068 2.34325 5.42868L5.13192 7.10202L7.44592 3.63068C7.46173 3.60697 7.48377 3.5913 7.50588 3.57559C7.5192 3.56612 7.53255 3.55663 7.54458 3.54535L6.90258 2.90268C6.77325 2.77335 6.77325 2.56068 6.90258 2.43135L7.76458 1.56935C7.89392 1.44002 8.10658 1.44002 8.23592 1.56935L9.09792 2.43135C9.22725 2.56068 9.22725 2.77335 9.09792 2.90268L8.45592 3.54535C8.46794 3.55686 8.48154 3.56651 8.49516 3.57618C8.51703 3.5917 8.53897 3.60727 8.55458 3.63068L10.8686 7.10202L13.6572 5.42868ZM2.66667 12.6673H13.3333V14.0007H2.66667V12.6673Z" fill="var(--text-warning)" aria-hidden="true"></path></svg>
 
     useEffect(() => {
+        dispatch(fetchFriendRequests());
         if (channelId) {
             dispatch(fetchChannel(channelId)).then(() => {
                 if (chatMessagesRef) chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
@@ -104,43 +105,43 @@ function ServerContent() {
             }
         );
 
-
-
+        const friendRequestsSubscription = consumer.subscriptions.create(
+            { channel: "FriendRequestsChannel", id: sessionUser.id },
+            {
+                received: (friendRequest) => {
+                    let friendId = null;
+                    if (friendRequest.sender_id === sessionUser.id) {
+                        friendId = friendRequest.receiver_id;
+                    } else {
+                        friendId = friendRequest.sender_id;
+                    }
+                    switch(friendRequest.type) {
+                        case "RECEIVE_FRIEND_REQUEST":
+                            dispatch(receiveFriendRequest(friendRequest));
+                            break;
+                        case "DESTROY_FRIEND_REQUEST": 
+                            dispatch(removeFriendRequest(friendRequest.id, friendId));
+                            break;
+                        case "UPDATE_FRIEND_REQUEST":
+                            dispatch(receiveFriendRequest(friendRequest));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        );
         
         return () => {
             messageSubscription?.unsubscribe();
             serverSubscription?.unsubscribe();
+            friendRequestsSubscription?.unsubscribe();
         }
-    }, [dispatch, channelId, history]);
+    }, [dispatch, channelId, history, Object.keys(friendRequests).length]);
 
     useEffect(() => {
-        dispatch(fetchFriendRequests());
         
-        // const friendRequestsSubscription = consumer.subscriptions.create(
-        //     { channel: "FriendRequestsChannel", id: sessionUser.id },
-        //     {
-        //         received: (friendRequest) => {
-        //             switch(friendRequest.type) {
-        //                 case "RECEIVE_FRIEND_REQUEST":
-        //                     dispatch(receiveFriendRequest(friendRequest));
-        //                     break;
-        //                 case "DESTROY_FRIEND_REQUEST": 
-        //                     dispatch(removeFriendRequest(friendRequest.id));
-        //                     break;
-        //                 case "UPDATE_FRIEND_REQUEST":
-        //                     dispatch(receiveFriendRequest(friendRequest));
-        //                     break;
-        //                 default:
-        //                     break;
-        //             }
-        //         }
-        //     }
-        // );
-
         
-        // return () => {
-        //     friendRequestsSubscription?.unsubscribe();
-        // }
 
     }, [dispatch])
 
@@ -288,6 +289,9 @@ function ServerContent() {
             if (!friendRequests.hasOwnProperty(user.id)) {
                 showAddButton(true);
             }
+            else {
+                showAddButton(false);
+            }
             if (sessionUser.id === server.ownerId) {
                 showKickButton(true);
             }
@@ -297,24 +301,28 @@ function ServerContent() {
     const handleAddFriend = (e) => {
         e.preventDefault();
         setErrors([]);
+        if (friendRequests.hasOwnProperty(otherUserId)) {
+            showAddButton(false);
+            return;
+        }
         const friendRequest = {
             receiverId: otherUserId,
         }
-        // createFriendRequest(friendRequest);
-        // showAddButton(false);
-        return dispatch(createFriendRequest(friendRequest)).then(() => {
-            showAddButton(false);
-        }).catch(async (res) => {
-            let data;
-            try {
-                data = await res.clone().json();
-            } catch {
-                data = await res.text();
-            }
-            if (data?.errors) setErrors(data.errors);
-            else if (data) setErrors([data]);
-            else setErrors([res.statusText]);
-        });
+        createFriendRequest(friendRequest);
+        showAddButton(false);
+        // return dispatch(createFriendRequest(friendRequest)).then(() => {
+        //     showAddButton(false);
+        // }).catch(async (res) => {
+        //     let data;
+        //     try {
+        //         data = await res.clone().json();
+        //     } catch {
+        //         data = await res.text();
+        //     }
+        //     if (data?.errors) setErrors(data.errors);
+        //     else if (data) setErrors([data]);
+        //     else setErrors([res.statusText]);
+        // });
     };
 
     const handleKickMember = (e) => {
@@ -473,7 +481,7 @@ function ServerContent() {
 
                             {sessionUser && sessionUser.id && Object.keys(users).length && Object.values(users).map(member => (
                                 server && sessionUser.id && member.id && server.members && server.members[member.id] && (
-                                    <li key={member.id} className="member-container" onMouseOver={
+                                    <li key={member.id} className="member-container" onMouseEnter={
                                         sessionUser && sessionUser.id && sessionUser.id !== member.id ?
                                             () => { handleShowAdd(member) } : null} onMouseLeave={() => {
                                                 showAddButton(false);
@@ -501,6 +509,10 @@ function ServerContent() {
                                                 <div className="add-friend-button" onClick={(e) => {
                                                     e.currentTarget.nextSibling.children[0].innerText = "Friend Request Sent";
                                                     handleAddFriend(e);
+                                                    setTimeout(() => {
+                                                        showAddButton(false);
+                                                    }, 50);
+                                                       
                                                 }}>
                                                     <PersonAddAlt1Icon onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} />
                                                 </div>) : null}
