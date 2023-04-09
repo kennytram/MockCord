@@ -22,10 +22,10 @@ ApplicationRecord.transaction do
     ApplicationRecord.connection.reset_pk_sequence!('users')
     ApplicationRecord.connection.reset_pk_sequence!('servers')
     ApplicationRecord.connection.reset_pk_sequence!('channels')
-    ApplicationRecord.connection.reset_pk_sequence!('direct_messages')
+    ApplicationRecord.connection.reset_pk_sequence!('friend_requests')
     ApplicationRecord.connection.reset_pk_sequence!('messages')
     ApplicationRecord.connection.reset_pk_sequence!('server_subscriptions')
-    ApplicationRecord.connection.reset_pk_sequence!('dm_subscriptions')
+    ApplicationRecord.connection.reset_pk_sequence!('channels_subscriptions')
   
     puts "Creating users..."
     # Create one user with an easy to remember username, email, and password:

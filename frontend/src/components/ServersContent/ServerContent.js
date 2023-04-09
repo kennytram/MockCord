@@ -139,11 +139,6 @@ function ServerContent({refreshState}) {
         }
     }, [dispatch, channelId, history, Object.keys(friendRequests).length]);
 
-    useEffect(() => {
-        
-        
-
-    }, [dispatch])
 
     const colors = {
         brand: "#5865F2",

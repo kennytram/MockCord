@@ -33,6 +33,7 @@ export default function NavBar({ refreshServerState }) {
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ left: 0, top: 0 });
 
+  
   //   import consumer from '../channels/consumer';
 
   // consumer.subscriptions.create(

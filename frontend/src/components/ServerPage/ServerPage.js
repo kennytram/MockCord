@@ -37,7 +37,7 @@ function ServerPage() {
                             break;
                         case "DESTROY_CHANNEL":
                             dispatch(removeServerChannel(serverId, channel.id));
-                            if (+channelId === channel.id) { history.push(`/channels/${serverId}/${server.defaultChannel}`)} 
+                            if (+channelId === channel.id) { history.push(`/channels/${serverId}/${server.defaultChannel}`) }
                             break;
                         case "UPDATE_CHANNEL":
                             dispatch(receiveServerChannel(channel));
@@ -54,26 +54,30 @@ function ServerPage() {
         const subscription = consumer.subscriptions.create(
             { channel: "ServersChannel", id: serverId },
             {
-              
-              received: (server) => {
-                console.log('testing');
-                switch (server.type) {
-                  case "DELETE_SERVER":
-                    console.log("server deleted");
-                    dispatch(removeServer(server.id));
-                    if (+serverId === server.id) { history.push(`/channels/@me`)} 
-                    break;
-                  case "UPDATE_SERVER":
-                    console.log("server updated");
-                    dispatch(receiveServer(server));
-                    break;
-                  default:
-                    break;
-                }
-                // setRefreshServerState(!refreshServerState);
-              },
+
+                received: (server) => {
+                    switch (server.type) {
+                        case "DELETE_SERVER":
+                            dispatch(removeServer(server.id));
+                            if (+serverId === server.id) { history.push(`/channels/@me`) }
+                            break;
+                        case "UPDATE_SERVER":
+                            dispatch(receiveServer(server));
+                            break;
+                        default:
+                            break;
+                    }
+                    // setRefreshServerState(!refreshServerState);
+                },
             }
-          );
+        );
+        
+        // const memberSubscription = consumer.subscriptions.create(
+        //     { channel: "ServersChannel", id: serverId },
+        //     {
+        //         received: (user) => {
+        //             switch (user.type) {
+
 
         return () => {
             channelSubscription?.unsubscribe();
@@ -86,10 +90,10 @@ function ServerPage() {
 
     return (
         <div className="server-page">
-            <NavBar refreshServerState={refreshServerState}/>
-            <ChannelBar refreshState={refreshState}/>
+            <NavBar refreshServerState={refreshServerState} />
+            <ChannelBar refreshState={refreshState} />
             <div className="server-page-content">
-                <ServerToolBar refreshState={refreshState}/>
+                <ServerToolBar refreshState={refreshState} />
                 <ServerContent />
             </div>
         </div>

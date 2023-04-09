@@ -17,7 +17,7 @@ function HomePage() {
     const [loaded, setLoaded] = useState(false);
     const [refreshState, setRefreshState] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
-    const {serverId} = useParams();
+    const { serverId } = useParams();
     const history = useHistory();
 
 
@@ -37,11 +37,11 @@ function HomePage() {
                     } else {
                         friendId = friendRequest.sender_id;
                     }
-                    switch(friendRequest.type) {
+                    switch (friendRequest.type) {
                         case "RECEIVE_FRIEND_REQUEST":
                             dispatch(receiveFriendRequest(friendRequest));
                             break;
-                        case "DESTROY_FRIEND_REQUEST": 
+                        case "DESTROY_FRIEND_REQUEST":
                             dispatch(removeFriendRequest(friendRequest.id, friendId));
                             break;
                         case "UPDATE_FRIEND_REQUEST":
@@ -55,44 +55,43 @@ function HomePage() {
             }
         );
 
-        const subscription = consumer.subscriptions.create(
-            { channel: "ServersChannel", id: serverId },
-            {
-              
-              received: (server) => {
-                console.log('testing');
-                switch (server.type) {
-                  case "DELETE_SERVER":
-                    console.log("server deleted");
-                    dispatch(removeServer(server.id));
-                    if (+serverId === server.id) { history.push(`/channels/@me`)} 
-                    break;
-                  case "UPDATE_SERVER":
-                    console.log("server updated");
-                    dispatch(receiveServer(server));
-                    break;
-                  default:
-                    break;
-                }
-                // setRefreshState(!refreshServerState);
-              },
-            }
-          );
-    
-        return () => {
-            friendRequestsSubscription?.unsubscribe();
-            subscription?.unsubscribe();
-        }
+        // const subscription = consumer.subscriptions.create(
+        //     { channel: "ServersChannel", id: serverId },
+        //     {
 
-    }, [dispatch, refreshState]);
+        //         received: (server) => {
+        //             switch (server.type) {
+        //                 case "JOIN_SERVER":
+        //                     dispatch(receiveServer(server));
+        //                     break;
+        //                 case "LEAVE_SERVER":
+        //                     dispatch(removeServer(server.id));
+        //                     break;
+        //                 case "KICK_SERVER":
+        //                     dispatch(removeServer(server));
+        //                     break;
+        //                 default:
+        //                     break;
+        //             }
+        //         }
+        //         // setRefreshState(!refreshServerState);
+        //     },
+        // );
 
-    return (
-        <div className="home-page">
-            <NavBar refreshState={refreshState}/>
-            <UserBar refreshState={refreshState}/>
-            <FriendsContent refreshState={refreshState}/>
-        </div>
-    )
+    return () => {
+        friendRequestsSubscription?.unsubscribe();
+        // subscription?.unsubscribe();
+    }
+
+}, [dispatch, refreshState]);
+
+return (
+    <div className="home-page">
+        <NavBar refreshState={refreshState} />
+        <UserBar refreshState={refreshState} />
+        <FriendsContent refreshState={refreshState} />
+    </div>
+)
 }
 
 export default HomePage;

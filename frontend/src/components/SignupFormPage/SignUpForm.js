@@ -43,7 +43,6 @@ function SignupFormPage() {
               password: ""
             };
             data.forEach(error => {
-              console.log(error)
               if (error.toLowerCase().includes("email")) {
                 errorData.email = " - " + error.replace("Email", "");
               }

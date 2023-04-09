@@ -220,7 +220,6 @@ export default function ContentPage() {
                 showAddButton(true);
             }
             else {
-                console.log(otherUser);
                 setOtherUserId("");
                 setOtherUser(null);
                 showAddButton(false);

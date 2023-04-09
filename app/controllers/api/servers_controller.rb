@@ -55,6 +55,10 @@ class Api::ServersController < ApplicationController
 
     def join 
         @server = Server.find_by(id: params[:id], invite_token: params[:invite_token])
+        # if(@server.members.find(current_user.id))
+        #     render json: { errors: ['You are already a member of this server.'] }, status: :unauthorized
+        #     return
+        # end
         @server_subscription = ServerSubscription.create!(user_id: current_user.id, server_id: @server.id) unless ServerSubscription.find_by(user_id: current_user.id, server_id: @server.id)
         ServersChannel.broadcast_to @server,
             type: "JOIN_SERVER",

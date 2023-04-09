@@ -17,7 +17,7 @@ function LoginFormPage() {
   const demoUser = () => {
     // setCredential('Demo-lition@user.io')
     // setPassword('password')
-    setCredential('kenny@user.io')
+    setCredential('Demo-lition@user.io')
     setPassword('password')
   };
 
