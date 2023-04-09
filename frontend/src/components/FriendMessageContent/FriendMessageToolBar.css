@@ -12,5 +12,5 @@
 }
 
 .material-icons {
-    display: flex;
+    display: flex !important;
 }
