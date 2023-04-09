@@ -6,8 +6,19 @@ class Api::UsersController < ApplicationController
     @user.status = "online"
     @user.tag = @user.generate_unique_username_tag
     if @user.save
-      @server_subscription = ServerSubscription.create!(user_id: @user.id, server_id: 1)
-      @friend_request = FriendRequest.create!(sender_id: 1, receiver_id: @user.id, status: 'accepted');
+      server_subscription = ServerSubscription.create!(user_id: @user.id, server_id: 1)
+      friend_request_kenny = FriendRequest.create!(sender_id: 1, receiver_id: @user.id, status: 'accepted');
+      friend_request_demolition = FriendRequest.create!(sender_id: 2, receiver_id: @user.id, status: 'accepted');
+      friend_request_demonstration = FriendRequest.create!(sender_id: 3, receiver_id: @user.id, status: 'accepted');
+      dm_channel_kenny = Channel.create!(name: "Kenny/#{@user.username}", channel_type: "private")
+      ChannelSubscription.create!(user_id: 1, channel_id: dm_channel_kenny.id)
+      ChannelSubscription.create!(user_id: @user.id, channel_id: dm_channel_kenny.id)
+      dm_channel_demolition = Channel.create!(name: "Demo-lition/#{@user.username}", channel_type: "private")
+      ChannelSubscription.create!(user_id: 2, channel_id: dm_channel_demolition.id)
+      ChannelSubscription.create!(user_id: @user.id, channel_id: dm_channel_demolition.id)
+      dm_channel_demonstration = Channel.create!(name: "Demo-nstration/#{@user.username}", channel_type: "private")
+      ChannelSubscription.create!(user_id: 3, channel_id: dm_channel_demonstration.id)
+      ChannelSubscription.create!(user_id: @user.id, channel_id: dm_channel_demonstration.id)
       @user.update!(is_online: true)
       login!(@user)
       render :show
