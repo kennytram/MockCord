@@ -45,7 +45,7 @@ function SplashPage() {
                         <li>Support</li>
                         <li>Blog</li>
                         <li>Careers</li> */}
-                        <a href="https://github.com/kennytram/kennytram" target="_blank" rel="noreferrer"><li >Github</li></a>
+                        <a href="https://github.com/kennytram/" target="_blank" rel="noreferrer"><li >Github</li></a>
                         <a href="https://www.linkedin.com/in/kennytram/" target="_blank" rel="noreferrer"><li>LinkedIn</li></a>
                     </ul>
                     <div id="home-nav-right">
