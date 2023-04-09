@@ -45,8 +45,10 @@ function SplashPage() {
                         <li>Support</li>
                         <li>Blog</li>
                         <li>Careers</li> */}
-                        <a href="https://github.com/kennytram/" target="_blank" rel="noreferrer"><li >Github</li></a>
-                        <a href="https://www.linkedin.com/in/kennytram/" target="_blank" rel="noreferrer"><li>LinkedIn</li></a>
+                        <div id="nav-profile-links">
+                            <a href="https://github.com/kennytram/" target="_blank" rel="noreferrer"><li >Github</li></a>
+                            <a href="https://www.linkedin.com/in/kennytram/" target="_blank" rel="noreferrer"><li>LinkedIn</li></a>
+                        </div>
                     </ul>
                     <div id="home-nav-right">
                         <button id="home-login-button" onClick={handleOnLoginSubmit}>

@@ -78,9 +78,10 @@ button {
     height: 100%;
     -webkit-text-stroke: 0.5px white;
     width: 100%;
-    max-width: 700px;
+    /* max-width: 700px; */
     font-weight: 500;
-    justify-content: space-evenly;
+    justify-content: space-around;
+    position: relative;
 }
 
 #home-nav-center li {
@@ -99,6 +100,17 @@ button {
 
 #home-nav-center li:hover {
     text-decoration: underline;
+}
+
+#nav-profile-links {
+    display:flex;
+    padding-right: 210px;
+    justify-content: space-around;
+    width: 500px;
+}
+
+#nav-profile-links a:last-child {
+    width: 0px;
 }
 
 #home-nav-right button {
