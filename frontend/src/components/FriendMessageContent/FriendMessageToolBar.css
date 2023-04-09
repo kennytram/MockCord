@@ -10,3 +10,7 @@
     position: unset;
     margin-left:0.5px;
 }
+
+.material-icons {
+    display: flex;
+}
