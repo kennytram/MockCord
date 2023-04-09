@@ -8,5 +8,5 @@
 
 .top-main-header > .user-status-bubble > .user-status-bubble-inner {
     position: unset;
-    margin-left: 10px;
+    margin-left:0.5px;
 }

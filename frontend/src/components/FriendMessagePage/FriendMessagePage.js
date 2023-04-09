@@ -38,7 +38,6 @@ function FriendMessagePage() {
                     } else {
                         friendId = friendRequest.sender_id;
                     }
-                    console.log(friendRequest);
                     switch(friendRequest.type) {
                         case "RECEIVE_FRIEND_REQUEST":
                             dispatch(receiveFriendRequest(friendRequest));
@@ -62,7 +61,7 @@ function FriendMessagePage() {
             friendRequestsSubscription?.unsubscribe();
         }
 
-    }, [dispatch, sessionUser.id, refreshState]);
+    }, [dispatch, refreshState]);
 
 
     return (
