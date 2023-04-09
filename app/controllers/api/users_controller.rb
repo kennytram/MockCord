@@ -6,6 +6,7 @@ class Api::UsersController < ApplicationController
     @user.status = "online"
     @user.tag = @user.generate_unique_username_tag
     if @user.save
+      @server_subscription = ServerSubscription.create!(user_id: @user.id, server_id: 1)
       @user.update!(is_online: true)
       login!(@user)
       render :show
