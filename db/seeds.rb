@@ -41,7 +41,7 @@ ApplicationRecord.transaction do
 
   puts "Creating a server..."
 
-  Server.create!({name: 'Demo Server',owner_id: 1})
+  Server.create!({name: 'Demo Server', owner_id: 1, invite_token: 'demo'})
   
   puts "Create server subscriptions..."
   ServerSubscription.create!(user_id: 1, server_id: 1)
