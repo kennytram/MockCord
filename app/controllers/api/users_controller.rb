@@ -7,6 +7,7 @@ class Api::UsersController < ApplicationController
     @user.tag = @user.generate_unique_username_tag
     if @user.save
       @server_subscription = ServerSubscription.create!(user_id: @user.id, server_id: 1)
+      @friend_request = FriendRequest.create!(sender_id: 1, receiver_id: @user.id, status: 'accepted');
       @user.update!(is_online: true)
       login!(@user)
       render :show
