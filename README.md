@@ -1,1 +1,1 @@
-# MockCord-Discord-Clone
+# MockCord
