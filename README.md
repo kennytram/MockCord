@@ -32,7 +32,6 @@ def create
     @message = Message.new(message_params)
     @message.author_id ||= current_user.id
     if @message.messageable and @message.save
-        # ChannelsChannel.broadcast_to(@message.messageable, { type: "RECEIVE_MESSAGE", message: @message })
         ChannelsChannel.broadcast_to @message.messageable,
             type: "RECEIVE_MESSAGE",
             **from_template('api/messages/show', message: @message)
@@ -61,7 +60,6 @@ def update
         FriendRequestsChannel.broadcast_to @receiver,
             type: "UPDATE_FRIEND_REQUEST",
             **from_template('api/friend_requests/show', friend_request: @friend_request, current_user: @receiver, dm_channel: @dm_channel)
-        # render :show
         render json: nil, status: :ok
     else
         render json: { errors: @friend_request.errors.full_messages }, status: :unprocessable_entity
