@@ -70,6 +70,7 @@ button {
     display: flex;
     user-select: none;
     cursor: pointer;
+    padding-left: 20px;
 }
 
 
@@ -82,6 +83,10 @@ button {
     font-weight: 500;
     justify-content: space-around;
     position: relative;
+}
+
+#home-nav-right {
+    padding-right: 20px;
 }
 
 #home-nav-center li {
