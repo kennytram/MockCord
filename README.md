@@ -74,7 +74,7 @@ const handleAddFriend = (e) => {
     if (!friendRequestInfo) return;
     setErrors([]);
     if (!friendRequestInfo.includes('#')) {
-        setErrors([`We need ${otherUser}'s four digit tag so we know which one they are.`]);
+        setErrors([`We need ${friendRequestInfo}'s four digit tag so we know which one they are.`]);
         return;
     }
     const lastHashIndex = friendRequestInfo.lastIndexOf('#');
