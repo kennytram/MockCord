@@ -1,6 +1,8 @@
 # <a href="https://untitled-w1r2.onrender.com/">MockCord</a>
 Welcome to MockCord! MockCord is a web-based application that allows users to communicate with each other throug real-time chat messaging. In the current version of the application, users are also able to create servers and channels, and become friends with each other. and The application is designed to replicate some of the features of the popular communication platform Discord. 
 
+<img src="https://github.com/kennytram/MockCord/blob/main/frontend/assets/demo/SplashPage.gif?raw=true" width=800 height=500/>
+
 ## Technologies 
 MockCord is a full-stack web application that ultitizes the followings:
 - Frontend: React-Redux
