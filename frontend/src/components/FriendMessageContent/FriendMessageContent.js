@@ -329,7 +329,7 @@ function FriendMessageContent({ loaded }) {
                                                             <DeleteForeverIcon />
                                                         </div>
                                                         {showDeleteModal && editMessage === message && (
-                                                            <Modal onClose={() => setShowDeleteModal(false)} className="create-server">
+                                                            <Modal onClose={() => setShowDeleteModal(false)} className="create-server delete">
                                                                 <MessageDelete messageId={deleteMessageId} onClose={() => setShowDeleteModal(false)} />
                                                             </Modal>
                                                         )}
