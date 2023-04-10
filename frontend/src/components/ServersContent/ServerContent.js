@@ -14,12 +14,12 @@ import { getUsers, resetUsers } from '../../store/users';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { getFriendRequests, fetchFriendRequests, createFriendRequest } from '../../store/FriendRequests';
 import { kickMemberServer, receiveServer, removeServer } from '../../store/servers';
-import {receiveServerChannel, removeServerChannel} from '../../store/servers';
-import {receiveFriendRequest, removeFriendRequest} from '../../store/FriendRequests';
+import { receiveServerChannel, removeServerChannel } from '../../store/servers';
+import { receiveFriendRequest, removeFriendRequest } from '../../store/FriendRequests';
 import consumer from '../../consumer';
 import './ServerContent.css';
 
-function ServerContent({refreshState}) {
+function ServerContent({ refreshState }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const chatMessagesRef = useRef(null);
@@ -66,11 +66,11 @@ function ServerContent({refreshState}) {
             { channel: "ChannelsChannel", id: channelId },
             {
                 received: (message) => {
-                    switch(message.type) {
+                    switch (message.type) {
                         case "RECEIVE_MESSAGE":
                             dispatch(receiveMessage(message));
                             break;
-                        case "DELETE_MESSAGE": 
+                        case "DELETE_MESSAGE":
                             dispatch(removeMessage(message.id));
                             break;
                         case "UPDATE_MESSAGE":
@@ -88,11 +88,11 @@ function ServerContent({refreshState}) {
             { channel: "ServersChannel", id: serverId },
             {
                 received: (server) => {
-                    switch(server.type) {
+                    switch (server.type) {
                         case "JOIN_SERVER":
                             dispatch(receiveServer(server));
                             break;
-                        case "LEAVE_SERVER": 
+                        case "LEAVE_SERVER":
                             dispatch(removeServer(server.id));
                             break;
                         case "KICK_SERVER":
@@ -115,11 +115,11 @@ function ServerContent({refreshState}) {
                     } else {
                         friendId = friendRequest.sender_id;
                     }
-                    switch(friendRequest.type) {
+                    switch (friendRequest.type) {
                         case "RECEIVE_FRIEND_REQUEST":
                             dispatch(receiveFriendRequest(friendRequest));
                             break;
-                        case "DESTROY_FRIEND_REQUEST": 
+                        case "DESTROY_FRIEND_REQUEST":
                             dispatch(removeFriendRequest(friendRequest.id, friendId));
                             break;
                         case "UPDATE_FRIEND_REQUEST":
@@ -131,7 +131,7 @@ function ServerContent({refreshState}) {
                 }
             }
         );
-        
+
         return () => {
             messageSubscription?.unsubscribe();
             serverSubscription?.unsubscribe();
@@ -197,7 +197,7 @@ function ServerContent({refreshState}) {
 
     const handleMessageSubmit = (e) => {
         e.preventDefault();
-        if(!text) return;
+        if (!text) return;
         const msgId = channelId;
         const message = {
             text: text,
@@ -207,7 +207,7 @@ function ServerContent({refreshState}) {
         setText("");
         setRows(1);
         createMessage(message);
-        
+
         // return dispatch(createMessage(message)).then(() => {
         //     chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
         // })
@@ -239,7 +239,7 @@ function ServerContent({refreshState}) {
 
     const handleEditSubmit = (e) => {
         e.preventDefault();
-        if(!editMessageText) return;
+        if (!editMessageText) return;
         setErrors([]);
         editMessage.text = editMessageText;
         updateMessage(editMessage);
@@ -474,8 +474,8 @@ function ServerContent({refreshState}) {
                                 All Members - {server && server?.members ? Object.values(server.members).length : 0}
                             </li>
 
-                            {sessionUser && sessionUser.id && Object.keys(users).length && Object.values(users).map(member => (
-                                server && sessionUser.id && member.id && server.members && server.members[member.id] && (
+                            {sessionUser && sessionUser.id && Object.keys(users).length ? Object.values(users).map(member => (
+                                server && sessionUser.id && member.id && server.members && server.members[member.id] ? (
                                     <li key={member.id} className="member-container" onMouseEnter={
                                         sessionUser && sessionUser.id && sessionUser.id !== member.id ?
                                             () => { handleShowAdd(member) } : null} onMouseLeave={() => {
@@ -507,7 +507,7 @@ function ServerContent({refreshState}) {
                                                     setTimeout(() => {
                                                         showAddButton(false);
                                                     }, 50);
-                                                       
+
                                                 }}>
                                                     <PersonAddAlt1Icon onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} />
                                                 </div>) : null}
@@ -535,7 +535,7 @@ function ServerContent({refreshState}) {
 
                                         </div>
                                     </li>
-                                )))}
+                                ):null)):null}
 
 
                         </ul>
