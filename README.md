@@ -61,7 +61,6 @@ def update
         FriendRequestsChannel.broadcast_to @receiver,
             type: "UPDATE_FRIEND_REQUEST",
             **from_template('api/friend_requests/show', friend_request: @friend_request, current_user: @receiver, dm_channel: @dm_channel)
-        # render :show
         render json: nil, status: :ok
     else
         render json: { errors: @friend_request.errors.full_messages }, status: :unprocessable_entity
