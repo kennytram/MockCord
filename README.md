@@ -32,7 +32,6 @@ def create
     @message = Message.new(message_params)
     @message.author_id ||= current_user.id
     if @message.messageable and @message.save
-        # ChannelsChannel.broadcast_to(@message.messageable, { type: "RECEIVE_MESSAGE", message: @message })
         ChannelsChannel.broadcast_to @message.messageable,
             type: "RECEIVE_MESSAGE",
             **from_template('api/messages/show', message: @message)
