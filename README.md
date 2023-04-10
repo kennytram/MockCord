@@ -1,5 +1,5 @@
 # <a href="https://untitled-w1r2.onrender.com/">MockCord</a>
-Welcoem to MockCord! MockCord is a web-based application that allows users to communicate with each other throug real-time chat messaging. In the current version of the application, users are also able to create servers and channels, and become friends with each other. and The application is designed to replicate some of the features of the popular communication platform Discord. 
+Welcome to MockCord! MockCord is a web-based application that allows users to communicate with each other throug real-time chat messaging. In the current version of the application, users are also able to create servers and channels, and become friends with each other. and The application is designed to replicate some of the features of the popular communication platform Discord. 
 
 ## Technologies 
 MockCord is a full-stack web application that ultitizes the followings:
@@ -26,43 +26,98 @@ MockCord is a full-stack web application that ultitizes the followings:
 
 ### Creating a Message and Broadcast it with Action Cable
 ```ruby
-    def create
-        @message = Message.new(message_params)
-        @message.author_id ||= current_user.id
-        if @message.messageable and @message.save
-            # ChannelsChannel.broadcast_to(@message.messageable, { type: "RECEIVE_MESSAGE", message: @message })
-            ChannelsChannel.broadcast_to @message.messageable,
-                type: "RECEIVE_MESSAGE",
-                **from_template('api/messages/show', message: @message)
-            render json: nil, status: :ok
-        else
-            render json: @message.errors.full_messages, status: 422
-        end
+def create
+    @message = Message.new(message_params)
+    @message.author_id ||= current_user.id
+    if @message.messageable and @message.save
+        # ChannelsChannel.broadcast_to(@message.messageable, { type: "RECEIVE_MESSAGE", message: @message })
+        ChannelsChannel.broadcast_to @message.messageable,
+            type: "RECEIVE_MESSAGE",
+            **from_template('api/messages/show', message: @message)
+        render json: nil, status: :ok
+    else
+        render json: @message.errors.full_messages, status: 422
     end
+end
 ```
 
 ### Updating Friend Request Status
 ```ruby
-    def update
-        @friend_request = FriendRequest.find(params[:id])
-        if @friend_request.update(friend_request_params)
-            @sender = User.find(@friend_request.sender_id)
-            @receiver = User.find(@friend_request.receiver_id)
-            if @friend_request.status == "accepted"
-                @dm_channel = Channel.create(name: "#{@sender.username}/#{@receiver.username}", channel_type: "private")
-                ChannelSubscription.create(user_id: @friend_request.sender_id, channel_id: @dm_channel.id)
-                ChannelSubscription.create(user_id: @friend_request.receiver_id, channel_id: @dm_channel.id)
-            end
-            FriendRequestsChannel.broadcast_to @sender,
-                type: "UPDATE_FRIEND_REQUEST",
-                **from_template('api/friend_requests/show', friend_request: @friend_request, current_user: @sender, dm_channel: @dm_channel)
-            FriendRequestsChannel.broadcast_to @receiver,
-                type: "UPDATE_FRIEND_REQUEST",
-                **from_template('api/friend_requests/show', friend_request: @friend_request, current_user: @receiver, dm_channel: @dm_channel)
-            # render :show
-            render json: nil, status: :ok
-        else
-            render json: { errors: @friend_request.errors.full_messages }, status: :unprocessable_entity
+def update
+    @friend_request = FriendRequest.find(params[:id])
+    if @friend_request.update(friend_request_params)
+        @sender = User.find(@friend_request.sender_id)
+        @receiver = User.find(@friend_request.receiver_id)
+        if @friend_request.status == "accepted"
+            @dm_channel = Channel.create(name: "#{@sender.username}/#{@receiver.username}", channel_type: "private")
+            ChannelSubscription.create(user_id: @friend_request.sender_id, channel_id: @dm_channel.id)
+            ChannelSubscription.create(user_id: @friend_request.receiver_id, channel_id: @dm_channel.id)
         end
+        FriendRequestsChannel.broadcast_to @sender,
+            type: "UPDATE_FRIEND_REQUEST",
+            **from_template('api/friend_requests/show', friend_request: @friend_request, current_user: @sender, dm_channel: @dm_channel)
+        FriendRequestsChannel.broadcast_to @receiver,
+            type: "UPDATE_FRIEND_REQUEST",
+            **from_template('api/friend_requests/show', friend_request: @friend_request, current_user: @receiver, dm_channel: @dm_channel)
+        # render :show
+        render json: nil, status: :ok
+    else
+        render json: { errors: @friend_request.errors.full_messages }, status: :unprocessable_entity
     end
+end
 ```
+
+### Handling Possible Errors for Creating a Friend Request in Input Field
+```javascript
+const handleAddFriend = (e) => {
+    e.preventDefault();
+    if (!friendRequestInfo) return;
+    setErrors([]);
+    if (!friendRequestInfo.includes('#')) {
+        setErrors([`We need ${otherUser}'s four digit tag so we know which one they are.`]);
+        return;
+    }
+    const lastHashIndex = friendRequestInfo.lastIndexOf('#');
+    const username = friendRequestInfo.slice(0, lastHashIndex);
+    const tag = friendRequestInfo.slice(lastHashIndex + 1);
+    if (/^\d+$/.test(tag)) {
+    } else {
+        setErrors(['Tag must be digits only']);
+        return;
+    }
+    const friend = {
+        username: username,
+        tag: tag,
+    }
+    createSearchFriendRequest(friend).catch(function(error) {
+        let errorArr = [];
+        error.json().then(errorData=> {
+            errorArr.push(errorData);
+            setErrors(errorArr);
+        }) 
+    });
+};
+```
+
+### Creating a Friend Request with Real-time Updates
+```javascript
+const friendRequestsSubscription = consumer.subscriptions.create(
+    { channel: "FriendRequestsChannel", id: sessionUser.id },
+    {
+        received: (friendRequest) => {
+            switch (friendRequest.type) {
+                case "RECEIVE_FRIEND_REQUEST":
+                    dispatch(receiveFriendRequest(friendRequest));
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+);
+
+```
+## Future Features to Implement
+- Implement Voice Chat Channels
+- Creating an OpenAI ChatBot
+- Notifications
