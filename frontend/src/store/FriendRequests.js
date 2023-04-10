@@ -140,14 +140,12 @@ const friendRequestsReducer = (state = initialState, action) => {
     // debugger
     switch (action.type) {
         case RECEIVE_FRIEND_REQUEST:
-            // debugger
             const friendId = action.payload.friendRequest.friendId;
             newState[friendId] = action.payload.friendRequest[friendId]
             return newState;
         case RECEIVE_FRIEND_REQUESTS:
             return action.friendRequests;
         case REMOVE_FRIEND_REQUEST:
-            // debugger
             delete newState[action.friendRequestId];
             return newState;
         default:

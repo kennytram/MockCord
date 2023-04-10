@@ -77,14 +77,7 @@ function FriendsContent({ refreshState }) {
                 received: (friendRequest) => {
                     switch (friendRequest.type) {
                         case "RECEIVE_FRIEND_REQUEST":
-                            // console.log(friendRequest);
                             dispatch(receiveFriendRequest(friendRequest));
-                            // if (users[friendRequest.id]) {
-                            //     searchInputRef.current.classList.add('search-success');
-                            // }
-                            // else {
-                            //     searchInputRef.current.classList.add('search-error');
-                            // }
                             break;
                         default:
                             break;
@@ -131,8 +124,6 @@ function FriendsContent({ refreshState }) {
             username: username,
             tag: tag,
         }
-        // const isValidInput = checkValidInput(otherUser);
-
         createSearchFriendRequest(friend).then(() => {
             setSuccessFriendRequest(true);
             setSuccessFriend(otherUser);
@@ -143,7 +134,6 @@ function FriendsContent({ refreshState }) {
             let errorArr = [];
             error.json().then(errorData=> {
                 errorArr.push(errorData);
-                console.log(errorData);
                 searchInputRef.current.classList.add('search-error');
                 setErrors(errorArr);
             }) 
