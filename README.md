@@ -14,10 +14,10 @@ MockCord is a full-stack web application that ultitizes the followings:
 <img src="https://github.com/kennytram/MockCord/blob/main/frontend/assets/demo/Chat.gif?raw=true" width=700 height=500/>
 
 ### Edit/Delete Message
-<img src="https://github.com/kennytram/MockCord/blob/main/frontend/assets/demo/Edit-Message.gif?raw=true?raw=true" width=700 height=500/>
+<img src="https://github.com/kennytram/MockCord/blob/main/frontend/assets/demo/Edit-Message.gif?raw=true?raw=true" width=700 height=400/>
 
 ### Receiving Friend Requests
-<img src="https://github.com/kennytram/MockCord/blob/main/frontend/assets/demo/Friend-Request.gif?raw=true" width=700 height=500/>
+<img src="https://github.com/kennytram/MockCord/blob/main/frontend/assets/demo/Friend-Request.gif?raw=true" width=700 height=470/>
 
 ### Sending Friend Requests
 <img src="https://github.com/kennytram/MockCord/blob/main/frontend/assets/demo/Add-Friend.gif?raw=true" width=700 height=500/>
