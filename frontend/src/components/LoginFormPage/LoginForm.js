@@ -53,7 +53,7 @@ function LoginFormPage() {
         <div id="login-form-box">
 
           <div className="loading-session">
-            {!loading &&
+            {loading &&
               <img className="loading-wumpus login" src="loading-wumpus.gif" />}
           </div>
           <form id="login-form" onSubmit={handleSubmit}>
