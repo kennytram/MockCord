@@ -118,7 +118,9 @@ function FriendsOnline() {
 
     return (
         <>
-            {acceptedRequests.length > 0 && sessionUser && Object.keys(users).length ? (
+            {acceptedRequests.length > 0 && sessionUser && Object.keys(users).length && acceptedRequests.filter(acceptedRequest => {
+                return acceptedRequest.senderId === sessionUser.id ? users[acceptedRequest.receiverId].isOnline : users[acceptedRequest.senderId].isOnline
+            }).length ? (
                 <div className="friends-show-box">
                     {/* <div className="searchbar-friendrequests-container">
                         <div className="searchbar-friendrequests">
@@ -191,7 +193,7 @@ function FriendsOnline() {
                                                 </div>}
                                             </button>
                                             <button className="friend-request-info-right-button blocked" onClick={handleDeclineFriendRequest} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
-                                                <CloseIcon  />
+                                                <CloseIcon />
                                                 {showTooltip && <div className="friend-request-tooltip"
                                                     style={{ top: tooltipPosition.top }}>
                                                     <div className="tooltip-text">
