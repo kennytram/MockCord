@@ -10,6 +10,7 @@ function LoginFormPage() {
   const sessionUser = useSelector(state => state.session.user);
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
 
   if (sessionUser) return <Redirect to="/channels/@me" />;
@@ -30,9 +31,11 @@ function LoginFormPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
+    setLoading(true);
     return dispatch(sessionActions.login({ credential, password }))
       .catch(async (res) => {
         let data;
+        setLoading(false);
         try {
           data = await res.clone().json();
         } catch {
@@ -48,8 +51,12 @@ function LoginFormPage() {
     <>
       <div id="login-box">
         <div id="login-form-box">
-          <form id="login-form" onSubmit={handleSubmit}>
 
+          <div className="loading-session">
+            {!loading &&
+              <img className="loading-wumpus login" src="loading-wumpus.gif" />}
+          </div>
+          <form id="login-form" onSubmit={handleSubmit}>
             <div id="header-login-form">
               <div id="welcome-message"><label>Welcome back!</label></div>
               <div id="welcome-content"><label>We're so excited to see you again!</label></div>

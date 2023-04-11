@@ -18,6 +18,7 @@ function SignupFormPage() {
     username: "",
     password: ""
   });
+  const [loading, setLoading] = useState(false);
 
   if (sessionUser) return <Redirect to="/channels/@me" />;
 
@@ -25,9 +26,10 @@ function SignupFormPage() {
     e.preventDefault();
     const usernameTrim = user.username.trim();
     const emailTrim = user.email.trim();
-    const newUser = {email: emailTrim, username: usernameTrim, password: user.password}
+    const newUser = { email: emailTrim, username: usernameTrim, password: user.password }
     if (user.password === confirmPassword) {
       setErrors([]);
+      setLoading(true);
       return dispatch(sessionActions.signup(newUser))
         .catch(async (res) => {
           let data;
@@ -42,6 +44,7 @@ function SignupFormPage() {
               email: "",
               password: ""
             };
+            setLoading(false);
             data.forEach(error => {
               if (error.toLowerCase().includes("email")) {
                 errorData.email = " - " + error.replace("Email", "");
@@ -68,9 +71,14 @@ function SignupFormPage() {
   };
 
   return (
-    <>
+    <div className="register-page">
       <div id="register-box">
+
         <div id="register-form-box">
+          <div className="loading-session">
+            {loading &&
+              <img className="loading-wumpus register" src="loading-wumpus.gif" />}
+          </div>
           <form id="register-form" onSubmit={handleSubmit}>
             <div id="header-register-form">
               <div id="create-account-message"><label>Create an account</label></div>
@@ -119,7 +127,7 @@ function SignupFormPage() {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

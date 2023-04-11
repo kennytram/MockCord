@@ -34,6 +34,16 @@ a:hover {
     justify-content: center;
     align-items: center;
     border-radius: 8px;
+    position: relative;
+}
+
+.loading-wumpus.login {
+    /* width: 100px; */
+    height: 140px;
+    position: absolute;
+    left: 34%;
+    top: -19%;
+    
 }
 
 #login-form {
