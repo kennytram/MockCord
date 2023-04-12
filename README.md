@@ -1,5 +1,5 @@
 # <a href="https://untitled-w1r2.onrender.com/">MockCord</a>
-Welcome to MockCord! MockCord is a web-based application that allows users to communicate with each other through real-time chat messaging. In the current version of the application, users are also able to create servers and channels, and become friends with each other. and The application is designed to replicate some of the features of the popular communication platform Discord. 
+Welcome to MockCord! MockCord is a web-based application that allows users to communicate with each other through real-time chat messaging. In the current version of the application, users are also able to create servers and channels, and become friends with each other. The application is designed to replicate some of the features of the popular communication platform Discord. 
 
 <img src="https://github.com/kennytram/MockCord/blob/main/frontend/assets/demo/SplashPage.gif?raw=true" width=800 height=500/>
 
@@ -9,6 +9,15 @@ MockCord is a full-stack web application that ultitizes the followings:
 - Backend: Ruby on Rails
 - Database: PostgreSQL
 - Icons: Material UI
+
+## Features Implemented 
+- **Real-time CRUD updates** on the followings: 
+   - Servers
+   - Channels
+   - Messages
+   - Friend Requests
+- Invite link to join a server
+- Server Owner's functionality to remove a member
 
 ## Highlighted Features
 
