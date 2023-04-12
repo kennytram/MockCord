@@ -16,6 +16,7 @@ MockCord is a full-stack web application that ultitizes the followings:
    - Channels
    - Messages
    - Friend Requests
+- User Authentication
 - Invite link to join a server
 - Server Owner's functionality to remove a member
 
