@@ -11,7 +11,7 @@ MockCord is a full-stack web application that ultitizes the followings:
 - Icons: Material UI
 
 ## Features Implemented 
-- **Real-time CRUD updates** on the followings: 
+- **Real-time CRUD updates (WebSocket)** on the followings: 
    - Servers
    - Channels
    - Messages
