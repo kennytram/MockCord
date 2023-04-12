@@ -68,7 +68,7 @@ function SplashPage() {
                         and hang out more often.
                     </div>
                     <div id="home-description-buttons">
-                        <button className="button white"onClick={()=>{history.push('/login')}}><DownloadSimple font={"true"} size={24} fontWeight={700} /><span>&nbsp;Download MockCord</span></button>
+                        {/* <button className="button white"onClick={()=>{history.push('/login')}}><DownloadSimple font={"true"} size={24} fontWeight={700} /><span>&nbsp;Download MockCord</span></button> */}
                         <button className="button black"onClick={()=>{history.push('/login')}}><span>Open MockCord in your browser</span></button>
                     </div>
                 </div>
@@ -150,7 +150,7 @@ function SplashPage() {
                         <div className="section-headline">
                             Ready to start your journey?
                         </div>
-                        <button className="button brand" onClick={()=>{history.push('/login')}}><DownloadSimple font={"true"} size={24} fontWeight={700} /><span>&nbsp;Download MockCord</span></button>
+                        <button className="button brand" onClick={()=>{history.push('/login')}}><span>Open MockCord</span></button>
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@ function SplashPage() {
                         <div id="language-selection">
                             <div id="flag-usa" />
                             English, USA
-                            <div id="caret-down" />
+                            {/* <div id="caret-down" /> */}
                         </div>
                         <ul id="social-media-icons">
                             {/* <li id="twitter"><TwitterIcon sx={{ color: "white" }} /></li>
@@ -182,15 +182,15 @@ function SplashPage() {
                     </ul>
 
                     <ul className="footer-column">
-                        <li>Company</li>
+                        {/* <li>Company</li>
                         <li>About</li>
                         <li>Jobs</li>
                         <li>Branding</li>
-                        <li>Newsroom</li>
+                        <li>Newsroom</li> */}
                     </ul>
 
                     <ul className="footer-column">
-                        <li>Resources</li>
+                        {/* <li>Resources</li>
                         <li>College</li>
                         <li>Support</li>
                         <li>Safety</li>
@@ -199,18 +199,18 @@ function SplashPage() {
                         <li>Build</li>
                         <li>StreamKit</li>
                         <li>Creators</li>
-                        <li>Community</li>
+                        <li>Community</li> */}
                     </ul>
 
                     <ul className="footer-column">
-                        <li>Policies</li>
+                        {/* <li>Policies</li>
                         <li>Terms</li>
                         <li>Privacy</li>
                         <li>Cookie Settings</li>
                         <li>Guidelines</li>
                         <li>Acknowledgements</li>
                         <li>Licenses</li>
-                        <li>Moderation</li>
+                        <li>Moderation</li> */}
                     </ul>
 
                 </div>

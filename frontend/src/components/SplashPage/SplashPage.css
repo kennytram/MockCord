@@ -407,7 +407,7 @@ button {
     padding-bottom: 60px;
     color: white;
     max-height: 435px;
-    height: 435px;
+    /* height: 435px; */
 
     display: flex;
     flex-direction: column;
