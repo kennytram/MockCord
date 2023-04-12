@@ -32,8 +32,9 @@ export default function NavBar({ refreshServerState }) {
   const [showRightClickMenu, setShowRightClickMenu] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ left: 0, top: 0 });
+  const serverSubs = [];
 
-  
+
   //   import consumer from '../channels/consumer';
 
   // consumer.subscriptions.create(
@@ -66,32 +67,39 @@ export default function NavBar({ refreshServerState }) {
         }
       }
     });
+    servers.forEach((server, i) => {
+      serverSubs[i] = consumer.subscriptions.create(
+        { channel: "ServersChannel", id: server.id },
+        {
 
-    // const subscription = consumer.subscriptions.create(
-    //   { channel: "ServersChannel", id: serverId },
-    //   {
-
-    //     received: (server) => {
-    //       console.log('testing');
-    //       switch (server.type) {
-    //         case "DELETE_SERVER":
-    //           console.log("server deleted");
-    //           dispatch(removeServer(server.id));
-    //           if (+serverId === server.id) { history.push(`/channels/@me`)} 
-    //           break;
-    //         case "UPDATE_SERVER":
-    //           console.log("server updated");
-    //           dispatch(receiveServer(server));
-    //           break;
-    //         default:
-    //           break;
-    //       }
-    //     },
-    //   }
-    // )
-    // return () => {
-    //   subscription.unsubscribe();
-    // }
+          received: (server) => {
+            switch (server.type) {
+              case "DELETE_SERVER":
+                dispatch(removeServer(server.id));
+                if (+serverId === server.id) { history.push(`/channels/@me`) }
+                break;
+              case "UPDATE_SERVER":
+                dispatch(receiveServer(server));
+                break;
+              case "LEAVE_SERVER":
+                dispatch(removeServer(server.id));
+                break;
+              case "JOIN_SERVER":
+                dispatch(receiveServer(server));
+                break;
+              case "KICK_SERVER":
+                dispatch(removeServer(server.id));
+                break;
+              default:
+                break;
+            }
+          },
+        }
+      )
+    });
+    return () => {
+      serverSubs.forEach(sub => sub.unsubscribe());
+    }
 
 
   }, [dispatch, refreshServerState]);

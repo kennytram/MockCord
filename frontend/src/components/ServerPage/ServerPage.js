@@ -72,12 +72,6 @@ function ServerPage() {
             }
         );
         
-        // const memberSubscription = consumer.subscriptions.create(
-        //     { channel: "ServersChannel", id: serverId },
-        //     {
-        //         received: (user) => {
-        //             switch (user.type) {
-
 
         return () => {
             channelSubscription?.unsubscribe();
