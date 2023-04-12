@@ -121,8 +121,9 @@ function SignupFormPage() {
               <NavLink to="/login">Already have an account?</NavLink>
             </div>
             <div id="register-form-bottom-box">
-              By registering, you agree to MockCord's&nbsp;
-              <span id="tos">Terms of Service</span>&nbsp;and&nbsp;<span id="privacy-policy">Privacy Policy</span>.
+              By registering, you agree to MockCord's Terms of Service and Privacy Policy.
+              {/* &nbsp;
+              <span id="tos">Terms of Service</span>&nbsp;and&nbsp;<span id="privacy-policy">Privacy Policy</span>. */}
             </div>
           </form>
         </div>

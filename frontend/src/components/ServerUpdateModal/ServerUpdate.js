@@ -58,7 +58,8 @@ function ServerUpdate({ onClose }) {
                     />
                     <div className="create-note">
                         You agree to
-                        MockCord's <label className="fake-blue-links">Community Guidelines</label>.
+                        MockCord's Community Guidelines.
+                        {/* <label className="fake-blue-links">Community Guidelines</label>. */}
                     </div>
                 </div>
                 <div className="server-create-buttons">
