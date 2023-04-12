@@ -128,6 +128,6 @@ const friendRequestsSubscription = consumer.subscriptions.create(
 
 ```
 ## Future Features to Implement
-- Implement Voice Chat Channels
-- Creating an OpenAI ChatBot
+- Voice Channels with WebRTC
+- OpenAI ChatBot
 - Notifications
