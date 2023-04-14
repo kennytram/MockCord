@@ -12,11 +12,12 @@ import ChannelForm from '../ChannelFormModal/ChannelForm';
 import UserPanel from '../UserPanel/UserPanel';
 import ChannelDelete from '../ChannelDeleteModal/ChannelDelete';
 import ChannelUpdate from '../ChannelUpdateModal/ChannelUpdate';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import consumer from '../../consumer';
-import {receiveServerChannel, removeServerChannel} from '../../store/servers';
+import { receiveServerChannel, removeServerChannel } from '../../store/servers';
 import './ChannelBar.css';
 
-function ChannelBar({refreshState}) {
+function ChannelBar({ refreshState }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
@@ -42,14 +43,14 @@ function ChannelBar({refreshState}) {
 
     useEffect(() => {
         Promise.all(
-            
+
             [dispatch(fetchServer(serverId))]
         ).then(() => {
             setLoaded(true);
         })
-        .catch(() => {
-            history.push('/channels/@me');
-        });
+            .catch(() => {
+                history.push('/channels/@me');
+            });
         // const subscription = consumer.subscriptions.create(
         //     { channel: "ServersChannel", server_id: serverId },
         //     {
@@ -62,7 +63,7 @@ function ChannelBar({refreshState}) {
         // );
         // return () => { subscription?.unsubscribe() };
 
-        
+
 
     }, [dispatch, serverId, refreshState]);
 
@@ -178,7 +179,8 @@ function ChannelBar({refreshState}) {
                                                             document.body.style.overflow = 'unset';
                                                             setShowDeleteChannelModal(false);
                                                         }} className="create-server delete">
-                                                            <ChannelDelete onClose={(e) => {;
+                                                            <ChannelDelete onClose={(e) => {
+                                                                ;
                                                                 document.body.style.overflow = 'unset';
                                                                 setShowDeleteChannelModal(false);
                                                             }} />
@@ -197,7 +199,21 @@ function ChannelBar({refreshState}) {
                                 </div>
                             </Link>
                         )) : null}
+
+                        <div className="channel-wrapper">
+                            <li className="channel-item">
+                                <li>
+                                <VolumeUpIcon className="tag-icon" />&nbsp; <div>
+                                    <div className="channel">voice</div>
+                                </div>
+                                </li>
+                            </li>
+                        </div>
+                        
                     </ul>
+
+
+
                 </ul>
             </nav>
             <UserPanel />
