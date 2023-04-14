@@ -81,6 +81,19 @@ function ChannelBar({ refreshState }) {
         setShowTooltip(false);
     };
 
+    // const handleJoinSession = async () => {
+    //     consumer.subscriptions.create("VoiceChannel", {
+    //         connected: () => {
+    //             broadcastData({type: "initiateConnection"});
+    //         },
+    //         received: (data) => {
+    //             console.log("received data: ", data);
+    //         }
+    //     });
+    // };
+
+    const handleLeaveSession = () => {};
+
     return (
         <div className="channel-bar">
             <nav id="left-navbar">
@@ -211,7 +224,7 @@ function ChannelBar({ refreshState }) {
                         </div>
                         
                     </ul>
-
+                    
 
 
                 </ul>

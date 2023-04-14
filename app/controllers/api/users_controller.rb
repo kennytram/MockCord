@@ -36,6 +36,11 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def join_call
+    ActionCable.server.broadcast "voice_channel"
+    head :no_content
+  end
+  
   def index
     @users = User.all
     render :index
@@ -44,6 +49,6 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :username, :password, :status, :tag, :is_online)
+    params.require(:user).permit(:email, :username, :password, :status, :tag, :is_online,:type, :from, :to, :sdp, :candidate)
   end
 end

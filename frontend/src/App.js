@@ -8,6 +8,7 @@ import ErrorPage from "./components/ErrorPage/ErrorPage";
 import HomePage from "./components/HomePage/HomePage";
 import ServerPage from "./components/ServerPage/ServerPage";
 import FriendMessagePage from "./components/FriendMessagePage/FriendMessagePage";
+import VoiceChannelPage from "./components/VoiceChannelPage/VoiceChannelPage";
 import { useDispatch } from "react-redux";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
     <>
       <Switch>
         <Route exact path="/channels/@me/:channelId(\d+)" component={FriendMessagePage}/>
+        <Route exact path="/channels/:serverId(\d+)/chat" component={VoiceChannelPage}/>
         <Route exact path="/channels/:serverId(\d+)/:channelId(\d+)" component={ServerPage}/>
 
         <Route exact path="/channels/:serverId(\d+)/:inviteToken" component={HomePage}/>

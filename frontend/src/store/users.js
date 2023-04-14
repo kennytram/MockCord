@@ -80,6 +80,13 @@ export const destroyUser = (userId) => async (dispatch) => {
     }
 }
 
+export const joinVoice = (data) => {
+    csrfFetch("/api/users/joinCall", {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+}
+
 export default function usersReducer(state = {}, action) {
     const newState = { ...state };
     switch (action.type) {

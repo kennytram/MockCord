@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     post "/channels/:id/subscribe/:user_id", to: "channels#subscribe", as: :subscribe_channel
     delete "/channels/:id/subscribe", to: "channels#leave", as: :leave_channel
     delete "/channels/:id/subscribe/:user_id", to: "channels#kick", as: :kick_channel
+    post "/users/join_call", to: "users#join_call", as: :join_call
   end
   
   get '*path', to: "static_pages#frontend_index"

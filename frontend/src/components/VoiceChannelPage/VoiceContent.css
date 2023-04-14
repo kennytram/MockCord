@@ -1,0 +1,7 @@
+.voice-content-page {
+    display: flex;
+    width: calc(100% - 312px);
+    min-height: 100%;
+    position: relative;
+}
+
