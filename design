@@ -7,4 +7,4 @@ Features
 Use Cases
 - Users should be able to create servers
 - Users should be able to create channels
-- Users should be able to create messages, delete messages
+- Users should be able to create messages, delete messages, edit messages
