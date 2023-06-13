@@ -17,3 +17,13 @@
     /* position: fixed; */
     /* display: flex; */
 }
+
+@media (max-width: 312px) {
+    .friends-content {
+        display: none;
+    }
+
+    .home-page {
+        overflow: hidden;
+    }
+}

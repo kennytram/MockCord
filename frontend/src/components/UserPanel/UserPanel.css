@@ -1,8 +1,8 @@
 #user-panel {
     display: flex;
     align-items: center;
-    position: fixed;
-    /* position: absolute; */
+    /* position: fixed; */
+    position: absolute;
     width: 240px;
     height: 53px;
     background-color: var(--user-panel-color);

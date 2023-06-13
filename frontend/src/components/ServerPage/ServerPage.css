@@ -8,3 +8,13 @@
     height: 100%;
     width: calc(100% - 312px);
 }
+
+@media (max-width: 312px) {
+    .server-page-content {
+        display: none;
+    }
+
+    .server-page {
+        overflow: hidden;
+    }
+}

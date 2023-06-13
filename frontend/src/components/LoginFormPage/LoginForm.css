@@ -257,7 +257,7 @@ button.demo-login:hover {
     }
 
     #header-login-form {
-        height: 9rem;
+        height: 6rem;
     }
 
     #header-login-form > #welcome-message {
@@ -269,7 +269,7 @@ button.demo-login:hover {
         display: none;
     }
 
-    #space-header {
+    #spacer-header {
         display: none;
     }
 

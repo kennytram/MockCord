@@ -92,10 +92,41 @@ function SplashPage() {
                         </div>
                     </div>
                 </div>
+                <div className="section media" >
+                    <div className="section-image" id="first-section-image" />
+                    <div className="section-description-box">
+                        <div className="section-image-media" id="first-section-image" />  
+                        <div className="section-headline">
+                            Create an invite-only place where you belong
+                        </div>
+                        <div className="section-description">
+                            Discord servers are organized into topic-based
+                            channels where you can collaborate, share, and
+                            just talk about your day without clogging up a
+                            group chat.
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className="homepage-section" id="homepage-section-second">
                 <div data-aos="fade-up" className="section" >
+                    <div className="section-description-box">
+                        <div className="section-image-media" id="second-section-image" />
+                        <div className="section-headline">
+                            Where hanging out is easy
+                        </div>
+                        <div className="section-description">
+                            Grab a seat in a voice channel when you’re free.
+                            Friends in your server can see you’re around and
+                            instantly pop in to talk without having to call.
+                        </div>
+
+                    </div>
+                    <div className="section-image" id="second-section-image" />
+
+                </div>
+                <div className="section media" >
                     <div className="section-description-box">
                         <div className="section-image-media" id="second-section-image" />
                         <div className="section-headline">
@@ -129,6 +160,21 @@ function SplashPage() {
                         </div>
                     </div>
                 </div>
+                <div className="section media" >
+                    <div className="section-image" id="third-section-image" />
+                    <div className="section-description-box">
+                        <div className="section-image-media" id="third-section-image" />
+
+                        <div className="section-headline">
+                            From few to a fandom
+                        </div>
+                        <div className="section-description">
+                            Get any community running with moderation tools and
+                            custom member access. Give members special powers,
+                            set up private channels, and more.
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className="homepage-section" id="homepage-section-forth">
@@ -146,10 +192,33 @@ function SplashPage() {
                     </div>
                     <div className="section-image" id="fourth-section-image" />
                 </div>
+                <div className="section media" >
+                    <div className="section-description-box">
+                        <div className="section-headline">
+                            RELIABLE TECH FOR STAYING CLOSE
+                        </div>
+                        <div className="section-description">
+                            Low-latency voice and video feels like you’re in
+                            the same room. Wave hello over video, watch friends
+                            stream their <br /> games, or gather up and have a drawing
+                            session with screen share.
+                        </div>
+                    </div>
+                    <div className="section-image" id="fourth-section-image" />
+                </div>
             </div>
 
             <div className="homepage-section" id="homepage-section-fifth">
                 <div data-aos="fade-up" className="section" >
+                    <div id="stars" />
+                    <div className="section-description-box">
+                        <div className="section-headline">
+                            Ready to start your journey?
+                        </div>
+                        <button className="button brand" onClick={()=>{history.push('/login')}}><span>Open MockCord</span></button>
+                    </div>
+                </div>
+                <div className="section media" >
                     <div id="stars" />
                     <div className="section-description-box">
                         <div className="section-headline">

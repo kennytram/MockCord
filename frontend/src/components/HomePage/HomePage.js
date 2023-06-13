@@ -89,7 +89,7 @@ return (
     <div className="home-page">
         <NavBar refreshState={refreshState} />
         <UserBar refreshState={refreshState} />
-        <FriendsContent refreshState={refreshState} />
+        <FriendsContent className="friends-content" refreshState={refreshState} />
     </div>
 )
 }
