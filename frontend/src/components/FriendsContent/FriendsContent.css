@@ -832,4 +832,8 @@ button.searchbar:hover {
     #add-friend-container{
         width:100%;
     }
+
+    .friends-show-container {
+        width: 100%;
+    }
 }
