@@ -416,7 +416,7 @@
 
     /* flex: 0.79 0; */
     flex-direction: column;
-    max-width: 240px;
+    max-width: 20rem;
     width: 19%;
     position: relative;
     height: 100%;
@@ -452,7 +452,7 @@
 
 .member-container {
     position: relative;
-    max-width: 240px;
+    max-width: 20rem;
     margin-left: 8px;
     margin-top: 6px;
     user-select: none;
@@ -521,7 +521,16 @@
 }
 
 .member-username {
-    max-width: 94px;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+@media (max-width: 556px) {
+    .message-show-container{
+        display: none;
+    }
+
+    .members-container{
+        width: 100%;
+    }
 }

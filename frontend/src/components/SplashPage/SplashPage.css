@@ -116,7 +116,7 @@ button {
     /* width: 500px; */
 }
 
-#nav-profile-links > *:first-child{
+#nav-profile-links > *{
     margin-right: 5rem;
 }
 
@@ -571,13 +571,16 @@ button {
 
 @media (max-width: 940px) {
     #home-nav {
-        display: none;
+        margin-top: 2rem;
     }
     
     .section-image {
         width: 100%;
     }
 
+    #nav-profile-links > * {
+        margin-right: 1rem;
+    }
     
     .section > .section-image {
         display: none;
@@ -595,6 +598,10 @@ button {
 
 
 @media (max-width: 650px) {
+    #home-nav {
+        display: none;
+    }
+    
     #homepage-footer {
         display: none;
     }
@@ -606,7 +613,7 @@ button {
 
 @media (max-width: 500px) {
     .section-image-media {
-        display: none;
+        display: block;
     }
 
     #home-description-box {
@@ -623,6 +630,7 @@ button {
     .section.media {
         display: block;
     }
+
     #homepage-section-forth > .section {
         display: none;
     }
@@ -632,6 +640,6 @@ button {
     }
 
     #homepage-section-forth > .section.media {
-        display: none;
+        display: block;
     }
 }

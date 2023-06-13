@@ -213,7 +213,7 @@ function ChannelBar({ refreshState }) {
                             </Link>
                         )) : null}
 
-                        <div className="channel-wrapper">
+                        {/* <div className="channel-wrapper">
                             <li className="channel-item">
                                 <li>
                                 <VolumeUpIcon className="tag-icon" />&nbsp; <div>
@@ -221,7 +221,7 @@ function ChannelBar({ refreshState }) {
                                 </div>
                                 </li>
                             </li>
-                        </div>
+                        </div> */}
                         
                     </ul>
                     

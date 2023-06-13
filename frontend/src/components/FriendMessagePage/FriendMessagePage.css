@@ -65,3 +65,12 @@
     align-items: center;
     padding-top: 10px;
 }
+@media (max-width: 312px) {
+    .friend-message-page-content {
+        display: none;
+    }
+
+    .friend-message-page {
+        overflow: hidden;
+    }
+}
