@@ -526,7 +526,7 @@
 }
 
 @media (max-width: 556px) {
-    .message-show-container{
+    .message-show-container:not(.friend){
         display: none;
     }
 

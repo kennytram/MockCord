@@ -236,7 +236,7 @@ function FriendMessageContent({ loaded }) {
     if (loaded) {
         return (
             <div className="content">
-                <div className="message-show-container" >
+                <div className="message-show-container friend" >
                     <ul className="messages" ref={chatMessagesRef}>
                         {/* <li className="welcome-channel">
                         <div className="welcome-channel-wrapper">

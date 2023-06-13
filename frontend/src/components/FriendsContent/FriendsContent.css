@@ -824,3 +824,12 @@ button.searchbar:hover {
     white-space: nowrap;
 }
 
+@media (max-width: 1360px) {
+    .activity-bar {
+        display: none;
+    }
+
+    #add-friend-container{
+        width:100%;
+    }
+}
