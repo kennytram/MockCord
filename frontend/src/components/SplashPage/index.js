@@ -68,18 +68,19 @@ function SplashPage() {
                         and hang out more often.
                     </div>
                     <div id="home-description-buttons">
-                        {/* <button className="button white"onClick={()=>{history.push('/login')}}><DownloadSimple font={"true"} size={24} fontWeight={700} /><span>&nbsp;Download MockCord</span></button> */}
                         <button className="button black"onClick={()=>{history.push('/login')}}><span>Open MockCord in your browser</span></button>
                     </div>
                 </div>
             </div>
+                        {/* <button className="button white"onClick={()=>{history.push('/login')}}><DownloadSimple font={"true"} size={24} fontWeight={700} /><span>&nbsp;Download MockCord</span></button> */}
 
-            <div id="empty-spacer-first" />
+            {/* <div id="empty-spacer-first" /> */}
 
             <div className="homepage-section" id="homepage-section-first">
                 <div data-aos="fade-up" className="section" >
                     <div className="section-image" id="first-section-image" />
                     <div className="section-description-box">
+                        <div className="section-image-media" id="first-section-image" />  
                         <div className="section-headline">
                             Create an invite-only place where you belong
                         </div>
@@ -96,6 +97,7 @@ function SplashPage() {
             <div className="homepage-section" id="homepage-section-second">
                 <div data-aos="fade-up" className="section" >
                     <div className="section-description-box">
+                        <div className="section-image-media" id="second-section-image" />
                         <div className="section-headline">
                             Where hanging out is easy
                         </div>
@@ -104,6 +106,7 @@ function SplashPage() {
                             Friends in your server can see you’re around and
                             instantly pop in to talk without having to call.
                         </div>
+
                     </div>
                     <div className="section-image" id="second-section-image" />
 
@@ -114,6 +117,8 @@ function SplashPage() {
                 <div data-aos="fade-up" className="section" >
                     <div className="section-image" id="third-section-image" />
                     <div className="section-description-box">
+                        <div className="section-image-media" id="third-section-image" />
+
                         <div className="section-headline">
                             From few to a fandom
                         </div>
@@ -174,23 +179,23 @@ function SplashPage() {
                         </ul>
                     </div>
 
-                    <ul className="footer-column">
-                        {/* <li>Product</li>
+                    {/* <ul className="footer-column">
+                        <li>Product</li>
                         <li>Download</li>
                         <li>Nitro</li>
-                        <li>Status</li> */}
-                    </ul>
+                        <li>Status</li>
+                    </ul> */}
 
-                    <ul className="footer-column">
-                        {/* <li>Company</li>
+                    {/* <ul className="footer-column">
+                        <li>Company</li>
                         <li>About</li>
                         <li>Jobs</li>
                         <li>Branding</li>
-                        <li>Newsroom</li> */}
-                    </ul>
+                        <li>Newsroom</li>
+                    </ul> */}
 
-                    <ul className="footer-column">
-                        {/* <li>Resources</li>
+                    {/* <ul className="footer-column">
+                        <li>Resources</li>
                         <li>College</li>
                         <li>Support</li>
                         <li>Safety</li>
@@ -199,19 +204,19 @@ function SplashPage() {
                         <li>Build</li>
                         <li>StreamKit</li>
                         <li>Creators</li>
-                        <li>Community</li> */}
-                    </ul>
+                        <li>Community</li>
+                    </ul> */}
 
-                    <ul className="footer-column">
-                        {/* <li>Policies</li>
+                    {/* <ul className="footer-column">
+                        <li>Policies</li>
                         <li>Terms</li>
                         <li>Privacy</li>
                         <li>Cookie Settings</li>
                         <li>Guidelines</li>
                         <li>Acknowledgements</li>
                         <li>Licenses</li>
-                        <li>Moderation</li> */}
-                    </ul>
+                        <li>Moderation</li>
+                    </ul> */}
 
                 </div>
 
