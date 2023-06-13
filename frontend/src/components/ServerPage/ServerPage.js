@@ -57,7 +57,7 @@ function ServerPage() {
 
                 received: (server) => {
                     switch (server.type) {
-                        case "DELETE_SERVER":
+                        case "DESTROY_SERVER":
                             dispatch(removeServer(server.id));
                             if (+serverId === server.id) { history.push(`/channels/@me`) }
                             break;

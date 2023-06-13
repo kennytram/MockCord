@@ -32,8 +32,6 @@ export default function NavBar({ refreshServerState }) {
   const [showRightClickMenu, setShowRightClickMenu] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ left: 0, top: 0 });
-  const serverSubs = [];
-
 
   //   import consumer from '../channels/consumer';
 
@@ -54,7 +52,9 @@ export default function NavBar({ refreshServerState }) {
         navLink.parentElement.parentElement.classList.add('current');
       }
     }
+    const serverSubs = [];
 
+    
     Promise.all([
       inviteToken ? joinServer(serverId, inviteToken) : null,
       dispatch(fetchServers()),
@@ -66,7 +66,9 @@ export default function NavBar({ refreshServerState }) {
           navLink.parentElement.parentElement.classList.add('current');
         }
       }
+      
     });
+    
     servers.forEach((server, i) => {
       serverSubs[i] = consumer.subscriptions.create(
         { channel: "ServersChannel", id: server.id },
@@ -74,7 +76,7 @@ export default function NavBar({ refreshServerState }) {
 
           received: (server) => {
             switch (server.type) {
-              case "DELETE_SERVER":
+              case "DESTROY_SERVER":
                 dispatch(removeServer(server.id));
                 if (+serverId === server.id) { history.push(`/channels/@me`) }
                 break;
@@ -99,10 +101,9 @@ export default function NavBar({ refreshServerState }) {
     });
     return () => {
       serverSubs.forEach(sub => sub.unsubscribe());
-    }
+    }  
 
-
-  }, [dispatch, refreshServerState]);
+  }, [dispatch, Object.keys(servers).length, refreshServerState]);
 
   const logout = (e) => {
     e.preventDefault();
@@ -190,7 +191,7 @@ export default function NavBar({ refreshServerState }) {
         </div>
 
         <ul id="servers">
-          {servers.map(server => (
+          {servers.length && servers.map(server => (
             server && sessionUser && server.members[sessionUser.id] ? (
               <li key={server.id} >
                 <div className="icon-box-wrapper" onMouseOver={handleMouseEnter} onMouseLeave={handleMouseLeave}>
