@@ -2,7 +2,7 @@ class ServersChannel < ApplicationCable::Channel
     def subscribed
         @server = Server.find(params[:id])
         stream_for @server
-        stream_from "global_stream"
+        # stream_from "global_stream"
     end
     
     def unsubscribed
