@@ -96,7 +96,7 @@ function ServerContent({ refreshState }) {
                             dispatch(removeServer(server.id));
                             break;
                         case "KICK_SERVER":
-                            dispatch(removeServer(server));
+                            dispatch(removeServer(server.id));
                             break;
                         default:
                             break;
