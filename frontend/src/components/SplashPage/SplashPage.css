@@ -616,8 +616,16 @@ button {
         display: block;
     }
 
+    #background-header {
+        max-height: 55rem;
+    }
+
     #home-description-box {
         padding: 1rem;
+    }
+
+    #home-headline {
+        font-size: 2.5rem;
     }
 
     #homepage {
