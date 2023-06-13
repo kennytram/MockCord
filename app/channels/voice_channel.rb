@@ -1,4 +1,4 @@
-class VoiceChanel < ApplicationCable::Channel
+class VoiceChannel < ApplicationCable::Channel
     def subscribed
       stream_from "voice_channel"
     end
