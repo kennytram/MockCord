@@ -9,9 +9,8 @@ a:hover {
 
 #login-box {
     display: flex;
-    position: absolute;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -238,4 +237,65 @@ button.demo-login {
 button.demo-login:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+@media (max-width: 650px) {
+
+    #login-box {
+        background-image: none;
+        background-color: #313338;
+        overflow: hidden;
+    }
+    #login-form-box {
+        width: 90%;
+        height: 100%;
+        min-height: 100vh;
+        border-radius: 0px;
+        box-shadow: none;
+        min-width: 20rem;
+        padding: 7rem;
+    }
+
+    #header-login-form {
+        height: 9rem;
+    }
+
+    #header-login-form > #welcome-message {
+        font-size: 2rem;
+        height: 40%;
+    }
+
+    #header-login-form > #welcome-content {
+        display: none;
+    }
+
+    #space-header {
+        display: none;
+    }
+
+    #username-login-form {
+        height: 6rem;
+    }
+
+    #password-login-form {
+        height: 4.5rem;
+    }
+
+    #forgot-password-box {
+        margin-top: 0.5rem;
+        height: 2rem;
+    }
+
+    #login-form-bottom-box {
+        font-size: 1rem;
+    }
+
+    #login-button-box {
+        height: 3rem;
+    }
+
+    #login-form-bottom-box > * {
+        margin-right: 0.4rem;
+        font-size: 0.75rem;
+    }
 }
