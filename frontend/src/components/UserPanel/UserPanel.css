@@ -40,15 +40,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    position: relative;
+    min-width: 32px;
+    min-height: 32px;
     min-width: 32px;
     min-height: 32px;
     width: 32px;
     height: 32px;
     border-radius: 50%;
     margin-bottom: 2px;
-    position: relative;
     user-select: none;
+
+    background-position: center;
+    background-size: cover;
 }
 
 .user-icon span {
@@ -217,5 +221,21 @@
 
 .user-panel-logout {
     position: relative;
+}
+
+#user-panel-img-upload {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    width: 32px;
+    height: 32px;
+}
+
+.user-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-position: center;
+    object-fit: contain;
 }
 

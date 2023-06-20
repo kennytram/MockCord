@@ -253,7 +253,11 @@ function FriendMessageContent({ loaded }) {
                                     if (member.id !== sessionUser.id) {
                                         return (
                                             <div key={member.id} className="message-user-icon" style={{ backgroundColor: `${colorById(member.id)}` }}>
-                                                <span className="material-icons user-icon profile-icon" style={{ color: "white", fontSize: 60 }}>discord</span>
+                                                {member.photoUrl ?
+                                                    <img className="user-icon profile-icon" src={member.photoUrl} alt="user-icon" />
+                                                    :
+                                                    <span className="material-icons user-icon profile-icon" style={{ color: "white", fontSize: 60 }}>discord</span>
+                                                }
                                             </div>
                                         );
                                     } else {
@@ -281,7 +285,11 @@ function FriendMessageContent({ loaded }) {
                                 <li className={showEditForm && editMessage === message ? "message editing" : "message"} key={message.id}>
                                     <div className="message-header">
                                         <div className="message-user-icon" style={{ backgroundColor: `${colorById(message.authorId)}` }}>
-                                            <span className="material-icons user-icon messenger-icon" style={{ color: "white", fontSize: 30 }}>discord</span>
+                                            {message && Object.keys(users).length && message.authorId && users[message.authorId].photoUrl ?
+                                                <img className="user-icon user-icon messenger-icon" src={users[message.authorId].photoUrl} alt="user-icon" />
+                                                :
+                                                <span className="material-icons user-icon messenger-icon" style={{ color: "white", fontSize: 30 }}>discord</span>
+                                            }
                                         </div>
                                         <div className="message-topping">
                                             <span className="message-username">
@@ -368,10 +376,10 @@ function FriendMessageContent({ loaded }) {
                                 <div className="message-user-icon">
                                     <span className="material-icons user-icon profile-icon" style={{ color: "white", fontSize: 60 }}>discord</span>
                                 </div>
-                                <div className="welcome-dm-heading" style={{marginTop:36}}>
+                                <div className="welcome-dm-heading" style={{ marginTop: 36 }}>
                                     <div style={{ marginTop: 36 }}>{""}</div>
                                 </div>
-                                <div className="welcome-dm-desc" style={{marginTop:56}}>
+                                <div className="welcome-dm-desc" style={{ marginTop: 56 }}>
                                     This is the beginning of your direct message history with <span className="highlighted-user">
 
                                     </span>

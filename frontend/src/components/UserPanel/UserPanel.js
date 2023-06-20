@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, Redirect, useHistory } from 'react-router-dom';
+import { updateUser, fetchUser } from '../../store/users';
 import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import HeadsetOffIcon from "@mui/icons-material/HeadsetOff";
@@ -8,6 +9,7 @@ import HeadsetIcon from "@mui/icons-material/Headset";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import * as sessionActions from '../../store/session';
+import {getUser} from '../../store/users';
 import './UserPanel.css';
 
 
@@ -64,6 +66,20 @@ export default function UserPanel() {
         });
     };
 
+    const handleImgUpload = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            const img = reader.result;
+            dispatch(updateUser({ id: sessionUser.id, photo: img })).then((res) => {
+                console.log(sessionUser.id);
+                dispatch(sessionActions.restoreSession());
+                dispatch(fetchUser(sessionUser.id));
+            });
+        };
+    };
+
     // if (!url.includes('/channels')
     //     && !url.includes('/guild-discovery')
     //     && !url.includes('/store')) return null;
@@ -74,11 +90,14 @@ export default function UserPanel() {
                 <div id="user-box">
                     {sessionUser && (<>
                         <div className="user-icon" style={sessionUser ? { backgroundColor: `${colorById(sessionUser.id)}` } : { backgroundColor: `var(--brand)` }}>
-                            <span className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</span>
+                            {sessionUser.photoUrl ? <img className="user-image icon" src={sessionUser.photoUrl} alt="user-icon" /> 
+                            : <span className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</span>}
+                            
                             {/* <rect x="0" y="0" rx="3" ry="3" width="70" height="70" /> */}
                             <div className={`user-status-bubble ${sessionUser.status}`}>
                                 <div className={`user-status-bubble-inner ${sessionUser.status}`}></div>
                             </div>
+                            <input type="file" title=" " accept=".jpg, .jpeg, .png" max="5MB" id="user-panel-img-upload" onChange={handleImgUpload}/>
                         </div>
                         <div id="user-panel-info">
                             <div id="user-panel-username">{sessionUser.username}</div>

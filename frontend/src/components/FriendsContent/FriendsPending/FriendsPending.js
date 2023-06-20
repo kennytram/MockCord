@@ -130,7 +130,37 @@ function FriendsPending() {
                                                         : { backgroundColor: colorById(pendingRequest.senderId) }
                                                 }
                                             >
-                                                <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                                {pendingRequest.senderId === sessionUser.id ? (
+                                                        users[pendingRequest.receiverId].photoUrl ? (
+                                                            <img
+                                                                src={users[pendingRequest.receiverId].photoUrl}
+                                                                className="user-icon dm-user-icon"
+                                                                style={{ position: "absolute", inset: 0 }}
+                                                                alt="user-icon"
+                                                            />
+                                                        ) : (
+                                                            <div
+                                                                className="material-icons icon"
+                                                                style={{ color: "white", fontSize: 22.5 }}
+                                                            >
+                                                                discord
+                                                            </div>
+                                                        )
+                                                    ) : users[pendingRequest.senderId].photoUrl ? (
+                                                        <img
+                                                            src={users[pendingRequest.senderId].photoUrl}
+                                                            className="user-icon dm-user-icon"
+                                                            style={{ position: "absolute", inset: 0 }}
+                                                            alt="user-icon"
+                                                        />
+                                                    ) : (
+                                                        <div
+                                                            className="material-icons icon"
+                                                            style={{ color: "white", fontSize: 22.5 }}
+                                                        >
+                                                            discord
+                                                        </div>
+                                                    )}
                                                 <div className={`user-status-bubble 
                                                 ${pendingRequest && sessionUser && pendingRequest.senderId === sessionUser.id ?
                                                         users[pendingRequest.receiverId].isOnline ? users[pendingRequest.receiverId].status : "invisible"

@@ -150,7 +150,37 @@ function FriendsOnline() {
                                                         : { backgroundColor: colorById(acceptedRequest.senderId) }
                                                 }
                                             >
-                                                <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                               {acceptedRequest.senderId === sessionUser.id ? (
+                                                        users[acceptedRequest.receiverId].photoUrl ? (
+                                                            <img
+                                                                src={users[acceptedRequest.receiverId].photoUrl}
+                                                                className="user-icon dm-user-icon"
+                                                                style={{ position: "absolute", inset: 0 }}
+                                                                alt="user-icon"
+                                                            />
+                                                        ) : (
+                                                            <div
+                                                                className="material-icons icon"
+                                                                style={{ color: "white", fontSize: 22.5 }}
+                                                            >
+                                                                discord
+                                                            </div>
+                                                        )
+                                                    ) : users[acceptedRequest.senderId].photoUrl ? (
+                                                        <img
+                                                            src={users[acceptedRequest.senderId].photoUrl}
+                                                            className="user-icon dm-user-icon"
+                                                            style={{ position: "absolute", inset: 0 }}
+                                                            alt="user-icon"
+                                                        />
+                                                    ) : (
+                                                        <div
+                                                            className="material-icons icon"
+                                                            style={{ color: "white", fontSize: 22.5 }}
+                                                        >
+                                                            discord
+                                                        </div>
+                                                    )}
                                                 <div className={`user-status-bubble 
                                                 ${acceptedRequest && acceptedRequest.senderId === sessionUser.id ?
                                                         users[acceptedRequest.receiverId].isOnline ? users[acceptedRequest.receiverId].status : "invisible"

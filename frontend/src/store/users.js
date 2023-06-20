@@ -7,10 +7,10 @@ export const RECEIVE_USERS = "RECEIVE_USERS";
 export const REMOVE_USER = "REMOVE_USER";
 export const RESET_USERS = "RESET_USERS";
 
-const receiveUser = (user) => {
+const receiveUser = (payload) => {
     return {
         type: RECEIVE_USER,
-        user
+        payload
     }
 }
 
@@ -63,7 +63,7 @@ export const fetchUsers = () => async (dispatch) => {
 export const updateUser = (user) => async (dispatch) => {
     const response = await csrfFetch(`/api/users/${user.id}`, {
         method: 'PATCH',
-        body: JSON.stringify(user)
+        body: JSON.stringify({user})
     })
     if (response.ok) {
         const data = await response.json();
@@ -93,7 +93,7 @@ export default function usersReducer(state = {}, action) {
         case RECEIVE_USERS:
             return action.payload.users;
         case RECEIVE_USER:
-            const user = action.user;
+            const user = action.payload.user;
             newState[user.id] = user;
             return newState;
         case REMOVE_USER:

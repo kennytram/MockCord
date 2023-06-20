@@ -28,12 +28,21 @@ function UserBar({ refreshState }) {
     const server = useSelector(getServer(serverId));
     const sessionUser = useSelector(state => state.session.user);
     const channels = useSelector(state => state.channels);
+    // const channels = useSelector(getChannels);
     const [currentChannel, setCurrentChannel] = useState(null);
     // const dms = useSelector(getDirectMessages);
     const users = useSelector(state => state.users);
     const [errors, setErrors] = useState([]);
     const friendRequests = useSelector(getFriendRequests);
     const acceptedRequests = friendRequests.filter(friendRequest => friendRequest.status === "accepted");
+    // const friendList = acceptedRequests.map(friendRequest => friendRequest && friendRequest.senderId === sessionUser.id ? users[friendRequest.receiverId] : users[friendRequest.senderId]);
+    // const dmList = channels.filter(channel => !channel.channelType.includes('hidden'));
+    // // const dmUsers = dmList.map(channel => channel.dmMembers?.filter(user => user.id !== sessionUser.id)[0]);
+    // const dmUsers = acceptedRequests.map(friendRequest => {
+    //     const membersArray = friendRequest.dmChannel.dmMembers ? Object.values(friendRequest.dmChannel.dmMembers) : [];
+    //     const filteredMembers = membersArray.filter((user) => user.id !== sessionUser.id);
+    //     return filteredMembers.length > 0 ? filteredMembers[0] : null;
+    // });
     // const dmSetUsers = useSelector(state => state.dms.users);
 
     const [loaded, setLoaded] = useState(false);
@@ -172,6 +181,44 @@ function UserBar({ refreshState }) {
                 </div>
 
                 <ul id="direct-messages">
+                    {/* {loaded && dmList.length && (
+                        dmList.map((dm, index) => {
+                            <li className="dm" key={dm.id}>
+                                <Link to={`/channels/@me/${dm.id}`} className="dm-link">
+                                    <div className="dm-wrapper" onMouseOver={() => setCurrentChannel(channels[dm.id])}>
+                                        <div className="dm-user-info">
+                                            <div
+                                                className="user-icon dm-user-icon"
+                                                style={
+                                                    { backgroundColor: colorById(dmUsers[index].id) }
+                                                }
+                                            >
+                                                {dmUsers[index].photoUrl ? (
+                                                    <img
+                                                        src={dmUsers[index].photoUrl}
+                                                        className="user-icon dm-user-icon"
+                                                        alt="user-icon"
+                                                    />
+                                                ) : (
+                                                    <div
+                                                        className="material-icons icon"
+                                                        style={{ color: "white", fontSize: 22.5 }}
+                                                    >
+                                                        discord
+                                                    </div>
+                                                )}
+                                                <div className={`user-status-bubble ${dmUsers[index].isOnline ? dmUsers[index].status : "invisible"}`}>
+                                                    <div className={`user-status-bubble-inner  ${dmUsers[index].isOnline ? dmUsers[index].status : "invisible"}`}></div>
+                                                </div>
+                                            </div>
+                                            <div id="user-panel-info">{dmUsers[index].username}</div>
+                                        </div>
+                                        <CloseIcon className="dm-exit" onClick={handleHideChannel} />
+                                    </div>
+                                </Link>
+                            </li>
+                        })
+                    )} */}
                     {acceptedRequests.length > 0 && Object.keys(users).length > 0 && Object.keys(channels).length > 0 && sessionUser && acceptedRequests.map(acceptedRequest => {
                         if (acceptedRequest && acceptedRequest.dmChannel && channels[acceptedRequest.dmChannel.id] && !channels[acceptedRequest.dmChannel.id].channelType.includes(`hidden/${sessionUser.id}`)) {
                             return (
@@ -179,14 +226,45 @@ function UserBar({ refreshState }) {
                                     <Link to={`/channels/@me/${acceptedRequest.dmChannel.id}`} className="dm-link">
                                         <div className="dm-wrapper" onMouseOver={() => setCurrentChannel(channels[acceptedRequest.dmChannel.id])}>
                                             <div className="dm-user-info">
-                                                <div className="user-icon dm-user-icon"
+                                                <div
+                                                    className="user-icon dm-user-icon"
                                                     style={
                                                         acceptedRequest && sessionUser && acceptedRequest.senderId === sessionUser.id
                                                             ? { backgroundColor: colorById(acceptedRequest.receiverId) }
                                                             : { backgroundColor: colorById(acceptedRequest.senderId) }
                                                     }
                                                 >
-                                                    <div className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</div>
+                                                    {acceptedRequest.senderId === sessionUser.id ? (
+                                                        users[acceptedRequest.receiverId].photoUrl ? (
+                                                            <img
+                                                                src={users[acceptedRequest.receiverId].photoUrl}
+                                                                className="user-icon dm-user-icon"
+                                                                style={{ position: "absolute", inset: 0 }}
+                                                                alt="user-icon"
+                                                            />
+                                                        ) : (
+                                                            <div
+                                                                className="material-icons icon"
+                                                                style={{ color: "white", fontSize: 22.5 }}
+                                                            >
+                                                                discord
+                                                            </div>
+                                                        )
+                                                    ) : users[acceptedRequest.senderId].photoUrl ? (
+                                                        <img
+                                                            src={users[acceptedRequest.senderId].photoUrl}
+                                                            className="user-icon dm-user-icon"
+                                                            style={{ position: "absolute", inset: 0 }}
+                                                            alt="user-icon"
+                                                        />
+                                                    ) : (
+                                                        <div
+                                                            className="material-icons icon"
+                                                            style={{ color: "white", fontSize: 22.5 }}
+                                                        >
+                                                            discord
+                                                        </div>
+                                                    )}
                                                     <div className={`user-status-bubble 
                                     ${acceptedRequest && acceptedRequest.senderId === sessionUser.id ?
                                                             users[acceptedRequest.receiverId].isOnline ? users[acceptedRequest.receiverId].status : "invisible"

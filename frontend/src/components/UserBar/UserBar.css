@@ -27,10 +27,6 @@
     /* box-shadow: var(--box-shadow); */
 }
 
-.left-navbar > *:not(#user-panel){
-    /* margin-bottom: 53px; */
-}
-
 #left-navbar-header-alt {
     display: flex;
     align-items: center;
@@ -303,7 +299,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    inset: 0;
 }
 
 .dm-exit {

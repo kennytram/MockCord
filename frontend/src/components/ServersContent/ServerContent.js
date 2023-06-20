@@ -401,7 +401,12 @@ function ServerContent({ refreshState }) {
                                 <li className={showEditForm && editMessage === message ? "message editing" : "message"} key={message.id}>
                                     <div className="message-header">
                                         <div className="message-user-icon" style={{ backgroundColor: `${colorById(message.authorId)}` }}>
-                                            <span className="material-icons user-icon messenger-icon" style={{ color: "white", fontSize: 30 }}>discord</span>
+                                            {message && Object.keys(users).length && message.authorId && users[message.authorId].photoUrl ?
+                                                <img className="user-icon user-icon messenger-icon" src={users[message.authorId].photoUrl} alt="user-icon" />
+                                                :
+                                                <span className="material-icons user-icon messenger-icon" style={{ color: "white", fontSize: 30 }}>discord</span>
+                                            }
+                                            {/* <span className="material-icons user-icon messenger-icon" style={{ color: "white", fontSize: 30 }}>discord</span> */}
                                         </div>
                                         <div className="message-topping">
                                             <span className="message-username">
@@ -484,7 +489,11 @@ function ServerContent({ refreshState }) {
                                             }}>
                                         <div className="member-layout">
                                             <div className="user-icon" style={{ backgroundColor: `${colorById(member.id)}` }}>
-                                                <span className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</span>
+                                                {member.photoUrl ?
+                                                    <img className="user-icon icon" src={member.photoUrl} alt="user-icon" />
+                                                    :
+                                                    <span className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</span>
+                                                }
                                                 <div className={member.isOnline ? `user-status-bubble ${member.status}` : `user-status-bubble invisible`}>
                                                     <div className={member.isOnline ? `user-status-bubble-inner ${member.status}` : `user-status-bubble-inner invisible`}></div>
                                                 </div>
@@ -535,7 +544,7 @@ function ServerContent({ refreshState }) {
 
                                         </div>
                                     </li>
-                                ):null)):null}
+                                ) : null)) : null}
 
 
                         </ul>
