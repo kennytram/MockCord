@@ -73,7 +73,6 @@ export default function UserPanel() {
         reader.onloadend = () => {
             const img = reader.result;
             dispatch(updateUser({ id: sessionUser.id, photo: img })).then((res) => {
-                console.log(sessionUser.id);
                 dispatch(sessionActions.restoreSession());
                 dispatch(fetchUser(sessionUser.id));
             });
