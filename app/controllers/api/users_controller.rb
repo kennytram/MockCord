@@ -29,6 +29,14 @@ class Api::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    if params[:user][:photo].present?
+      cloudinary_response = Cloudinary::Uploader.upload(params[:user][:photo])
+      if @user.photo_id.present?
+        Cloudinary::Uploader.destroy(@user.photo_id)
+      end
+      @user.photo_url = cloudinary_response["secure_url"]
+      @user.photo_id = cloudinary_response["public_id"]
+    end
     if @user.update(user_params)
       render :show
     else
@@ -49,6 +57,6 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :username, :password, :status, :tag, :is_online,:type, :from, :to, :sdp, :candidate)
+    params.require(:user).permit(:email, :username, :password, :status, :tag, :is_online, :photo_url, :photo_id, :type, :from, :to, :sdp, :candidate)
   end
 end

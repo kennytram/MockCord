@@ -12,6 +12,8 @@
 #  status          :string           not null
 #  tag             :string           not null
 #  is_online       :boolean          default(FALSE), not null
+#  photo_id        :string
+#  photo_url       :string
 #
 class User < ApplicationRecord
   has_secure_password
@@ -31,6 +33,7 @@ class User < ApplicationRecord
   validates :username, uniqueness: { scope: :tag }
   validates :status, inclusion: { in: ["online", "idle", "do not disturb", "invisible"] }
   validates :tag, length: { is: 4 }
+  validates :photo_url, format: URI::regexp(%w[http https]), allow_nil: true
   
   before_validation :ensure_session_token
 
@@ -46,6 +49,7 @@ class User < ApplicationRecord
 
   has_many :subscribed_dm_channels, foreign_key: :user_id, class_name: :ChannelSubscription, dependent: :destroy
   has_many :dm_channels, through: :subscribed_dm_channels, source: :channel, dependent: :destroy
+  
 
   def friends
     sender_friend_arr = self.sent_friend_requests.where(sender_id: self.id, status: "accepted").map { |request| request.receiver }

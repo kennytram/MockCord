@@ -5,7 +5,7 @@
         json.members do
             server.members.each do |member|
                 json.set! member.id do
-                    json.extract! member, :id, :username, :status, :tag, :is_online
+                    json.extract! member, :id, :username, :status, :tag, :is_online, :photo_url, :photo_id
                 end
             end
         end

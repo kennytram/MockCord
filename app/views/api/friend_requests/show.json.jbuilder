@@ -16,7 +16,7 @@ json.channel do
     json.dm_members do
       dm_channel.dm_members.each do |dm_member|
         json.set! dm_member.id do
-          json.extract! dm_member, :id, :username, :email, :created_at, :updated_at
+          json.extract! dm_member, :id, :username, :email, :created_at, :updated_at, :status, :tag, :is_online, :photo_url, :photo_id
         end
       end
     end

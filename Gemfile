@@ -38,6 +38,12 @@ gem "bootsnap", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem "rack-cors"
 
+# Use Cloudinary for image upload
+gem 'cloudinary'
+
+# Use dotenv to load environment variables
+gem 'dotenv-rails'
+
 group :development, :test do
   gem "byebug", platforms: %i[ mri mingw x64_mingw ]
   

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_03_023324) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_20_064246) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,6 +89,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_03_023324) do
     t.string "status", null: false
     t.string "tag", null: false
     t.boolean "is_online", default: false, null: false
+    t.string "photo_id"
+    t.string "photo_url"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
     t.index ["username", "tag"], name: "index_users_on_username_and_tag", unique: true
