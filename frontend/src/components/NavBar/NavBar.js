@@ -80,15 +80,11 @@ export default function NavBar({ refreshServerState }) {
                 dispatch(removeServer(server.id));
                 if (+serverId === server.id) { history.push(`/channels/@me`) }
                 break;
+              case "JOIN_SERVER":
               case "UPDATE_SERVER":
                 dispatch(receiveServer(server));
                 break;
               case "LEAVE_SERVER":
-                dispatch(removeServer(server.id));
-                break;
-              case "JOIN_SERVER":
-                dispatch(receiveServer(server));
-                break;
               case "KICK_SERVER":
                 dispatch(removeServer(server.id));
                 break;
