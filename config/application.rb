@@ -13,7 +13,7 @@ require "action_text/engine"
 require "action_view/railtie"
 require "action_cable/engine"
 # require "rails/test_unit/railtie"
-
+require 'dotenv/load'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -28,5 +28,7 @@ module Untitled
       key: '_auth_me_session',
       same_site: :lax, 
       secure: Rails.env.production?
+    # Cloudinary configuration
+    config.cloudinary = config_for(:cloudinary)
   end
 end
