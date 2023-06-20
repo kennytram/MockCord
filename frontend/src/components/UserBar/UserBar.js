@@ -219,7 +219,7 @@ function UserBar({ refreshState }) {
                             </li>
                         })
                     )} */}
-                    {acceptedRequests.length > 0 && Object.keys(users).length > 0 && Object.keys(channels).length > 0 && sessionUser && acceptedRequests.map(acceptedRequest => {
+                    {loaded && acceptedRequests.length > 0 && Object.keys(users).length > 0 && Object.keys(channels).length > 0 && sessionUser && acceptedRequests.map(acceptedRequest => {
                         if (acceptedRequest && acceptedRequest.dmChannel && channels[acceptedRequest.dmChannel.id] && !channels[acceptedRequest.dmChannel.id].channelType.includes(`hidden/${sessionUser.id}`)) {
                             return (
                                 <li className="dm" key={acceptedRequest.id}>
@@ -235,7 +235,7 @@ function UserBar({ refreshState }) {
                                                     }
                                                 >
                                                     {acceptedRequest.senderId === sessionUser.id ? (
-                                                        users[acceptedRequest.receiverId].photoUrl ? (
+                                                        users[acceptedRequest.receiverId] && users[acceptedRequest.receiverId].photoUrl ? (
                                                             <img
                                                                 src={users[acceptedRequest.receiverId].photoUrl}
                                                                 className="user-icon dm-user-icon"
@@ -250,7 +250,7 @@ function UserBar({ refreshState }) {
                                                                 discord
                                                             </div>
                                                         )
-                                                    ) : users[acceptedRequest.senderId].photoUrl ? (
+                                                    ) : users[acceptedRequest.senderId] && users[acceptedRequest.senderId].photoUrl ? (
                                                         <img
                                                             src={users[acceptedRequest.senderId].photoUrl}
                                                             className="user-icon dm-user-icon"
@@ -266,12 +266,12 @@ function UserBar({ refreshState }) {
                                                         </div>
                                                     )}
                                                     <div className={`user-status-bubble 
-                                    ${acceptedRequest && acceptedRequest.senderId === sessionUser.id ?
+                                    ${acceptedRequest && acceptedRequest.senderId === sessionUser.id && Object.keys(users).length && users[acceptedRequest.receiverId] && users[acceptedRequest.receiverId].isOnline && users[acceptedRequest.senderId] && users[acceptedRequest.senderId].isOnline ?
                                                             users[acceptedRequest.receiverId].isOnline ? users[acceptedRequest.receiverId].status : "invisible"
                                                             : users[acceptedRequest.senderId].isOnline ? users[acceptedRequest.senderId].status : "invisible"}
                                     friends-status-bubble`}>
                                                         <div className={`user-status-bubble-inner 
-                                        ${acceptedRequest && acceptedRequest.senderId === sessionUser.id ?
+                                        ${acceptedRequest && acceptedRequest.senderId === sessionUser.id && Object.keys(users).length && users[acceptedRequest.receiverId] && users[acceptedRequest.receiverId].isOnline && users[acceptedRequest.senderId] && users[acceptedRequest.senderId].isOnline ?
                                                                 users[acceptedRequest.receiverId].isOnline ? users[acceptedRequest.receiverId].status : "invisible"
                                                                 :
                                                                 users[acceptedRequest.senderId].isOnline ? users[acceptedRequest.senderId].status : "invisible"} 

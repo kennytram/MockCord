@@ -90,7 +90,7 @@ export default function UserPanel() {
                 <div id="user-box">
                     {sessionUser && (<>
                         <div className="user-icon" style={sessionUser ? { backgroundColor: `${colorById(sessionUser.id)}` } : { backgroundColor: `var(--brand)` }}>
-                            {sessionUser.photoUrl ? <img className="user-image icon" src={sessionUser.photoUrl} alt="user-icon" /> 
+                            {sessionUser && sessionUser.photoUrl ? <img className="user-image icon" src={sessionUser.photoUrl} alt="user-icon" /> 
                             : <span className="material-icons icon" style={{ color: "white", fontSize: 22.5 }}>discord</span>}
                             
                             {/* <rect x="0" y="0" rx="3" ry="3" width="70" height="70" /> */}

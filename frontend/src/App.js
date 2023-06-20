@@ -22,7 +22,7 @@ function App() {
     <>
       <Switch>
         <Route exact path="/channels/@me/:channelId(\d+)" component={FriendMessagePage}/>
-        <Route exact path="/channels/:serverId(\d+)/chat" component={VoiceChannelPage}/>
+        {/* <Route exact path="/channels/:serverId(\d+)/chat" component={VoiceChannelPage}/> */}
         <Route exact path="/channels/:serverId(\d+)/:channelId(\d+)" component={ServerPage}/>
 
         <Route exact path="/channels/:serverId(\d+)/:inviteToken" component={HomePage}/>

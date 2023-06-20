@@ -137,7 +137,7 @@ function ServerContent({ refreshState }) {
             serverSubscription?.unsubscribe();
             friendRequestsSubscription?.unsubscribe();
         }
-    }, [dispatch, channelId, history, Object.keys(friendRequests).length]);
+    }, [dispatch, channelId, Object.keys(friendRequests).length]);
 
 
     const colors = {
