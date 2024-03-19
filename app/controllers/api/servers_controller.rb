@@ -49,7 +49,7 @@ class Api::ServersController < ApplicationController
     def invite_link
         @server = Server.find(params[:id])
         @invite_token = @server.invite_token
-        url = Rails.env.production? ? "https://untitled-w1r2.onrender.com/channels/#{@server.id}/#{@invite_token}" : "http://localhost:3000/channels/#{@server.id}/#{@invite_token}"
+        url = Rails.env.production? ? "https://mockcord.onrender.com/channels/#{@server.id}/#{@invite_token}" : "http://localhost:3000/channels/#{@server.id}/#{@invite_token}"
         render json: { invite_link: url }
     end
 
