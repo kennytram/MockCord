@@ -17,7 +17,7 @@ a:hover {
     background-color: transparent;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url('https://cdn.discordapp.com/attachments/1076103218829996042/1079833222936010924/image.png');
+    background-image: url('/assets/homepage_images/login_bg.png');
 }
 
 #login-form-box {
