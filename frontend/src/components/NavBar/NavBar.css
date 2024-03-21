@@ -6,6 +6,7 @@
     background-color: var(--navbar-color);
     min-height: 100%;
     overflow: visible;
+    align-items: flex-start;
 }
 
 ::-webkit-scrollbar {
